@@ -40,7 +40,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
-        'admin' => [\App\Http\Middleware\IsAdmin::class],
+        'admin' => [\App\Http\Middleware\IsAdmin::class,],
 
         'api' => [
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,

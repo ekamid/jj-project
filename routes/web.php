@@ -18,9 +18,15 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
-    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name("dashboard");
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+    Route::group(['middleware' => 'admin'], function () {
+        Route::get('/dashboard', [AdminController::class, 'dashboard'])->name("dashboard");
+        Route::post("/logout", [AdminController::class, "logout"])->name("logout");
+    });
+
+    Route::match(['GET', 'POST'], '/login', [AdminController::class, 'login'])->name('login');
 });
+
 
 
 require __DIR__ . '/auth.php';
