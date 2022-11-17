@@ -13,6 +13,11 @@ class AdminController extends Controller
         return view('dashboard');
     }
 
+    public function products()
+    {
+        return view('products');
+    }
+
 
 
     //authentication
