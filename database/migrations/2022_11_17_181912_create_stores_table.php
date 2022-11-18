@@ -18,8 +18,9 @@ class CreateStoresTable extends Migration
             $table->string('name');
             $table->string('city');
             $table->string('address');
-            $table->double('latitude');
-            $table->double('longitude');
+            $table->double('latitude')->nullable();
+            $table->double('longitude')->nullable();
+            $table->boolean('published')->default(false);
             $table->text('instructions');
             $table->text('store_image');
             $table->timestamps();;

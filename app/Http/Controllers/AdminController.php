@@ -19,6 +19,17 @@ class AdminController extends Controller
     }
 
 
+    public function stores()
+    {
+        return view('store.index');
+    }
+
+    public function add_store()
+    {
+        return view('store.add_store');
+    }
+
+
 
     //authentication
 
