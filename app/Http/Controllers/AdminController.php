@@ -24,10 +24,22 @@ class AdminController extends Controller
         return view('store.index');
     }
 
-    public function add_store()
+    public function add_store(Request $request)
     {
-        return view('store.add_store');
+        if ($request->method() === 'POST') {
+
+
+
+            return redirect()->route('agent')->with(
+                'success',
+                'Store successfully added!'
+            );
+        }
+        if ($request->method() === 'GET') {
+            return view('store.add_store');
+        }
     }
+
 
 
 

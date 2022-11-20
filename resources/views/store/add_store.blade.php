@@ -18,12 +18,27 @@
                         <div class="mb-3">
                             <label class="form-label" for="basic-default-fullname">Name</label>
                             <input type="text" class="form-control" name="name" id="basic-default-fullname"
-                                placeholder="Apurba Jewellers">
+                                placeholder="Apurba Jewellers" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="store_address">City</label>
+                            <input type="text" name="city" class="form-control" required id="store_city"
+                                list="city_list" placeholder="Dhaka, Bangladesh">
+                            <datalist id="city_list">
+                                <option value="Dhaka"></option>
+                                <option value="Chattogram"></option>
+                                <option value="Sylhet"></option>
+                                <option value="Mymensingh"></option>
+                                <option value="Rajshahi"></option>
+                                <option value="Rangpur"></option>
+                                <option value="Khulna"></option>
+                                <option value="Barishal"></option>
+                            </datalist>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="store_address">Address</label>
                             <input type="text" name="address" class="form-control" id="store_address"
-                                placeholder="Dhaka, Bangladesh">
+                                placeholder="Dhaka, Bangladesh" required>
                         </div>
 
                         <div class="row">
@@ -31,21 +46,46 @@
                                 <div class="mb-3">
                                     <label class="form-label" for="store_latitude">Latitude</label>
                                     <input type="text" name="latitude" class="form-control" id="store_latitude"
-                                        placeholder="120.3424242">
+                                        placeholder="120.3424242" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label" for="store_longitude">Longitude</label>
                                     <input type="text" name="longitude" class="form-control" id="store_longitude"
-                                        placeholder="55.453453353">
+                                        placeholder="55.453453353" required>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="store_open_at">Open At</label>
+                                    <input type="time" value="10:00" name="open_at" class="form-control"
+                                        id="store_open_at" placeholder="10:00" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="store_close_at">Close At</label>
+                                    <input type="time" value="20:00" name="close_at" class="form-control"
+                                        id="store_close_at" placeholder="20:00" required>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label class="form-label" for="store_holidays">Holidays</label>
+                            <input type="text" name="holidays" class="form-control" id="store_holidays"
+                                placeholder="Saturday, Sunday" required>
+                        </div>
+
                         <div class="mb-3">
                             <label class="form-label" for="store_contact_no">Phone</label>
                             <input type="text" name="phone" class="form-control" id="store_contact_no"
-                                placeholder="+8801634234566">
+                                placeholder="+8801634234566" required>
                         </div>
 
 
@@ -54,6 +94,15 @@
                             <textarea id="instructions" class="form-control"
                                 placeholder="You should first come to Rajdhani market more to reach us. Then...."></textarea>
                         </div>
+
+                        <div class="mb-3">
+                            <div class="form-check mt-3">
+                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1"> Publish </label>
+                            </div>
+                        </div>
+
+
                         <button type="submit" class="btn btn-primary">Add Store</button>
                     </form>
                 </div>
@@ -70,7 +119,7 @@
     </div>
     <!-- / Layout page -->
     <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initAutocomplete&libraries=places&v=weekly"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUPClCAvO-EIlmJajX4Sc3bpGgi57-LnE&callback=initAutocomplete&libraries=places"
         defer></script>
 
     <script>
@@ -78,14 +127,15 @@
         let store_address;
 
         function initAutocomplete() {
+
             store_address = document.querySelector("#store_address");
 
             // Create the autocomplete object, restricting the search predictions to
             // addresses in the US and Canada.
             autocomplete = new google.maps.places.Autocomplete(store_address, {
-                componentRestrictions: {
-                    country: ["us", "ca"]
-                },
+                // componentRestrictions: {
+                //     country: ["bd"]
+                // },
                 fields: ["address_components", "geometry"],
                 types: ["address"],
             });
@@ -100,71 +150,13 @@
         function fillInAddress() {
             // Get the place details from the autocomplete object.
             const place = autocomplete.getPlace();
-            let address1 = "";
-            let postcode = "";
+            const address = place.address_components[0].long_name;
+            const store_lat = place.geometry.location.lat();
+            const store_lng = place.geometry.location.lng();
 
-            // Get each component of the address from the place details,
-            // and then fill-in the corresponding field on the form.
-            // place.address_components are google.maps.GeocoderAddressComponent objects
-            // which are documented at http://goo.gle/3l5i5Mr
-            for (const component of place.address_components) {
-                // @ts-ignore remove once typings fixed
-                const componentType = component.types[0];
-
-                switch (componentType) {
-                    case "street_number": {
-                        address1 = `${component.long_name} ${address1}`;
-                        break;
-                    }
-
-                    case "route": {
-                        address1 += component.short_name;
-                        break;
-                    }
-
-                    case "postal_code": {
-                        postcode = `${component.long_name}${postcode}`;
-                        break;
-                    }
-
-                    case "postal_code_suffix": {
-                        postcode = `${postcode}-${component.long_name}`;
-                        break;
-                    }
-
-                    case "locality":
-                        (document.querySelector("#locality")).value =
-                            component.long_name;
-                        break;
-
-                    case "administrative_area_level_1": {
-                        (document.querySelector("#state")).value =
-                            component.short_name;
-                        break;
-                    }
-
-                    case "country":
-                        (document.querySelector("#country")).value =
-                            component.long_name;
-                        break;
-                }
-            }
-
-            store_address.value = address1;
-            postalField.value = postcode;
-
-            // After filling the form with address components from the Autocomplete
-            // prediction, set cursor focus on the second address line to encourage
-            // entry of subpremise information such as apartment, unit, or floor number.
-            address2Field.focus();
+            $("#store_address").val(address)
+            $("#store_latitude").val(store_lat)
+            $("#store_longitude").val(store_lng)
         }
-
-        // declare global {
-        //     interface Window {
-        //         initAutocomplete: () => void;
-        //     }
-        // }
-        // window.initAutocomplete = initAutocomplete;
-        // export {};
     </script>
 @endsection

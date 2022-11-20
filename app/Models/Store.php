@@ -17,6 +17,7 @@ class Store extends Model
         'longitude',
         'instructions',
         'store_image',
+        'city',
         'published',
     ];
 }

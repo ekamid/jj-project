@@ -21,7 +21,10 @@ class CreateStoresTable extends Migration
             $table->double('latitude')->nullable();
             $table->double('longitude')->nullable();
             $table->boolean('published')->default(false);
-            $table->text('instructions');
+            $table->string('holidays')->nullable();
+            $table->string('open_at')->nullable();
+            $table->string('close_at')->nullable();
+            $table->text('instructions')->nullable();
             $table->text('store_image');
             $table->timestamps();;
         });
