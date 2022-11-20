@@ -23,7 +23,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name("dashboard");
         Route::get('/products', [AdminController::class, 'products'])->name("products");
 
-        Route::get('/store', [AdminController::class, 'stores'])->name("stores");
+        Route::get('/stores', [AdminController::class, 'stores'])->name("stores");
         Route::match(['GET', 'POST'], '/add-store', [AdminController::class, 'add_store'])->name("add_store");
 
         Route::post("/logout", [AdminController::class, "logout"])->name("logout");

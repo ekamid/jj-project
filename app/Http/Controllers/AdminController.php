@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
 {
@@ -27,8 +29,42 @@ class AdminController extends Controller
     public function add_store(Request $request)
     {
         if ($request->method() === 'POST') {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required',
+                'city' => 'required',
+                'address' => 'required',
+                'latitude' => 'numeric',
+                'longitude' => 'numeric',
+                'store_image' => 'image|mimes:png,jpg,jpeg|max:2048',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'error' => true,
+                    'message' => $validator->errors()
+                ]);
+            }
 
 
+            $store = Store::create($request->all());
+
+            if (!empty($request->store_image)) {
+                $file = $request->file('store_image');
+                $extension = $file->extension();
+                $filename = time() . '.' . $extension;
+                $file->move(public_path('store_images/'), $filename);
+                $$store['store_image'] = 'public/store_images/' . $filename;
+            }
+
+            $store->save();
+
+
+            if ($store) {
+                return redirect()->route('admin.stores')->with(
+                    'success',
+                    'Store successfully added!'
+                );
+            }
 
             return redirect()->route('agent')->with(
                 'success',

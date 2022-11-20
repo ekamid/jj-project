@@ -14,7 +14,8 @@
                     <a class="btn btn-outline-primary float-end" href="{{ route('admin.stores') }}">View Store</a>
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form method="POST" action="{{ route('admin.add_store') }}" enctype="multipart/form-data">
+                        @csrf
                         <div class="mb-3">
                             <label class="form-label" for="basic-default-fullname">Name</label>
                             <input type="text" class="form-control" name="name" id="basic-default-fullname"
@@ -95,12 +96,24 @@
                                 placeholder="You should first come to Rajdhani market more to reach us. Then...."></textarea>
                         </div>
 
+
+                        <div class="mb-3">
+                            <label class="form-label" for="store_image">Store Image</label>
+                            <input type="file" accept="image/*" name="store_image" class="form-control"
+                                id="store_image" placeholder="store image">
+
+                            <img id="store_image_prev" width="200" src="" alt="store image"
+                                class="mt-2 d-none" />
+                        </div>
+
+
                         <div class="mb-3">
                             <div class="form-check mt-3">
                                 <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
                                 <label class="form-check-label" for="defaultCheck1"> Publish </label>
                             </div>
                         </div>
+
 
 
                         <button type="submit" class="btn btn-primary">Add Store</button>
@@ -118,6 +131,9 @@
         <!-- Content wrapper -->
     </div>
     <!-- / Layout page -->
+@endsection
+
+@section('scripts')
     <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUPClCAvO-EIlmJajX4Sc3bpGgi57-LnE&callback=initAutocomplete&libraries=places"
         defer></script>
@@ -158,5 +174,18 @@
             $("#store_latitude").val(store_lat)
             $("#store_longitude").val(store_lng)
         }
+
+        $('#store_image').on('change', function() {
+            const file = $(this).get(0).files[0];
+            if (file) {
+                let url = URL.createObjectURL(file)
+                $('#store_image_prev').removeClass('d-none');
+                $('#store_image_prev').attr('src', url);
+            } else {
+                $('#store_image_prev').addClass('d-none');
+            }
+
+
+        })
     </script>
 @endsection

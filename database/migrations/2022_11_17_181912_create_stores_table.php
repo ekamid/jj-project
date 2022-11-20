@@ -18,6 +18,7 @@ class CreateStoresTable extends Migration
             $table->string('name');
             $table->string('city');
             $table->string('address');
+            $table->string('phone')->nullable();
             $table->double('latitude')->nullable();
             $table->double('longitude')->nullable();
             $table->boolean('published')->default(false);
@@ -25,7 +26,7 @@ class CreateStoresTable extends Migration
             $table->string('open_at')->nullable();
             $table->string('close_at')->nullable();
             $table->text('instructions')->nullable();
-            $table->text('store_image');
+            $table->text('store_image')->nullable();
             $table->timestamps();;
         });
     }
