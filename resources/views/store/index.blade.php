@@ -51,7 +51,7 @@
                             @foreach ($stores as $item)
                                 <tr>
                                     <td>{{ @$item->name }}</td>
-                                    <td>{{ @$item->city }}</td>
+                                    <td class="text-capitalize">{{ @$item->city }}</td>
                                     <td>{{ @$item->address }}</td>
                                     <td>{{ @$item->phone }}</td>
                                     <td>{{ @$item->holidays }}</td>

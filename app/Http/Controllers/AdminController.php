@@ -44,6 +44,7 @@ class AdminController extends Controller
             ]);
 
 
+
             $store = Store::create([
                 'name' => $request->get('name'),
                 'city' => $request->get('city'),
@@ -54,8 +55,8 @@ class AdminController extends Controller
                 'instructions' => trim($request->get('instructions')),
                 'holidays' => $request->get('holidays'),
                 'open_at' => $request->get('open_at'),
-                'close_at' => $request->get('close_at'),
-                'published' => $request->get('published') ?? false,
+                'close_at' => $request->get('close_at'), 'published' => $request->get('published') ? true : false,
+
             ]);
 
             if (!empty($request->store_image)) {
@@ -63,7 +64,7 @@ class AdminController extends Controller
                 $extension = $file->extension();
                 $filename = time() . '.' . $extension;
                 $file->move(public_path('store_images/'), $filename);
-                $store['store_image'] = 'public/store_images/' . $filename;
+                $store['store_image'] = '/store_images/' . $filename;
             }
 
             $store->save();
@@ -111,6 +112,8 @@ class AdminController extends Controller
                 'store_image' => 'image|mimes:png,jpg,jpeg|max:2048',
             ]);
 
+            // dd($request->get('published'));
+
             $store->update([
                 'name' => $request->get('name'),
                 'city' => $request->get('city'),
@@ -122,7 +125,7 @@ class AdminController extends Controller
                 'holidays' => $request->get('holidays'),
                 'open_at' => $request->get('open_at'),
                 'close_at' => $request->get('close_at'),
-                'published' => $request->get('published') ?? false,
+                'published' => $request->get('published') ? true : false,
             ]);
 
             if (!empty($request->store_image)) {
@@ -130,7 +133,7 @@ class AdminController extends Controller
                 $extension = $file->extension();
                 $filename = time() . '.' . $extension;
                 $file->move(public_path('store_images/'), $filename);
-                $store['store_image'] = 'public/store_images/' . $filename;
+                $store['store_image'] = '/store_images/' . $filename;
             }
 
             $store->save();

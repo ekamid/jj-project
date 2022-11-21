@@ -15,7 +15,8 @@
                 </div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('admin.add_store') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('admin.edit_store', $store['id']) }}"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label class="form-label" for="basic-default-fullname">Name</label>
@@ -133,7 +134,7 @@
 
                         <div class="mb-3">
                             <label class="form-label" for="instructions">Instructions</label>
-                            <textarea id="instructions" class="form-control"
+                            <textarea name="instructions" id="instructions" class="form-control"
                                 placeholder="You should first come to Rajdhani market more to reach us. Then....">
                             {{ @$store['instructions'] }} 
                             </textarea>
@@ -156,8 +157,9 @@
                                 </div>
                             @enderror
 
-                            <img id="store_image_prev" src="{{ $store['store_image'] }}" width="200" src=""
-                                alt="store image" class="mt-2 {{ $store['store_image'] ? 'd-block' : 'd-none' }}" />
+                            <img id="store_image_prev" src="{{ url($store['store_image']) }}" width="200"
+                                src="" alt="store image"
+                                class="mt-2 {{ $store['store_image'] ? 'd-block' : 'd-none' }}" />
 
 
                         </div>
@@ -165,7 +167,7 @@
 
                         <div class="mb-3">
                             <div class="form-check mt-3">
-                                <input class="form-check-input" type="checkbox" name="published" value=""
+                                <input class="form-check-input" type="checkbox" name="published[]"
                                     {{ @$store['published'] ? 'checked' : '' }} id="published">
                                 <label class="form-check-label" for="published"> Publish </label>
                             </div>
