@@ -16,8 +16,12 @@ class Store extends Model
         'latitude',
         'longitude',
         'instructions',
+        'holidays',
+        'close_at',
+        'open_at',
         'store_image',
         'city',
+        'instructions',
         'published',
     ];
 }

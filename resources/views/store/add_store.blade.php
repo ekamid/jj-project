@@ -13,48 +13,70 @@
                     <h5 class="mb-0">Store Information</h5>
                     <a class="btn btn-outline-primary float-end" href="{{ route('admin.stores') }}">View Store</a>
                 </div>
+
                 <div class="card-body">
                     <form method="POST" action="{{ route('admin.add_store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label class="form-label" for="basic-default-fullname">Name</label>
-                            <input type="text" class="form-control" name="name" id="basic-default-fullname"
-                                placeholder="Apurba Jewellers" required>
+                            <input type="text" value="{{ old('name') }}" class="form-control" name="name"
+                                id="basic-default-fullname" placeholder="Apurba Jewellers" required>
+                            @error('name')
+                                <div class="text-danger">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="store_address">City</label>
-                            <input type="text" name="city" class="form-control" required id="store_city"
-                                list="city_list" placeholder="Dhaka, Bangladesh">
-                            <datalist id="city_list">
-                                <option value="Dhaka"></option>
-                                <option value="Chattogram"></option>
-                                <option value="Sylhet"></option>
-                                <option value="Mymensingh"></option>
-                                <option value="Rajshahi"></option>
-                                <option value="Rangpur"></option>
-                                <option value="Khulna"></option>
-                                <option value="Barishal"></option>
-                            </datalist>
+                            <select type="text" name="city" class="form-control" required id="store_city"
+                                list="city_list">
+                                <option value="dhaka">Dhaka</option>
+                                <option value="chattogram">Chattogram</option>
+                                <option value="sylhet">Sylhet</option>
+                                <option value="mymensingh">Mymensingh</option>
+                                <option value="rajshahi">Rajshahi</option>
+                                <option value="rangpur">Rangpur</option>
+                                <option value="khulna">Khulna</option>
+                                <option value="barishal">Barishal</option>
+                            </select>
+
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="store_address">Address</label>
-                            <input type="text" name="address" class="form-control" id="store_address"
-                                placeholder="Dhaka, Bangladesh" required>
+                            <input type="text" value="{{ old('address') }}" name="address" class="form-control"
+                                id="store_address" placeholder="Dhaka, Bangladesh" required>
+                            @error('address')
+                                <div class="text-danger">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label" for="store_latitude">Latitude</label>
-                                    <input type="text" name="latitude" class="form-control" id="store_latitude"
-                                        placeholder="120.3424242" required>
+                                    <input type="text" value="{{ old('latitude') }}" name="latitude" class="form-control"
+                                        id="store_latitude" placeholder="120.3424242" required>
+
+                                    @error('longitude')
+                                        <div class="text-danger">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label" for="store_longitude">Longitude</label>
-                                    <input type="text" name="longitude" class="form-control" id="store_longitude"
-                                        placeholder="55.453453353" required>
+                                    <input type="text" value="{{ old('longitude') }}" name="longitude"
+                                        class="form-control" id="store_longitude" placeholder="55.453453353" required>
+                                    @error('longitude')
+                                        <div class="text-danger">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -79,21 +101,40 @@
 
                         <div class="mb-3">
                             <label class="form-label" for="store_holidays">Holidays</label>
-                            <input type="text" name="holidays" class="form-control" id="store_holidays"
-                                placeholder="Saturday, Sunday" required>
+                            <input type="text" name="holidays" value="{{ old('holidays') }}" class="form-control"
+                                id="store_holidays" placeholder="Saturday, Sunday" required>
+
+                            @error('holidays')
+                                <div class="text-danger">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label" for="store_contact_no">Phone</label>
-                            <input type="text" name="phone" class="form-control" id="store_contact_no"
-                                placeholder="+8801634234566" required>
+                            <input type="text" name="phone" value="{{ old('phone') }}" class="form-control"
+                                id="store_contact_no" placeholder="+8801634234566" required>
+
+                            @error('phone')
+                                <div class="text-danger">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
 
 
                         <div class="mb-3">
                             <label class="form-label" for="instructions">Instructions</label>
                             <textarea id="instructions" class="form-control"
-                                placeholder="You should first come to Rajdhani market more to reach us. Then...."></textarea>
+                                placeholder="You should first come to Rajdhani market more to reach us. Then....">
+                            {{ old('instructions') }}
+                            </textarea>
+                            @error('instructions')
+                                <div class="text-danger d-block">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
 
 
@@ -102,8 +143,16 @@
                             <input type="file" accept="image/*" name="store_image" class="form-control"
                                 id="store_image" placeholder="store image">
 
+                            @error('store_image')
+                                <div class="text-danger d-block">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+
                             <img id="store_image_prev" width="200" src="" alt="store image"
                                 class="mt-2 d-none" />
+
+
                         </div>
 
 

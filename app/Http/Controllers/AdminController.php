@@ -29,7 +29,8 @@ class AdminController extends Controller
     public function add_store(Request $request)
     {
         if ($request->method() === 'POST') {
-            $validator = Validator::make($request->all(), [
+
+            $request->validate([
                 'name' => 'required',
                 'city' => 'required',
                 'address' => 'required',
@@ -38,26 +39,30 @@ class AdminController extends Controller
                 'store_image' => 'image|mimes:png,jpg,jpeg|max:2048',
             ]);
 
-            if ($validator->fails()) {
-                return response()->json([
-                    'error' => true,
-                    'message' => $validator->errors()
-                ]);
-            }
 
-
-            $store = Store::create($request->all());
+            $store = Store::create([
+                'name' => $request->get('name'),
+                'city' => $request->get('city'),
+                'address' => $request->get('address'),
+                'phone' => $request->get('phone') ?? null,
+                'latitude' => $request->get('latitude') ?? null,
+                'longitude' => $request->get('longitude') ?? null,
+                'instructions' => trim($request->get('instructions')),
+                'holidays' => $request->get('holidays'),
+                'open_at' => $request->get('open_at'),
+                'close_at' => $request->get('close_at'),
+                'published' => $request->get('published') ?? false,
+            ]);
 
             if (!empty($request->store_image)) {
                 $file = $request->file('store_image');
                 $extension = $file->extension();
                 $filename = time() . '.' . $extension;
                 $file->move(public_path('store_images/'), $filename);
-                $$store['store_image'] = 'public/store_images/' . $filename;
+                $store['store_image'] = 'public/store_images/' . $filename;
             }
 
             $store->save();
-
 
             if ($store) {
                 return redirect()->route('admin.stores')->with(

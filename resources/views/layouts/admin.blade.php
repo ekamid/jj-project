@@ -34,6 +34,8 @@
 
     <link rel="stylesheet" href="{{ asset('dashboard/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('dashboard/vendor/libs/datatable/datatables.min.css') }}">
+
 
     <link rel="stylesheet" href="{{ asset('dashboard/vendor/libs/apex-charts/apex-charts.css') }}">
 
@@ -168,6 +170,7 @@
 
         <!-- Vendors JS -->
         <script src="{{ asset('dashboard/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+        <script src="{{ asset('dashboard/vendor/libs/datatable/datatables.min.js') }}"></script>
 
 
         <!-- Main JS -->

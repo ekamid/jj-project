@@ -1,57 +1,82 @@
 @extends('layouts.admin')
 
+@if (session()->has('success'))
+    <div class="alert bg-primary fade show d-flex align-items-center justify-content-between" role="alert">
+        <p class="text-light m-0"> {{ session()->get('success') }}</p>
+        <button type="button" class="btn btn-sm btn-outline-danger" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+@endif
+
+
 @section('content')
     <!-- Content wrapper -->
     <div class="content-wrapper">
         <!-- Content -->
 
         <div class="container-xxl flex-grow-1 container-p-y">
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Store /</span> View Store</h4>
 
+            <div class="card">
+                <h5 class="card-header">Store</h5>
+                <div class="table-responsive text-nowrap">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Project</th>
+                                <th>Client</th>
+                                <th>Users</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-border-bottom-0">
+                            <tr>
+                                <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong>
+                                </td>
+                                <td>Albert Cook</td>
+                                <td>
+                                    <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
+                                            class="avatar avatar-xs pull-up" title=""
+                                            data-bs-original-title="Lilian Fuller">
+                                            <img src="../assets/img/avatars/5.png" alt="Avatar" class="rounded-circle">
+                                        </li>
+                                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
+                                            class="avatar avatar-xs pull-up" title=""
+                                            data-bs-original-title="Sophia Wilkerson">
+                                            <img src="../assets/img/avatars/6.png" alt="Avatar" class="rounded-circle">
+                                        </li>
+                                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top"
+                                            class="avatar avatar-xs pull-up" title=""
+                                            data-bs-original-title="Christina Parker">
+                                            <img src="../assets/img/avatars/7.png" alt="Avatar" class="rounded-circle">
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td><span class="badge bg-label-primary me-1">Active</span></td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                            data-bs-toggle="dropdown">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                    class="bx bx-edit-alt me-1"></i> Edit</a>
+                                            <a class="dropdown-item" href="javascript:void(0);"><i
+                                                    class="bx bx-trash me-1"></i> Delete</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
 
-            <div class="row">
-                <div class="col-lg-8 mb-4 order-0">
-                    <div class="card">
-                        <div class="d-flex align-items-end row">
-                            <div class="col-sm-7">
-                                <div class="card-body">
-                                    <h5 class="card-title text-primary">Congratulations
-                                        {{ Auth::user()->name }}! 🎉</h5>
-                                    <p class="mb-4">
-                                        Lot's of works to do today.
-                                        Are you ready?
-                                    </p>
-
-                                    {{-- <a href="javascript:;" class="btn btn-sm btn-outline-primary">View
-                                                    Badges</a> --}}
-                                </div>
-                            </div>
-                            <div class="col-sm-5 text-center text-sm-left">
-                                <div class="card-body pb-0 px-0 px-md-4">
-                                    <img src="{{ asset('dashboard/img/illustrations/man-with-laptop-light.png') }}"
-                                        height="140" alt="View Badge User"
-                                        data-app-dark-img="illustrations/man-with-laptop-dark.png"
-                                        data-app-light-img="illustrations/man-with-laptop-light.png" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        </tbody>
+                    </table>
                 </div>
-                <!-- Footer -->
-                <footer class="content-footer footer bg-footer-theme">
-                    <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-                        <div class="mb-2 mb-md-0">
-                            ©
-                            <script>
-                                document.write(new Date().getFullYear());
-                            </script>
-                            , by
-                            <a href="/" target="_blank" class="footer-link fw-bolder">Apurba
-                                Jewellers<a>
-                        </div>
-                    </div>
-                </footer>
-                <!-- / Footer -->
             </div>
+
             <!-- / Content -->
 
 
@@ -61,4 +86,7 @@
         <!-- Content wrapper -->
     </div>
     <!-- / Layout page -->
+@endsection
+
+@section('scripts')
 @endsection
