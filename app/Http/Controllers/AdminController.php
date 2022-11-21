@@ -23,7 +23,11 @@ class AdminController extends Controller
 
     public function stores()
     {
-        return view('store.index');
+        $stores = Store::all();
+
+        return view('store.index', [
+            'stores' => $stores
+        ]);
     }
 
     public function add_store(Request $request)
