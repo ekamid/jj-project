@@ -26,6 +26,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/stores', [AdminController::class, 'stores'])->name("stores");
         Route::match(['GET', 'POST'], '/add-store', [AdminController::class, 'add_store'])->name("add_store");
         Route::match(['GET', 'POST'], '/edit-store/{id}', [AdminController::class, 'edit_store'])->name("edit_store");
+        Route::post('/delete-store/{id}', [AdminController::class, 'delete_store'])->name("delete_store");
+
 
         Route::post("/logout", [AdminController::class, "logout"])->name("logout");
     });

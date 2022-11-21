@@ -158,6 +158,34 @@ class AdminController extends Controller
         }
     }
 
+    public function delete_store(Request $request, $id)
+    {
+        $store = Store::where('id', $id)->first();
+
+
+        if (!$store) {
+            return redirect()->route('admin.stores')->with(
+                'error',
+                'The store no longer available'
+            );
+        }
+
+        $deleted = $store->delete();
+
+        if ($deleted) {
+            return redirect()->route('admin.stores')->with(
+                'success',
+                'Store successfully deleted!'
+            );
+        }
+
+
+        return redirect()->back()->with(
+            'error',
+            'Something went wrong!'
+        );
+    }
+
 
     //authentication
 

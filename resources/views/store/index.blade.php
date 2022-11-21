@@ -30,9 +30,8 @@
             @endif
 
             <div class="card">
-                <h5 class="card-header">Store</h5>
-                <div class="table-responsive text-nowrap">
-                    <table class="table">
+                <div class="table-responsive text-nowrap px-4">
+                    <table class="table" id="store_table">
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -70,12 +69,47 @@
                                                 <a class="dropdown-item"
                                                     href="{{ route('admin.edit_store', $item->id) }}"><i
                                                         class="bx bx-edit-alt me-1"></i> Edit</a>
-                                                <a class="dropdown-item" href="javascript:void(0);"><i
-                                                        class="bx bx-trash me-1"></i> Delete</a>
+                                                <button type="button" class="dropdown-item" data-bs-toggle="modal"
+                                                    data-bs-target="#delete_modal_{{ $item['id'] }}">
+                                                    <i class="bx bx-trash me-1"></i> Delete
+                                                </button>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
+
+
+                                <div class="modal fade" id="delete_modal_{{ $item['id'] }}"
+                                    aria-labelledby="modalToggleLabel" tabindex="-1" style="display: none;"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header text-center">
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body text-center">
+                                                <i style="font-size: 48px" class="bx bx-trash text-danger me-1 mb-3"></i>
+                                                <br>
+                                                You sure you want to delete the store name {{ $item['name'] }}
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form method="POST"
+                                                    action="{{ route('admin.delete_store', $item['id']) }}">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-danger"
+                                                        data-bs-target="#delete_modal_{{ $item['id'] }}"
+                                                        data-bs-toggle="modal" data-bs-dismiss="modal">
+                                                        Confirm
+                                                    </button>
+                                                </form>
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             @endforeach
 
 
@@ -97,4 +131,11 @@
 @endsection
 
 @section('scripts')
+    <script>
+        $(document).ready(function() {
+            $(document).ready(function() {
+                $('#store_table').DataTable();
+            });
+        })
+    </script>
 @endsection
