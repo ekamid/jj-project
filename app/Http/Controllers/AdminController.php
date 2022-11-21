@@ -86,6 +86,66 @@ class AdminController extends Controller
     }
 
 
+    public function edit_store(Request $request, $id)
+    {
+        if ($request->method() === 'POST') {
+
+            $request->validate([
+                'name' => 'required',
+                'city' => 'required',
+                'address' => 'required',
+                'latitude' => 'numeric',
+                'longitude' => 'numeric',
+                'store_image' => 'image|mimes:png,jpg,jpeg|max:2048',
+            ]);
+
+
+            $store = Store::create([
+                'name' => $request->get('name'),
+                'city' => $request->get('city'),
+                'address' => $request->get('address'),
+                'phone' => $request->get('phone') ?? null,
+                'latitude' => $request->get('latitude') ?? null,
+                'longitude' => $request->get('longitude') ?? null,
+                'instructions' => trim($request->get('instructions')),
+                'holidays' => $request->get('holidays'),
+                'open_at' => $request->get('open_at'),
+                'close_at' => $request->get('close_at'),
+                'published' => $request->get('published') ?? false,
+            ]);
+
+            if (!empty($request->store_image)) {
+                $file = $request->file('store_image');
+                $extension = $file->extension();
+                $filename = time() . '.' . $extension;
+                $file->move(public_path('store_images/'), $filename);
+                $store['store_image'] = 'public/store_images/' . $filename;
+            }
+
+            $store->save();
+
+            if ($store) {
+                return redirect()->route('admin.stores')->with(
+                    'success',
+                    'Store successfully added!'
+                );
+            }
+
+            return redirect()->back()->with(
+                'error',
+                'Something went wrong!'
+            );
+        }
+
+        if ($request->method() === 'GET') {
+
+            $store = Store::where('id', $id)->first();
+
+            return view('store.edit_store', [
+                'store' => $store
+            ]);
+        }
+    }
 
 
     //authentication
