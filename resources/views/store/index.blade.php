@@ -1,22 +1,33 @@
 @extends('layouts.admin')
 
-@if (session()->has('success'))
-    <div class="alert bg-primary fade show d-flex align-items-center justify-content-between" role="alert">
-        <p class="text-light m-0"> {{ session()->get('success') }}</p>
-        <button type="button" class="btn btn-sm btn-outline-danger" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">×</span>
-        </button>
-    </div>
-@endif
-
 
 @section('content')
     <!-- Content wrapper -->
     <div class="content-wrapper">
         <!-- Content -->
 
+
+
         <div class="container-xxl flex-grow-1 container-p-y">
             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Store /</span> View Store</h4>
+
+            @if (session()->has('success'))
+                <div class="alert bg-primary fade show d-flex align-items-center justify-content-between" role="alert">
+                    <p class="text-light m-0"> {{ session()->get('success') }}</p>
+                    <button type="button" class="btn btn-sm btn-outline-danger" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+            @endif
+
+            @if (session()->has('error'))
+                <div class="alert bg-danger fade show d-flex align-items-center justify-content-between" role="alert">
+                    <p class="text-light m-0"> {{ session()->get('error') }}</p>
+                    <button type="button" class="btn btn-sm btn-outline-danger" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+            @endif
 
             <div class="card">
                 <h5 class="card-header">Store</h5>

@@ -88,6 +88,18 @@ class AdminController extends Controller
 
     public function edit_store(Request $request, $id)
     {
+
+        $store = Store::where('id', $id)->first();
+
+
+        if (!$store) {
+            return redirect()->route('admin.stores')->with(
+                'error',
+                'The store no longer available'
+            );
+        }
+
+
         if ($request->method() === 'POST') {
 
             $request->validate([
@@ -99,8 +111,7 @@ class AdminController extends Controller
                 'store_image' => 'image|mimes:png,jpg,jpeg|max:2048',
             ]);
 
-
-            $store = Store::create([
+            $store->update([
                 'name' => $request->get('name'),
                 'city' => $request->get('city'),
                 'address' => $request->get('address'),
@@ -127,7 +138,7 @@ class AdminController extends Controller
             if ($store) {
                 return redirect()->route('admin.stores')->with(
                     'success',
-                    'Store successfully added!'
+                    'Store successfully updated!'
                 );
             }
 
@@ -138,9 +149,6 @@ class AdminController extends Controller
         }
 
         if ($request->method() === 'GET') {
-
-            $store = Store::where('id', $id)->first();
-
             return view('store.edit_store', [
                 'store' => $store
             ]);

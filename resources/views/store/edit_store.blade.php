@@ -156,8 +156,8 @@
                                 </div>
                             @enderror
 
-                            <img id="store_image_prev" width="200" src="" alt="store image"
-                                class="mt-2 d-none" />
+                            <img id="store_image_prev" src="{{ $store['store_image'] }}" width="200" src=""
+                                alt="store image" class="mt-2 {{ $store['store_image'] ? 'd-block' : 'd-none' }}" />
 
 
                         </div>
