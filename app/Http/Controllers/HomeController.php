@@ -7,6 +7,32 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+
+    public function get_stores(Request $request)
+    {
+        $stores = Store::where('published', 1)->get();
+
+        return response()->json($stores);
+    }
+
+    public function find_single_store(Request $request, $id)
+    {
+
+        $store = Store::where('id', $id)->first();
+
+
+        if (!$store) {
+            return redirect()->route("frontend.find_stores")->with(
+                'error',
+                'The store no longer available'
+            );
+        }
+
+        return view("frontend.single_store_details", [
+            'store' => $store
+        ]);
+    }
+
     public function find_stores(Request $request)
     {
 
@@ -20,7 +46,7 @@ class HomeController extends Controller
 
         if ($request->method() === 'GET') {
 
-            $stores = Store::where('published', 1)->get();;
+            $stores = Store::where('published', 1)->get();
 
             $data = [];
 
@@ -29,7 +55,8 @@ class HomeController extends Controller
             }
 
             return view('frontend.find_stores', [
-                'stores' => $data,
+                'stores' =>
+                $stores,
             ]);
         }
     }

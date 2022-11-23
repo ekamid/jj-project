@@ -5,11 +5,12 @@
         <div class="container">
             <div class="store-content">
                 <div class="store-selection">
-                    <form class="form-inline">
+                    <h2 class="store-heading">Find Stores</h2>
+                    {{-- <form class="form-inline">
                         <h2 class="store-heading">Find Stores</h2>
                         <div class="form-group mb-2">
                             <select class="form-control capitalize" id="exampleFormControlSelect1">
-                                <option disabled>Choose City</option>
+                                <option value="null">Choose City</option>
                                 @foreach ($stores as $city => $store)
                                     <option value="{{ $city }}">{{ $city }}</option>
                                 @endforeach
@@ -17,7 +18,7 @@
                         </div>
                         <div class="form-group mx-sm-3 mb-2">
                             <select class="form-control" id="exampleFormControlSelect1">
-                                <option disabled>Choose Store</option>
+                                <option value="null">Choose Store</option>
                                 @foreach (array_values($stores)[0] as $store)
                                     <option latitude="{{ $store['latitude'] }}" longitude="{{ $store['longitude'] }}"
                                         value="{{ $store['id'] }}">
@@ -26,7 +27,7 @@
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary mb-2">Find</button>
-                    </form>
+                    </form> --}}
 
                 </div>
 
@@ -38,21 +39,51 @@
             </div>
         </div>
     </div>
+
+    <input type="hidden" name="get_stores_url" id="get_stores_url" value="{{ route('frontend.get_stores') }}" />
 @endsection
 
 
 @section('scripts')
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false" type="text/javascript"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUPClCAvO-EIlmJajX4Sc3bpGgi57-LnE&v=3.exp&sensor=false"
+        type="text/javascript"></script>
+
 
     <script>
-        var data = [{
-            name: 'Район 1',
-            lat: 36.8977988,
-            lng: 30.6830822,
-            content: 'Район 1 информация',
-            content_en: 'Район 1 информация'
-        }, ];
-        var mapstyle = {
+        let url = "";
+
+        $(document).ready(function() {
+            console.log('Entered');
+            url = $("#get_stores_url").val();
+            console.log('Goyt URL');
+            console.log(url);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: "GET",
+                url: url,
+                // data: formData,
+                dataType: 'json',
+                success: function(data) {
+                    console.log("Success :D");;
+                    console.log(data);
+                    initMap(data);
+                },
+                error: function(data) {
+                    console.log("Error :(");
+
+                    console.log(data);
+                }
+            });
+        });
+
+
+
+        let mapstyle = {
             background: [{
                 featureType: "all",
                 elementType: "labels.text.fill",
@@ -176,53 +207,45 @@
             }]
         }
 
-        function initMap() {
+        function initMap(data) {
 
-            // İlk açılışta haritayı ortalayacağı yer
-            var turkey = {
-                lat: 36.8977988,
-                lng: 30.6830822
+            let centerOn = {
+                lat: data[0].latitude,
+                lng: data[0].longitude
             };
 
-            var map = new google.maps.Map(document.getElementById('storeMap'), {
-                zoom: 13,
+            let map = new google.maps.Map(document.getElementById('storeMap'), {
+                zoom: 8,
                 styles: mapstyle.background,
                 disableDefaultUI: true,
-                center: turkey
+                center: centerOn
             });
 
-            var markers = [];
-            var contents = [];
-            var infowindows = [];
-            var cities = document.getElementById('cityselect');
+            let markers = [];
+            let contents = [];
+            let infowindows = [];
+            // let cities = document.getElementById('cityselect');
 
-            for (var i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
 
-                // Haritaya eklenecek noktalar
                 markers[i] = new google.maps.Marker({
-                    position: new google.maps.LatLng(data[i].lat, data[i].lng),
+                    position: new google.maps.LatLng(data[i].latitude, data[i].longitude),
                     map: map,
                     index: i
                 });
 
-                // Sitenin diline göre data'daki ingilizce içeriği çektiği yer. Buranın doğru çalışabilmesi için dilin html tagına lang eklenmeli
-                if (document.documentElement.lang == "en") {
-                    contents[i] = data[i].content_en
-                } else {
-                    contents[i] = data[i].content
-                }
+
+                contents[i] = data[i].name
 
                 infowindows[i] = new google.maps.InfoWindow({
-                    content: contents[i],
+                    content: `<a href="/get-stores/${data[i].id}">${contents[i]}</a`,
                     maxWidth: 300
                 });
 
-                // pin'lere tıklanınca ne yapacağı
                 google.maps.event.addListener(markers[i], 'click', function() {
                     infowindows[this.index].open(map, markers[this.index]);
                     map.panTo(markers[this.index].getPosition());
 
-                    // tıklanılan haricindeki pencerelerin lapatılması
                     for (let j = 0; j < markers.length; j++) {
                         if (j != this.index) {
                             infowindows[j].close(map, markers[j]);
@@ -230,29 +253,23 @@
                     }
                 });
 
-                // select box'ın dinamik olarak data'dan doldurulması
-                cities.options[cities.options.length] = new Option(data[i].name, i);
+                // cities.options[cities.options.length] = new Option(data[i].name, i);
             }
 
-            // şehir seçince ne yapılacağı
             selectCity = function(evt) {
                 let ind = evt.target.value;
-                if (ind == "Район 1") { // "Seçiniz" seçeneği seçilirse
+                if (ind == "Район 1") {
 
-                    // haritayı ortalıyor
-                    var pos = new google.maps.LatLng(turkey);
+                    let pos = new google.maps.LatLng(turkey);
                     map.panTo(pos);
 
-                    // tüm info alanlarını kapatıyor
                     for (let j = 0; j < markers.length; j++) {
                         infowindows[j].close(map, markers[j]);
                     }
                 } else {
-                    // seçtiği şehri ortalıyor
                     infowindows[ind].open(map, markers[ind]);
                     map.panTo(markers[ind].getPosition());
 
-                    // seçtiği şehrin haricindeki info alanlarını kapatıyor 
                     for (let j = 0; j < markers.length; j++) {
                         if (j != ind) {
                             infowindows[j].close(map, markers[j]);
@@ -261,6 +278,5 @@
                 }
             }
         }
-        initMap()
     </script>
 @endsection

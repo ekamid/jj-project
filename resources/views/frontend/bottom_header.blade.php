@@ -62,10 +62,7 @@
                                             </li>
                                         </ul>
                                     </div>
-                                    <div class="col-sm-4 w3l">
-                                        <a href="women.html"><img src="images/menu1.jpg" class="img-responsive"
-                                                alt="" /></a>
-                                    </div>
+
                                     <div class="clearfix"></div>
                                 </div>
                             </ul>
@@ -116,10 +113,6 @@
                                                         aria-hidden="true"></i>Skin care</a>
                                             </li>
                                         </ul>
-                                    </div>
-                                    <div class="col-sm-4 w3l">
-                                        <a href="jewellery.html"><img src="images/menu2.jpg" class="img-responsive"
-                                                alt="" /></a>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>

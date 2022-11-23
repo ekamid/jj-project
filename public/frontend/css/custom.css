@@ -24,3 +24,75 @@
 .store-wrapper #storeMap {
     height: 580px;
 }
+
+
+/* single store  */
+
+
+#map {
+    /*Replace background with your own map or use JS in this pen*/
+    background: url(https://www.dropbox.com/s/z08dhgyyhzv7vyp/map.png?raw=1);
+    height: 100%;
+    width: 50%;
+}
+
+.container__content {
+    color: #fff;
+    margin: 2em 3em;
+    padding: 0.5rem;
+}
+
+.content__social {
+    align-content: flex-end;
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+}
+
+.content__social svg {
+    margin-left: 0.95rem;
+}
+
+.container__content hr {
+    background-color: #ff1ead;
+    border: 0 none;
+    color: #ff1ead;
+    height: 1px;
+    margin-bottom: 1.5rem;
+}
+
+.container__content h1 {
+    font-size: 1.5rem;
+}
+
+.content__icon {
+    position: relative;
+}
+
+.content__icon1 {
+    top: -2.25rem;
+}
+
+.content__icon2 {
+    top: -2.25rem;
+}
+
+.content__icon3 {
+    top: 0.75rem;
+}
+
+.content__address,
+.content__web,
+.content__phone,
+.container__content span {
+    display: inline-block;
+    font: 0.9rem/1.25 Cousine, monospace;
+    padding-left: 0.5em;
+    transition: color 0.5s;
+
+}
+
+.container__content span:hover {
+
+    color: #ff1ead;
+}
