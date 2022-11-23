@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,13 @@ use App\Http\Controllers\AdminController;
 Route::get('/', function () {
     return view('home');
 });
+
+
+Route::group(['as' => 'frontend.'], function () {
+    Route::get('find-stores', [HomeController::class, 'find_stores'])->name('find_stores');
+});
+
+
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::group(['middleware' => 'admin'], function () {

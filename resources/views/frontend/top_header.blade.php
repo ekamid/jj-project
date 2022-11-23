@@ -8,9 +8,10 @@
         <div class="col-md-6 phone-w3l">
             <ul>
                 <li>
-                    <span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>
+                    <a class="btn btn-primary" href="{{ route('frontend.find_stores') }}">
+                        Find Stores
+                    </a>
                 </li>
-                <li>+88018445403380</li>
             </ul>
         </div>
         <div class="clearfix"></div>

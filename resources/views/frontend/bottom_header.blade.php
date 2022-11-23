@@ -135,20 +135,22 @@
                 </div>
             </nav>
         </div>
-        <script>
-            $(document).ready(function() {
-                $(".dropdown").hover(
-                    function() {
-                        $(".dropdown-menu", this).stop(true, true).slideDown("fast");
-                        $(this).toggleClass("open");
-                    },
-                    function() {
-                        $(".dropdown-menu", this).stop(true, true).slideUp("fast");
-                        $(this).toggleClass("open");
-                    }
-                );
-            });
-        </script>
+        @section('scripts')
+            <script>
+                $(document).ready(function() {
+                    $(".dropdown").hover(
+                        function() {
+                            $(".dropdown-menu", this).stop(true, true).slideDown("fast");
+                            $(this).toggleClass("open");
+                        },
+                        function() {
+                            $(".dropdown-menu", this).stop(true, true).slideUp("fast");
+                            $(this).toggleClass("open");
+                        }
+                    );
+                });
+            </script>
+        @endsection
         <div class="col-md-4 search-agileinfo">
             <form action="#" method="post">
                 <input type="search" name="Search" placeholder="Search for a Product..." required="" />

@@ -13,6 +13,7 @@
         <!-- css -->
         <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.css') }}">
         <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('frontend/css/custom.css') }}">
         <link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.min.css') }}">
 
 
@@ -39,6 +40,8 @@
         <script src="{{ asset('frontend/js/bootstrap.js') }}"></script>
         <script src="{{ asset('frontend/js/minicart.js') }}"></script>
         <script src="{{ asset('frontend/js/easyResponsiveTabs.js') }}"></script>
+
+        @yield('scripts')
 
 
         <script type="text/javascript">

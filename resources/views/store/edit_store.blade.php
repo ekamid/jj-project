@@ -30,14 +30,15 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="store_address">City</label>
-                            <select type="text" name="city" class="form-control" required id="store_city"
-                                list="city_list">
+                            <select type="text" name="city" class="form-control" required id="store_city">
                                 <option value="dhaka" {{ @$store['city'] == 'dhaka' ? 'selected' : '' }}>Dhaka</option>
+
                                 <option value="chattogram" {{ @$store['city'] == 'chattogram' ? 'selected' : '' }}>
                                     Chattogram
                                 </option>
                                 <option value="sylhet" {{ @$store['city'] == 'sylhet' ? 'selected' : '' }}>Sylhet</option>
-                                <option value="mymensingh" {{ @$store['city'] == 'dhaka' ? 'selected' : '' }}>Mymensingh
+                                <option value="mymensingh" {{ @$store['city'] == 'mymensingh' ? 'selected' : '' }}>
+                                    Mymensingh
                                 </option>
                                 <option value="rajshahi" {{ @$store['city'] == 'rajshahi' ? 'selected' : '' }}>Rajshahi
                                 </option>

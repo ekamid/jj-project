@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="{{ asset('dashboard/vendor/css/core.css') }}" class="template-customizer-core-css" />
     <link rel="stylesheet" href="{{ asset('dashboard/vendor/css/theme-default.css') }}">
     <link rel="stylesheet" href="{{ asset('dashboard/css/demo.css') }}">
+    <link rel="stylesheet" href="{{ asset('dashboard/css/custom.css') }}">
 
     <!-- Vendors CSS -->
 
