@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 
 class AdminController extends Controller
@@ -75,7 +76,7 @@ class AdminController extends Controller
             );
         }
         if ($request->method() === 'GET') {
-            $categories = Category::all();
+            $categories = Category::where('published', 1)->get();
 
             return view("category.add", [
                 'categories' => $categories
@@ -88,7 +89,8 @@ class AdminController extends Controller
     {
 
         $category = Category::where('id', $id)->first();
-        $categories = Category::all();
+        $categories = Category::where('published', 1)->get();
+
 
 
         if (!$category) {
@@ -102,7 +104,8 @@ class AdminController extends Controller
         if ($request->method() === 'POST') {
 
             $request->validate([
-                'name' => 'required|unique:categories,name,' . $id,
+                'name' => 'required|string|unique:categories,name,' . $id,
+                // 'name' => ['required', Rule::unique('categories')->ignore('name')],
                 'banner' => 'image|mimes:png,jpg,jpeg|max:2048',
             ]);
 

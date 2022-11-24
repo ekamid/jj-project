@@ -98,7 +98,7 @@
                         </a>
                         <ul class="menu-sub">
                             <li class="menu-item">
-                                <a href="pages-account-settings-account.html" class="menu-link">
+                                <a href="{{ route('admin.products.add') }}" class="menu-link">
                                     <div data-i18n="Account">Add Product</div>
                                 </a>
                             </li>

@@ -11,7 +11,7 @@
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Product Information</h5>
-                    <a class="btn btn-outline-primary float-end" href="{{ route('admin.products') }}">View Products</a>
+                    <a class="btn btn-outline-primary float-end" href="{{ route('admin.products.index') }}">View Products</a>
                 </div>
 
                 <div class="card-body">
@@ -20,91 +20,61 @@
                         <div class="mb-3">
                             <label class="form-label" for="basic-default-fullname">Name</label>
                             <input type="text" value="{{ old('name') }}" class="form-control" name="name"
-                                id="basic-default-fullname" placeholder="Apurba Jewellers" required>
+                                id="basic-default-fullname" placeholder="Stylish Braclet" required>
                             @error('name')
                                 <div class="text-danger">
                                     {{ $message }}
                                 </div>
                             @enderror
                         </div>
+
                         <div class="mb-3">
-                            <label class="form-label" for="store_address">City</label>
-                            <select type="text" name="city" class="form-control" required id="store_city"
-                                list="city_list">
-                                <option value="dhaka">Dhaka</option>
-                                <option value="chattogram">Chattogram</option>
-                                <option value="sylhet">Sylhet</option>
-                                <option value="mymensingh">Mymensingh</option>
-                                <option value="rajshahi">Rajshahi</option>
-                                <option value="rangpur">Rangpur</option>
-                                <option value="khulna">Khulna</option>
-                                <option value="barishal">Barishal</option>
+                            <label class="form-label" for="product_categories">Categories</label>
+                            <select type="text" data-show-subtext="true" data-live-search="true" multiple
+                                name="categories" class="form-control" required id="product_categories">
+                                <option disabled selected>Select Multiple Categories</option>
+
+                                @foreach ($categories as $category)
+                                    <option value={{ $category->id }}>{{ $category->name }}</option>
+                                @endforeach
                             </select>
 
                         </div>
+
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="product_weight">Weight</label>
+                                    <input type="text" value="{{ old('weight') }}" name="weight" class="form-control"
+                                        id="product_weight" placeholder="Weight In gram" required>
+
+                                    @error('weight')
+                                        <div class="text-danger">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="product_karet">Karat</label>
+                                    <input type="text" value="{{ old('karat') }}" name="karat" class="form-control"
+                                        id="product_karet" placeholder="Karat" required>
+                                    @error('karat')
+                                        <div class="text-danger">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="mb-3">
                             <label class="form-label" for="store_address">Address</label>
                             <input type="text" value="{{ old('address') }}" name="address" class="form-control"
                                 id="store_address" placeholder="Dhaka, Bangladesh" required>
                             @error('address')
-                                <div class="text-danger">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label" for="store_latitude">Latitude</label>
-                                    <input type="text" value="{{ old('latitude') }}" name="latitude" class="form-control"
-                                        id="store_latitude" placeholder="120.3424242" required>
-
-                                    @error('longitude')
-                                        <div class="text-danger">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label" for="store_longitude">Longitude</label>
-                                    <input type="text" value="{{ old('longitude') }}" name="longitude"
-                                        class="form-control" id="store_longitude" placeholder="55.453453353" required>
-                                    @error('longitude')
-                                        <div class="text-danger">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label" for="store_open_at">Open At</label>
-                                    <input type="time" value="10:00" name="open_at" class="form-control"
-                                        id="store_open_at" placeholder="10:00" required>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label" for="store_close_at">Close At</label>
-                                    <input type="time" value="20:00" name="close_at" class="form-control"
-                                        id="store_close_at" placeholder="20:00" required>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="mb-3">
-                            <label class="form-label" for="store_holidays">Holidays</label>
-                            <input type="text" name="holidays" value="{{ old('holidays') }}" class="form-control"
-                                id="store_holidays" placeholder="Saturday, Sunday" required>
-
-                            @error('holidays')
                                 <div class="text-danger">
                                     {{ $message }}
                                 </div>
@@ -140,8 +110,8 @@
 
                         <div class="mb-3">
                             <label class="form-label" for="store_image">Store Image</label>
-                            <input type="file" accept="image/*" name="store_image" class="form-control"
-                                id="store_image" placeholder="store image">
+                            <input type="file" accept="image/*" name="store_image" class="form-control" id="store_image"
+                                placeholder="store image">
 
                             @error('store_image')
                                 <div class="text-danger d-block">
@@ -155,6 +125,15 @@
 
                         </div>
 
+
+                        <div class="mb-3">
+                            <div class="form-check mt-3">
+                                <input class="form-check-input" type="checkbox" name="customization_available[]"
+                                    id="customization_available">
+                                <label class="form-check-label" for="customization_available"> Customization Available
+                                </label>
+                            </div>
+                        </div>
 
                         <div class="mb-3">
                             <div class="form-check mt-3">
@@ -183,46 +162,9 @@
 @endsection
 
 @section('scripts')
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUPClCAvO-EIlmJajX4Sc3bpGgi57-LnE&callback=initAutocomplete&libraries=places"
-        defer></script>
-
     <script>
-        let autocomplete;
-        let store_address;
-
-        function initAutocomplete() {
-
-            store_address = document.querySelector("#store_address");
-
-            // Create the autocomplete object, restricting the search predictions to
-            // addresses in the US and Canada.
-            autocomplete = new google.maps.places.Autocomplete(store_address, {
-                // componentRestrictions: {
-                //     country: ["bd"]
-                // },
-                fields: ["address_components", "geometry"],
-                types: ["address"],
-            });
-
-            store_address.focus();
-
-            // When the user selects an address from the drop-down, populate the
-            // address fields in the form.
-            autocomplete.addListener("place_changed", fillInAddress);
-        }
-
-        function fillInAddress() {
-            // Get the place details from the autocomplete object.
-            const place = autocomplete.getPlace();
-            const address = place.address_components[0].long_name;
-            const store_lat = place.geometry.location.lat();
-            const store_lng = place.geometry.location.lng();
-
-            $("#store_address").val(address)
-            $("#store_latitude").val(store_lat)
-            $("#store_longitude").val(store_lng)
-        }
+        // To style only selects with the my-select class
+        $('#product_categories').selectpicker();
 
         $('#store_image').on('change', function() {
             const file = $(this).get(0).files[0];

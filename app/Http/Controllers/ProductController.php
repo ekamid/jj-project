@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,7 @@ class ProductController extends Controller
         ]);
     }
 
-    public function add_store(Request $request)
+    public function add_product(Request $request)
     {
         if ($request->method() === 'POST') {
 
@@ -31,7 +32,7 @@ class ProductController extends Controller
 
 
 
-            $store = Store::create([
+            $store = Product::create([
                 'name' => $request->get('name'),
                 'city' => $request->get('city'),
                 'address' => $request->get('address'),
@@ -45,18 +46,18 @@ class ProductController extends Controller
 
             ]);
 
-            if (!empty($request->store_image)) {
-                $file = $request->file('store_image');
+            if (!empty($request->images)) {
+                $file = $request->file('images');
                 $extension = $file->extension();
                 $filename = time() . '.' . $extension;
-                $file->move(public_path('store_images/'), $filename);
-                $store['store_image'] = '/store_images/' . $filename;
+                $file->move(public_path('uploads/products/'), $filename);
+                $store['images'] = '/uploads/products/' . $filename;
             }
 
             $store->save();
 
             if ($store) {
-                return redirect()->route('admin.stores')->with(
+                return redirect()->route("admin.products.index")->with(
                     'success',
                     'Store successfully added!'
                 );
@@ -68,7 +69,11 @@ class ProductController extends Controller
             );
         }
         if ($request->method() === 'GET') {
-            return view('store.add_store');
+            $categories = Category::where('published', 1)->get();
+
+            return view('products.add', [
+                'categories' => $categories
+            ]);
         }
     }
 

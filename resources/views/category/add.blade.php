@@ -32,7 +32,7 @@
                             <label class="form-label" for="parent_category_id">Parent Category</label>
                             <select data-show-subtext="true" data-live-search="true" id="parent_category_id" type="text"
                                 name="parent_id" class="form-control">
-                                <option disabled>Select Parent Category</option>
+                                <option disabled selected>Select Parent Category</option>
                                 @foreach ($categories as $category)
                                     <option value={{ $category->id }}>{{ $category->name }}</option>
                                 @endforeach
