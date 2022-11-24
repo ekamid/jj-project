@@ -103,7 +103,7 @@
                                 </a>
                             </li>
                             <li class="menu-item">
-                                <a href="{{ route('admin.products') }}" class="menu-link">
+                                <a href="{{ route('admin.products.index') }}" class="menu-link">
                                     <div data-i18n="products">View Products</div>
                                 </a>
                             </li>

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::match(['GET', 'POST'], '/edit-category/{id}', [AdminController::class, 'edit_category'])->name("edit_category");
         Route::post('/delete-category/{id}', [AdminController::class, 'delete_category'])->name("delete_category");
 
+        // products 
+        Route::get('/products', [ProductController::class, 'index'])->name("products.index");
+        Route::match(['GET', 'POST'], '/product/add', [ProductController::class, 'add_product'])->name("products.add");
+        Route::match(['GET', 'POST'], '/product/edit', [ProductController::class, 'edit_product'])->name("products.edit");
+        Route::post('/product/delete/{id}', [ProductController::class, 'delete_product'])->name("delete_category");
+
+
+        //stores
         Route::get('/stores', [AdminController::class, 'stores'])->name("stores");
         Route::match(['GET', 'POST'], '/add-store', [AdminController::class, 'add_store'])->name("add_store");
         Route::match(['GET', 'POST'], '/edit-store/{id}', [AdminController::class, 'edit_store'])->name("edit_store");

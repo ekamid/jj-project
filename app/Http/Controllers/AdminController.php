@@ -167,7 +167,6 @@ class AdminController extends Controller
             );
         }
 
-
         return redirect()->back()->with(
             'error',
             'Something went wrong!'
