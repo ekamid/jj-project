@@ -15,7 +15,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('admin.add_store') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('admin.stores.add') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label class="form-label" for="basic-default-fullname">Name</label>

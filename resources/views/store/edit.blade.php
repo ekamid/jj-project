@@ -11,11 +11,11 @@
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Store Information</h5>
-                    <a class="btn btn-outline-primary float-end" href="{{ route('admin.stores') }}">View Store</a>
+                    <a class="btn btn-outline-primary float-end" href="{{ route('admin.stores.index') }}">View Store</a>
                 </div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('admin.edit_store', $store['id']) }}"
+                    <form method="POST" action="{{ route('admin.stores.edit', $store['id']) }}"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
@@ -136,9 +136,7 @@
                         <div class="mb-3">
                             <label class="form-label" for="instructions">Instructions</label>
                             <textarea name="instructions" id="instructions" class="form-control"
-                                placeholder="You should first come to Rajdhani market more to reach us. Then....">
-                            {{ @$store['instructions'] }} 
-                            </textarea>
+                                placeholder="You should first come to Rajdhani market more to reach us. Then....">{{ @$store['instructions'] }}</textarea>
                             @error('instructions')
                                 <div class="text-danger d-block">
                                     {{ $message }}

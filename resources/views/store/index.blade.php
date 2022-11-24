@@ -41,6 +41,8 @@
                                 <th>Holidays</th>
                                 <th>Open At</th>
                                 <th>Close At</th>
+                                <th>Image</th>
+                                <th>Instruction</th>
                                 <th>Published</th>
                                 <th>Actions</th>
                             </tr>
@@ -53,9 +55,18 @@
                                     <td class="text-capitalize">{{ @$item->city }}</td>
                                     <td>{{ @$item->address }}</td>
                                     <td>{{ @$item->phone }}</td>
-                                    <td>{{ @$item->holidays }}</td>
+                                    <td>{{ $item->holidays ? @$item->holidays : 'No Holidays' }}
+                                    </td>
                                     <td>{{ @$item->open_at }}</td>
                                     <td>{{ @$item->close_at }}</td>
+                                    @if ($item->store_image)
+                                        <td><img width="40" height="40" src="{{ url(@$item->store_image) }}"
+                                                alt=""></td>
+                                    @else
+                                        <td>No Image</td>
+                                    @endif
+                                    <td>{{ $item->instructions ? @$item->instructions : 'No Instructions' }}
+                                    </td>
                                     <td><span
                                             class="badge {{ @$item->published ? 'bg-label-primary' : 'bg-label-warning' }} me-1">{{ @$item->published ? 'Published' : 'Unpublished' }}</span>
                                     </td>
@@ -67,7 +78,7 @@
                                             </button>
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item"
-                                                    href="{{ route('admin.edit_store', $item->id) }}"><i
+                                                    href="{{ route('admin.stores.edit', $item->id) }}"><i
                                                         class="bx bx-edit-alt me-1"></i> Edit</a>
                                                 <button type="button" class="dropdown-item" data-bs-toggle="modal"
                                                     data-bs-target="#delete_modal_{{ $item['id'] }}">
@@ -96,7 +107,7 @@
                                             </div>
                                             <div class="modal-footer">
                                                 <form method="POST"
-                                                    action="{{ route('admin.delete_store', $item['id']) }}">
+                                                    action="{{ route('admin.stores.delete', $item['id']) }}">
                                                     @csrf
                                                     <button type="submit" class="btn btn-danger"
                                                         data-bs-target="#delete_modal_{{ $item['id'] }}"

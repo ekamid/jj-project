@@ -72,7 +72,7 @@
                                             </button>
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item"
-                                                    href="{{ route('admin.edit_store', $item->id) }}"><i
+                                                    href="{{ route('admin.stores.edit', $item->id) }}"><i
                                                         class="bx bx-edit-alt me-1"></i> Edit</a>
                                                 <button type="button" class="dropdown-item" data-bs-toggle="modal"
                                                     data-bs-target="#delete_modal_{{ $item['id'] }}">

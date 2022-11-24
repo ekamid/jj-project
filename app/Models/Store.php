@@ -15,7 +15,6 @@ class Store extends Model
         'phone',
         'latitude',
         'longitude',
-        'instructions',
         'holidays',
         'close_at',
         'open_at',

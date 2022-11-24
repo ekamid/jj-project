@@ -15,7 +15,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('admin.edit_store', $store['id']) }}"
+                    <form method="POST" action="{{ route('admin.stores.edit', $store['id']) }}"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
