@@ -7,9 +7,8 @@
         <!-- Content -->
 
 
-
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Store /</span> View Store</h4>
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Category /</span> View Categories</h4>
 
             @if (session()->has('success'))
                 <div class="alert bg-primary fade show d-flex align-items-center justify-content-between" role="alert">
@@ -31,31 +30,36 @@
 
             <div class="card">
                 <div class="table-responsive text-nowrap px-4">
-                    <table class="table" id="store_table">
+                    <table class="table" id="category_tabel">
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th>City</th>
-                                <th>Address</th>
-                                <th>Phone</th>
-                                <th>Holidays</th>
-                                <th>Open At</th>
-                                <th>Close At</th>
+                                <th>Slug</th>
+                                <th>Parent Category</th>
+                                <th>Description</th>
+                                <th>Image</th>
                                 <th>Published</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody class="table-border-bottom-0">
 
-                            @foreach ($stores as $item)
+                            @foreach ($categories as $item)
                                 <tr>
                                     <td>{{ @$item->name }}</td>
-                                    <td class="text-capitalize">{{ @$item->city }}</td>
-                                    <td>{{ @$item->address }}</td>
-                                    <td>{{ @$item->phone }}</td>
-                                    <td>{{ @$item->holidays }}</td>
-                                    <td>{{ @$item->open_at }}</td>
-                                    <td>{{ @$item->close_at }}</td>
+                                    <td>{{ @$item->slug }}</td>
+                                    <td>{{ $item->parent_id ? $item->category->name : 'No Parent Category' }}
+                                    </td>
+                                    <td>{{ $item->description ? @$item->description : 'No Description' }}
+                                    </td>
+
+                                    @if ($item->banner)
+                                        <td><img width="40" height="40" src="{{ url(@$item->banner) }}"
+                                                alt=""></td>
+                                    @else
+                                        <td>No Banner</td>
+                                    @endif
+
                                     <td><span
                                             class="badge {{ @$item->published ? 'bg-label-primary' : 'bg-label-warning' }} me-1">{{ @$item->published ? 'Published' : 'Unpublished' }}</span>
                                     </td>
@@ -67,7 +71,7 @@
                                             </button>
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item"
-                                                    href="{{ route('admin.edit_store', $item->id) }}"><i
+                                                    href="{{ route('admin.edit_category', $item->id) }}"><i
                                                         class="bx bx-edit-alt me-1"></i> Edit</a>
                                                 <button type="button" class="dropdown-item" data-bs-toggle="modal"
                                                     data-bs-target="#delete_modal_{{ $item['id'] }}">
@@ -91,12 +95,12 @@
                                             <div class="modal-body text-center">
                                                 <i style="font-size: 48px" class="bx bx-trash text-danger me-1 mb-3"></i>
                                                 <br>
-                                                You sure you want to delete the store name
+                                                You sure you want to delete the category name
                                                 <strong class="text-primary"> {{ $item['name'] }}</strong>
                                             </div>
                                             <div class="modal-footer">
                                                 <form method="POST"
-                                                    action="{{ route('admin.delete_store', $item['id']) }}">
+                                                    action="{{ route('admin.delete_category', $item['id']) }}">
                                                     @csrf
                                                     <button type="submit" class="btn btn-danger"
                                                         data-bs-target="#delete_modal_{{ $item['id'] }}"
@@ -104,8 +108,6 @@
                                                         Confirm
                                                     </button>
                                                 </form>
-
-
 
                                             </div>
                                         </div>
@@ -135,7 +137,7 @@
     <script>
         $(document).ready(function() {
             $(document).ready(function() {
-                $('#store_table').DataTable();
+                $('#category_tabel').DataTable();
             });
         })
     </script>

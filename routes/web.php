@@ -33,6 +33,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/dashboard', [AdminController::class, 'dashboard'])->name("dashboard");
         Route::get('/products', [AdminController::class, 'products'])->name("products");
 
+        // categories 
+        Route::get('/categories', [AdminController::class, 'categories'])->name("categories");
+        Route::match(['GET', 'POST'], '/add-category', [AdminController::class, 'add_category'])->name("add_category");
+        Route::match(['GET', 'POST'], '/edit-category/{id}', [AdminController::class, 'edit_category'])->name("edit_category");
+        Route::post('/delete-category/{id}', [AdminController::class, 'delete_category'])->name("delete_category");
+
         Route::get('/stores', [AdminController::class, 'stores'])->name("stores");
         Route::match(['GET', 'POST'], '/add-store', [AdminController::class, 'add_store'])->name("add_store");
         Route::match(['GET', 'POST'], '/edit-store/{id}', [AdminController::class, 'edit_store'])->name("edit_store");

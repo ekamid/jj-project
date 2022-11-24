@@ -168,8 +168,8 @@
 
                         <div class="mb-3">
                             <div class="form-check mt-3">
-                                <input class="form-check-input" type="checkbox" name="published[]"
-                                    {{ @$store['published'] ? 'checked' : '' }} id="published">
+                                <input class="form-check-input" style="padding-left: 0 !important" type="checkbox"
+                                    name="published[]" {{ @$store['published'] ? 'checked' : '' }} id="published">
                                 <label class="form-check-label" for="published"> Publish </label>
                             </div>
                         </div>

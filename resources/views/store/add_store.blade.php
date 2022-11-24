@@ -158,8 +158,8 @@
 
                         <div class="mb-3">
                             <div class="form-check mt-3">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                <label class="form-check-label" for="defaultCheck1"> Publish </label>
+                                <input class="form-check-input" type="checkbox" name="published[]" id="published">
+                                <label class="form-check-label" for="published"> Publish </label>
                             </div>
                         </div>
 

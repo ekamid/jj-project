@@ -1,5 +1,10 @@
 /* datatable wrappers */
 
-#store_table_wrapper {
+#store_table_wrapper,
+#category_tabel_wrapper {
     margin-top: 25px;
+}
+
+.bootstrap-select>.dropdown-toggle {
+    border: 1px solid #697a8d;
 }

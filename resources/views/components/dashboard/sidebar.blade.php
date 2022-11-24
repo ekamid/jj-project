@@ -76,6 +76,24 @@
                     <li class="menu-item">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                            <div data-i18n="Account Settings">Categories</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <li class="menu-item">
+                                <a href="{{ route('admin.add_category') }}" class="menu-link">
+                                    <div data-i18n="Account">Add Category</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="{{ route('admin.categories') }}" class="menu-link">
+                                    <div data-i18n="products">View Categories</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="menu-item">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-dock-top"></i>
                             <div data-i18n="Account Settings">Products</div>
                         </a>
                         <ul class="menu-sub">
