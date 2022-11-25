@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
+use function PHPUnit\Framework\isEmpty;
 
 class AdminController extends Controller
 {
@@ -153,9 +154,21 @@ class AdminController extends Controller
     {
         $category = Category::where('id', $id)->first();
 
+        $categories = Category::where('parent_id', $id)->get();
+
+
+        if (count($categories)) {
+            foreach ($categories as $item) {
+                $item->parent_id = null;
+                $item->save();
+            }
+        }
+
+
+
 
         if (!$category) {
-            return redirect()->route('admin.stores')->with(
+            return redirect()->route('admin.categories')->with(
                 'error',
                 'The store no longer available'
             );

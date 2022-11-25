@@ -45,7 +45,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/products', [ProductController::class, 'index'])->name("products.index");
         Route::match(['GET', 'POST'], '/product/add', [ProductController::class, 'add_product'])->name("products.add");
         Route::match(['GET', 'POST'], '/product/edit', [ProductController::class, 'edit_product'])->name("products.edit");
-        Route::post('/product/delete/{id}', [ProductController::class, 'delete_product'])->name("delete_category");
+        Route::post('/product/delete/{id}', [ProductController::class, 'delete_product'])->name("delete_product");
 
 
         //stores

@@ -2,11 +2,11 @@
         <div class="container">
             <div class="col-md-3 footer-grids fgd1">
                 <a href="index.html"><img src="{{ asset('frontend/images/logo2.png') }}" alt=" " />
-                    <h3>FASHION<span>CLUB</span></h3>
+                    <h3>Apurba Jewellers</h3>
                 </a>
                 <ul>
-                    <li>1234k Avenue, 4th block,</li>
-                    <li>New York City.</li>
+                    <li>Rajdhani Market</li>
+                    <li>Dhaka Bangladesh</li>
                     <li><a href="mailto:info@example.com">info@example.com</a></li>
                     <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                     <a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
@@ -46,7 +46,7 @@
                 ©
                 <script>
                     document.write(new Date().getFullYear())
-                </script> Joy Jwellery . All rights reserved
+                </script> Apurba Jewellers . All rights reserved
             </p>
         </div>
     </div>

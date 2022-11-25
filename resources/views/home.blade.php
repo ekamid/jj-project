@@ -2,5 +2,5 @@
 
 
 @section('content')
-    <h1>Hello</h1>
+    <h1>Upcoming</h1>
 @endsection
