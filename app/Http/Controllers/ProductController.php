@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Store;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -70,9 +71,10 @@ class ProductController extends Controller
         }
         if ($request->method() === 'GET') {
             $categories = Category::where('published', 1)->get();
-
+            $stores = Store::where('published', 1)->get();
             return view('products.add', [
-                'categories' => $categories
+                'categories' => $categories,
+                'stores' => $stores
             ]);
         }
     }

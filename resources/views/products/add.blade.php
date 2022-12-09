@@ -1,5 +1,27 @@
 @extends('layouts.admin')
 
+@section('styles')
+    <style>
+        .ck-editor__editable[role="textbox"] {
+            /* editing area */
+            min-height: 200px;
+        }
+
+        #product_images_prev {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            max-width: 160px;
+            flex-wrap: nowrap;
+            flex-direction: row;
+        }
+
+        #product_images_prev img {
+            width: 100%;
+        }
+    </style>
+@endsection
+
 @section('content')
     <!-- Content wrapper -->
     <div class="content-wrapper">
@@ -69,38 +91,46 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="product_stock">Stock</label>
+                                    <input type="number" value="{{ old('stock') }}" name="stock" class="form-control"
+                                        id="product_stock" placeholder="Product Stock" required>
 
-                        <div class="mb-3">
-                            <label class="form-label" for="store_address">Address</label>
-                            <input type="text" value="{{ old('address') }}" name="address" class="form-control"
-                                id="store_address" placeholder="Dhaka, Bangladesh" required>
-                            @error('address')
-                                <div class="text-danger">
-                                    {{ $message }}
+                                    @error('stock')
+                                        <div class="text-danger">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
-                            @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="product_size">Size</label>
+                                    <select type="text" name="size" class="form-control" required id="product_size">
+                                        <option disabled selected>Select Size</option>
+                                        <option value='sm'>Small</option>
+                                        <option value='md'>Medium</option>
+                                        <option value='lg'>Large</option>
+                                        <option value='xl'>Extra Large</option>
+                                        <option value='xxl'>Extra Extra Large</option>
+                                    </select>
+
+                                    @error('size')
+                                        <div class="text-danger">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="mb-3">
-                            <label class="form-label" for="store_contact_no">Phone</label>
-                            <input type="text" name="phone" value="{{ old('phone') }}" class="form-control"
-                                id="store_contact_no" placeholder="+8801634234566" required>
-
-                            @error('phone')
-                                <div class="text-danger">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-
 
                         <div class="mb-3">
-                            <label class="form-label" for="instructions">Instructions</label>
-                            <textarea id="instructions" class="form-control"
-                                placeholder="You should first come to Rajdhani market more to reach us. Then....">
-                            {{ old('instructions') }}
-                            </textarea>
-                            @error('instructions')
+                            <label class="form-label" for="description">Description</label>
+                            <textarea id="description" style="min-height: 200px" class="form-control" placeholder="Description">{{ old('description') }}</textarea>
+                            @error('description')
                                 <div class="text-danger d-block">
                                     {{ $message }}
                                 </div>
@@ -109,9 +139,23 @@
 
 
                         <div class="mb-3">
-                            <label class="form-label" for="store_image">Store Image</label>
-                            <input type="file" accept="image/*" name="store_image" class="form-control" id="store_image"
-                                placeholder="store image">
+                            <label class="form-label" for="physical_store">Physical Store</label>
+                            <select type="text" data-show-subtext="true" data-live-search="true" multiple
+                                name="physical_store" class="form-control" required id="physical_store">
+                                <option disabled selected>Select Multiple Stores</option>
+
+                                @foreach ($stores as $store)
+                                    <option value={{ $store->id }}>{{ $store->name }}</option>
+                                @endforeach
+                            </select>
+
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label class="form-label" for="product_images">Product Images</label>
+                            <input type="file" accept="image/*" name="product_images" class="form-control"
+                                id="product_images" placeholder="store image" multiple />
 
                             @error('store_image')
                                 <div class="text-danger d-block">
@@ -119,8 +163,9 @@
                                 </div>
                             @enderror
 
-                            <img id="store_image_prev" width="200" src="" alt="store image"
-                                class="mt-2 d-none" />
+                            <div class="mt-2" id="product_images_prev">
+
+                            </div>
 
 
                         </div>
@@ -135,6 +180,20 @@
                             </div>
                         </div>
 
+
+
+                        <div id="customizationInstructionContainer" class="mb-3 d-none">
+                            <label class="form-label" for="customaization_instructions">Customization Instructions</label>
+                            <textarea id="customaization_instructions" style="min-height: 200px" class="form-control"
+                                placeholder="Customaization Instructions">{{ old('customaization_instructions') }}</textarea>
+                            @error('customaization_instructions')
+                                <div class="text-danger d-block">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+
                         <div class="mb-3">
                             <div class="form-check mt-3">
                                 <input class="form-check-input" type="checkbox" name="published[]" id="published">
@@ -142,9 +201,7 @@
                             </div>
                         </div>
 
-
-
-                        <button type="submit" class="btn btn-primary">Add Store</button>
+                        <button type="submit" class="btn btn-primary">Add Product</button>
                     </form>
                 </div>
 
@@ -162,21 +219,47 @@
 @endsection
 
 @section('scripts')
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/classic/ckeditor.js"></script>
     <script>
         // To style only selects with the my-select class
         $('#product_categories').selectpicker();
+        $('#physical_store').selectpicker();
 
-        $('#store_image').on('change', function() {
-            const file = $(this).get(0).files[0];
-            if (file) {
-                let url = URL.createObjectURL(file)
-                $('#store_image_prev').removeClass('d-none');
-                $('#store_image_prev').attr('src', url);
+        ClassicEditor
+            .create(document.querySelector('#description'))
+            .catch(error => {
+                console.error(error);
+            });
+        ClassicEditor
+            .create(document.querySelector('#customaization_instructions'))
+            .catch(error => {
+                console.error(error);
+            });
+
+
+        $("#customization_available").change(function() {
+            if (this.checked) {
+                $('#customizationInstructionContainer').removeClass('d-none');
             } else {
-                $('#store_image_prev').addClass('d-none');
+                $('#customizationInstructionContainer').addClass('d-none');
             }
+        });
 
 
+        //multiple images
+        $('#product_images').on('change', function() {
+            const files = $(this).get(0).files;
+
+            console.log(files);
+
+            for (let i = 0; i < files.length; i++) {
+                if (files[i]) {
+                    let url = URL.createObjectURL(files[i])
+                    $('#product_images_prev').append(`<img src="${url}" alt="Product Image" />`)
+                } else {
+                    $('.product_images_prev').addClass('d-none');
+                }
+            }
         })
     </script>
 @endsection

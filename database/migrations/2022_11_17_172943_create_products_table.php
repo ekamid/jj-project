@@ -23,6 +23,8 @@ class CreateProductsTable extends Migration
             $table->enum('size', ['sm', 'md', 'lg', 'xl', 'xxl']);
             $table->boolean('published')->default(0);
             $table->boolean('customization_available')->default(0);
+            $table->boolean('customaization_instructions')->nullable();
+            $table->json('physical_store')->nullable();
             $table->text('description')->nullable();
             $table->json('categories')->nullable();
             $table->json('images')->nullable(); //images will be a array of objects. feature image will be the first one if there is no featured image

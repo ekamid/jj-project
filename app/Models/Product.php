@@ -18,8 +18,10 @@ class Product extends Model
         'size',
         'images',
         'customization_available',
+        'customaization_instructions',
         'published',
         'categories',
         'description',
+        'physical_store'
     ];
 }
