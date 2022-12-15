@@ -49,6 +49,16 @@
                                 </div>
                             @enderror
                         </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="product_price">Price</label>
+                            <input type="text" value="{{ old('price') }}" min="0" class="form-control"
+                                name="price" id="product_price" placeholder="Price in taka" required>
+                            @error('price')
+                                <div class="text-danger">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
 
                         <div class="mb-3">
                             <label class="form-label" for="product_categories">Categories</label>
@@ -108,7 +118,8 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label" for="product_size">Size</label>
-                                    <select type="text" name="size[]" class="form-control" required id="product_size">
+                                    <select type="text" data-show-subtext="true" data-live-search="true" multiple
+                                        name="size[]" class="form-control" required id="product_size">
                                         <option disabled selected>Select Multiple Categories</option>
                                         <option value='sm'>Small</option>
                                         <option value='md'>Medium</option>

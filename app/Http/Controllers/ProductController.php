@@ -41,7 +41,9 @@ class ProductController extends Controller
             ]);
 
 
-            $productName = Str::squish($request->get('name'));
+            $productName = trim($request->get('name'));
+
+            // dd($productName);
 
 
             $product = Product::create([
