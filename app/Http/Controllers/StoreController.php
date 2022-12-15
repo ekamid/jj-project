@@ -44,7 +44,6 @@ class StoreController extends Controller
                 'holidays' => $request->get('holidays'),
                 'open_at' => $request->get('open_at'),
                 'close_at' => $request->get('close_at'), 'published' => $request->get('published') ? true : false,
-
             ]);
 
             if (!empty($request->store_image)) {
@@ -63,11 +62,6 @@ class StoreController extends Controller
                     'Store successfully added!'
                 );
             }
-
-            return redirect()->route('agent')->with(
-                'success',
-                'Store successfully added!'
-            );
         }
         if ($request->method() === 'GET') {
             return view('store.add');
@@ -100,7 +94,6 @@ class StoreController extends Controller
                 'store_image' => 'image|mimes:png,jpg,jpeg|max:2048',
             ]);
 
-            // dd($request->get('published'));
 
             $store->update([
                 'name' => $request->get('name'),

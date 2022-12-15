@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('admin.stores.add') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('admin.products.add') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label class="form-label" for="basic-default-fullname">Name</label>
@@ -53,7 +53,7 @@
                         <div class="mb-3">
                             <label class="form-label" for="product_categories">Categories</label>
                             <select type="text" data-show-subtext="true" data-live-search="true" multiple
-                                name="categories" class="form-control" required id="product_categories">
+                                name="categories[]" class="form-control" required id="product_categories">
                                 <option disabled selected>Select Multiple Categories</option>
 
                                 @foreach ($categories as $category)
@@ -108,8 +108,8 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label class="form-label" for="product_size">Size</label>
-                                    <select type="text" name="size" class="form-control" required id="product_size">
-                                        <option disabled selected>Select Size</option>
+                                    <select type="text" name="size[]" class="form-control" required id="product_size">
+                                        <option disabled selected>Select Multiple Categories</option>
                                         <option value='sm'>Small</option>
                                         <option value='md'>Medium</option>
                                         <option value='lg'>Large</option>
@@ -141,7 +141,7 @@
                         <div class="mb-3">
                             <label class="form-label" for="physical_store">Physical Store</label>
                             <select type="text" data-show-subtext="true" data-live-search="true" multiple
-                                name="physical_store" class="form-control" required id="physical_store">
+                                name="physical_store[]" class="form-control" required id="physical_store">
                                 <option disabled selected>Select Multiple Stores</option>
 
                                 @foreach ($stores as $store)
@@ -154,10 +154,10 @@
 
                         <div class="mb-3">
                             <label class="form-label" for="product_images">Product Images</label>
-                            <input type="file" accept="image/*" name="product_images" class="form-control"
+                            <input type="file" accept="image/*" name="images" class="form-control"
                                 id="product_images" placeholder="store image" multiple />
 
-                            @error('store_image')
+                            @error('images')
                                 <div class="text-danger d-block">
                                     {{ $message }}
                                 </div>
@@ -224,6 +224,7 @@
         // To style only selects with the my-select class
         $('#product_categories').selectpicker();
         $('#physical_store').selectpicker();
+        $('#product_size').selectpicker();
 
         ClassicEditor
             .create(document.querySelector('#description'))

@@ -126,10 +126,8 @@
 
                         <div class="mb-3">
                             <label class="form-label" for="instructions">Instructions</label>
-                            <textarea id="instructions" class="form-control"
-                                placeholder="You should first come to Rajdhani market more to reach us. Then....">
-                            {{ old('instructions') }}
-                            </textarea>
+                            <textarea name="instructions" id="instructions" class="form-control"
+                                placeholder="You should first come to Rajdhani market more to reach us. Then....">{{ old('instructions') }}</textarea>
                             @error('instructions')
                                 <div class="text-danger d-block">
                                     {{ $message }}

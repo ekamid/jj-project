@@ -6,6 +6,8 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Store;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
 
 class ProductController extends Controller
 {
@@ -21,46 +23,63 @@ class ProductController extends Controller
     public function add_product(Request $request)
     {
         if ($request->method() === 'POST') {
+            // dd($request->all());
+
+
+            // ,email,'.$this->user->id,
+
 
             $request->validate([
                 'name' => 'required',
-                'city' => 'required',
-                'address' => 'required',
-                'latitude' => 'numeric',
-                'longitude' => 'numeric',
-                'store_image' => 'image|mimes:png,jpg,jpeg|max:2048',
+                'slug' => 'string|unique:products,slug',
+                'weight' => 'required|numeric|gt:0',
+                'price' => 'required|numeric|gt:0',
+                'karat' => 'required|numeric|gt:0',
+                'stock'  => 'required|integer|gt:0',
+                'size'  => 'required',
+                'images' => 'image|mimes:png,jpg,jpeg|max:2048',
             ]);
 
 
+            $productName = Str::squish($request->get('name'));
 
-            $store = Product::create([
-                'name' => $request->get('name'),
-                'city' => $request->get('city'),
-                'address' => $request->get('address'),
-                'phone' => $request->get('phone') ?? null,
-                'latitude' => $request->get('latitude') ?? null,
-                'longitude' => $request->get('longitude') ?? null,
-                'instructions' => trim($request->get('instructions')),
-                'holidays' => $request->get('holidays'),
-                'open_at' => $request->get('open_at'),
-                'close_at' => $request->get('close_at'), 'published' => $request->get('published') ? true : false,
+
+            $product = Product::create([
+                'name' => $productName,
+                'slug' => Str::slug($productName, '-') . time(),
+                'price' => $request->get('price'),
+                'weight' => $request->get('weight'),
+                'karat' => $request->get('karat'),
+                'stock' => $request->get('stock'),
+                'size' => $request->get('size'),
+                'categories' => $request->get('categories') ?? null,
+                'physical_store' => $request->get('physical_store') ?? null,
+                'description' => trim($request->get('instructions')) ?? null,
+                'customization_available' => $request->get('customization_available') ?? 0,
+                'customaization_instructions' => trim($request->get('customaization_instructions')) ?? null,
+                'published' => $request->get('published') ? true : false,
 
             ]);
+
 
             if (!empty($request->images)) {
-                $file = $request->file('images');
-                $extension = $file->extension();
-                $filename = time() . '.' . $extension;
-                $file->move(public_path('uploads/products/'), $filename);
-                $store['images'] = '/uploads/products/' . $filename;
+                $images = [];
+                foreach ($request->file('images') as $file) {
+                    $extension = $file->extension();
+                    $filename = time() . '.' . $extension;
+                    $file->move(public_path('uploads/products/'), $filename);
+                    array_push($images, '/uploads/products/' . $filename);
+                }
+
+                $product['images'] = $images;
             }
 
-            $store->save();
+            $product->save();
 
-            if ($store) {
+            if ($product) {
                 return redirect()->route("admin.products.index")->with(
                     'success',
-                    'Store successfully added!'
+                    'Product successfully added!'
                 );
             }
 
@@ -69,7 +88,9 @@ class ProductController extends Controller
                 'Store successfully added!'
             );
         }
+
         if ($request->method() === 'GET') {
+
             $categories = Category::where('published', 1)->get();
             $stores = Store::where('published', 1)->get();
             return view('products.add', [
