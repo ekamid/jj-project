@@ -183,6 +183,19 @@
         <!-- Main JS -->
         <script src="{{ asset('dashboard/js/main.js') }}"></script>
 
+        <script>
+            $(document).ready(function() {
+                console.log('entered the container')
+
+                setTimeout(() => {
+                    console.log('5 seconds passed')
+                    $('#global_alert').removeClass('show');
+                    $('#global_alert').addClass('d-none');
+
+                }, 5000);
+            })
+        </script>
+
 
         <!-- Page JS -->
         <script src="{{ asset('dashboard/js/dashboards-analytics.js') }}"></script>

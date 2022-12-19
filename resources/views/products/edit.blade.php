@@ -71,7 +71,7 @@
                                 <option disabled selected>Select Multiple Categories</option>
                                 @foreach ($categories as $category)
                                     <option value={{ $category->id }}
-                                        {{ in_array($category->id, json_decode($product->categories)) ? 'selected' : '' }}>
+                                        {{ in_array($category->id, json_decode(@$product->categories)) ? 'selected' : '' }}>
                                         {{ $category->name }}</option>
                                 @endforeach
                             </select>
@@ -165,7 +165,7 @@
 
                                 @foreach ($stores as $store)
                                     <option value={{ $store->id }}
-                                        {{ in_array($store->id, json_decode($product->stores)) ? 'selected' : '' }}>
+                                        {{ in_array($store->id, json_decode(@$product->stores)) ? 'selected' : '' }}>
                                         {{ $store->name }}</option>
                                 @endforeach
                             </select>
@@ -184,11 +184,14 @@
                                 </div>
                             @enderror
 
-
+                            {{-- @dd($product->images) --}}
                             <div class="mt-2" id="product_images_prev">
-                                @foreach (json_decode($product->images) as $image)
-                                    <img src="{{ asset($image) }}" alt="{{ $product->name }}">
-                                @endforeach
+                                @if (!empty($product->images))
+                                    @foreach (json_decode(@$product->images) as $image)
+                                        <img src="{{ asset($image) }}" alt="{{ $product->name }}">
+                                    @endforeach
+                                @endif
+
                             </div>
 
 

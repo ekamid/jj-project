@@ -11,21 +11,24 @@
             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Products /</span> View Products</h4>
 
             @if (session()->has('success'))
-                <div class="alert bg-primary fade show d-flex align-items-center justify-content-between" role="alert">
+                <div id="global_alert"
+                    class="alert bg-primary fade show d-flex align-items-center justify-content-between global_alert"
+                    role="alert">
                     <p class="text-light m-0"> {{ session()->get('success') }}</p>
-                    <button type="button" class="btn btn-sm btn-outline-danger bg-danger text-light" data-dismiss="alert"
+                    {{-- <button type="button" class="btn btn-sm btn-outline-danger bg-danger text-light" data-dismiss="alert"
                         aria-label="Close">
                         <span aria-hidden="true">×</span>
-                    </button>
+                    </button> --}}
                 </div>
             @endif
 
             @if (session()->has('error'))
-                <div class="alert bg-danger fade show d-flex align-items-center justify-content-between" role="alert">
+                <div id="global_alert" class="alert bg-danger fade show d-flex align-items-center justify-content-between "
+                    role="alert">
                     <p class="text-light m-0"> {{ session()->get('error') }}</p>
-                    <button type="button" class="btn btn-sm btn-outline-danger" data-dismiss="alert" aria-label="Close">
+                    {{-- <button type="button" class="btn btn-sm btn-outline-danger" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">×</span>
-                    </button>
+                    </button> --}}
                 </div>
             @endif
 

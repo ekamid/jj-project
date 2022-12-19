@@ -131,7 +131,11 @@ class ProductController extends Controller
             ]);
 
 
-            $product['images'] = uploadProductImages($request->images);
+            $uploaded = uploadProductImages($request->images);
+
+
+
+            $product['images'] = $uploaded ? $uploaded : $product['images'];
 
 
             $product->save();
