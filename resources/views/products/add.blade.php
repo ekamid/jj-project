@@ -165,7 +165,7 @@
 
                         <div class="mb-3">
                             <label class="form-label" for="product_images">Product Images</label>
-                            <input type="file" accept="image/*" name="images" class="form-control"
+                            <input type="file" accept="image/*" name="images[]" class="form-control"
                                 id="product_images" placeholder="store image" multiple />
 
                             @error('images')

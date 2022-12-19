@@ -13,7 +13,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
+        $products = Product::all()->sortByDesc("id");;
 
         return view('products.index', [
             'products' => $products
@@ -23,12 +23,6 @@ class ProductController extends Controller
     public function add_product(Request $request)
     {
         if ($request->method() === 'POST') {
-            // dd($request->all());
-
-
-            // ,email,'.$this->user->id,
-
-
             $request->validate([
                 'name' => 'required',
                 'slug' => 'string|unique:products,slug',
@@ -37,35 +31,35 @@ class ProductController extends Controller
                 'karat' => 'required|numeric|gt:0',
                 'stock'  => 'required|integer|gt:0',
                 'size'  => 'required',
-                'images' => 'image|mimes:png,jpg,jpeg|max:2048',
+                'images.*' => 'mimes:png,jpg,jpeg|max:2048',
             ]);
 
 
             $productName = trim($request->get('name'));
 
-            // dd($productName);
-
-
             $product = Product::create([
                 'name' => $productName,
-                'slug' => Str::slug($productName, '-') . time(),
+                'slug' => Str::slug($productName, '-') . '-' . time(),
                 'price' => $request->get('price'),
                 'weight' => $request->get('weight'),
                 'karat' => $request->get('karat'),
                 'stock' => $request->get('stock'),
-                'size' => $request->get('size'),
-                'categories' => $request->get('categories') ?? null,
-                'physical_store' => $request->get('physical_store') ?? null,
-                'description' => trim($request->get('instructions')) ?? null,
-                'customization_available' => $request->get('customization_available') ?? 0,
+                'size' => json_encode($request->get('size')),
+                'categories' => json_encode($request->get('categories')) ?? null,
+                'physical_store' => json_encode($request->get('physical_store')) ?? null,
+                'description' => trim($request->get('description')) ?? null,
+                'customization_available' => $request->get('customization_available') ? true : false,
                 'customaization_instructions' => trim($request->get('customaization_instructions')) ?? null,
                 'published' => $request->get('published') ? true : false,
 
             ]);
 
+            // dd($request->images);
+
 
             if (!empty($request->images)) {
                 $images = [];
+
                 foreach ($request->file('images') as $file) {
                     $extension = $file->extension();
                     $filename = time() . '.' . $extension;

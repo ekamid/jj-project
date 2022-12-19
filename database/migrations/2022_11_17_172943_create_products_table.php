@@ -21,10 +21,10 @@ class CreateProductsTable extends Migration
             $table->double('weight');
             $table->double('karat');
             $table->integer('stock');
-            $table->enum('size', ['sm', 'md', 'lg', 'xl', 'xxl']);
+            $table->json('size');
             $table->boolean('published')->default(0);
             $table->boolean('customization_available')->default(0);
-            $table->boolean('customaization_instructions')->nullable();
+            $table->string('customaization_instructions')->nullable();
             $table->json('physical_store')->nullable();
             $table->text('description')->nullable();
             $table->json('categories')->nullable();
