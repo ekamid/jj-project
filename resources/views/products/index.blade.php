@@ -7,7 +7,6 @@
         <!-- Content -->
 
 
-
         <div class="container-xxl flex-grow-1 container-p-y">
             <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Products /</span> View Products</h4>
 
@@ -76,8 +75,10 @@
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" {{-- {{ route('admin.stores.edit', $item->id) }} --}} href=""><i
-                                                        class="bx bx-edit-alt me-1"></i> Edit</a>
+                                                <a class="dropdown-item"
+                                                    href="{{ route('admin.products.edit', $item->id) }}"><i
+                                                        class="bx bx-edit-alt me-1"></i>
+                                                    Edit</a>
                                                 <button type="button" class="dropdown-item" data-bs-toggle="modal"
                                                     data-bs-target="#delete_modal_{{ $item['id'] }}">
                                                     <i class="bx bx-trash me-1"></i> Delete
@@ -100,11 +101,12 @@
                                             <div class="modal-body text-center">
                                                 <i style="font-size: 48px" class="bx bx-trash text-danger me-1 mb-3"></i>
                                                 <br>
-                                                You sure you want to delete the store name
+                                                You sure you want to delete the product name
                                                 <strong class="text-primary"> {{ $item['name'] }}</strong>
                                             </div>
                                             <div class="modal-footer">
-                                                <form method="POST" {{-- {{ route('admin.delete_store', $item['id']) }} --}} action="">
+                                                <form method="POST"
+                                                    action=" {{ route('admin.products.delete', $item['id']) }}">
                                                     @csrf
                                                     <button type="submit" class="btn btn-danger"
                                                         data-bs-target="#delete_modal_{{ $item['id'] }}"

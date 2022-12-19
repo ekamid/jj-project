@@ -1,27 +1,52 @@
 @extends('layouts.admin')
 
+@section('styles')
+    <style>
+        .ck-editor__editable[role="textbox"] {
+            /* editing area */
+            min-height: 200px;
+        }
+
+        #product_images_prev {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            max-width: 160px;
+            flex-wrap: nowrap;
+            flex-direction: row;
+        }
+
+        #product_images_prev img {
+            width: 100%;
+        }
+    </style>
+@endsection
+
 @section('content')
     <!-- Content wrapper -->
     <div class="content-wrapper">
         <!-- Content -->
 
         <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Store /</span> Edit Store</h4>
+            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Products /</span> Edit Product</h4>
 
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Store Information</h5>
-                    <a class="btn btn-outline-primary float-end" href="{{ route('admin.stores') }}">View Store</a>
+                    <h5 class="mb-0">Product Information</h5>
+                    <a class="btn btn-outline-primary float-end" href="{{ route('admin.products.index') }}">View Products</a>
                 </div>
 
+
+
+
                 <div class="card-body">
-                    <form method="POST" action="{{ route('admin.stores.edit', $store['id']) }}"
+                    <form method="POST" action="{{ route('admin.products.edit', $product->id) }}"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
                             <label class="form-label" for="basic-default-fullname">Name</label>
-                            <input type="text" value="{{ @$store['name'] }}" class="form-control" name="name"
-                                id="basic-default-fullname" placeholder="Apurba Jewellers" required>
+                            <input type="text" value="{{ $product['name'] }}" class="form-control" name="name"
+                                id="basic-default-fullname" placeholder="Stylish Braclet" required>
                             @error('name')
                                 <div class="text-danger">
                                     {{ $message }}
@@ -29,46 +54,39 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label class="form-label" for="store_address">City</label>
-                            <select type="text" name="city" class="form-control" required id="store_city">
-                                <option value="dhaka" {{ @$store['city'] == 'dhaka' ? 'selected' : '' }}>Dhaka</option>
+                            <label class="form-label" for="product_price">Price</label>
+                            <input type="text" value="{{ $product['price'] }}" min="0" class="form-control"
+                                name="price" id="product_price" placeholder="Price in taka" required>
+                            @error('price')
+                                <div class="text-danger">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="product_categories">Categories</label>
 
-                                <option value="chattogram" {{ @$store['city'] == 'chattogram' ? 'selected' : '' }}>
-                                    Chattogram
-                                </option>
-                                <option value="sylhet" {{ @$store['city'] == 'sylhet' ? 'selected' : '' }}>Sylhet</option>
-                                <option value="mymensingh" {{ @$store['city'] == 'mymensingh' ? 'selected' : '' }}>
-                                    Mymensingh
-                                </option>
-                                <option value="rajshahi" {{ @$store['city'] == 'rajshahi' ? 'selected' : '' }}>Rajshahi
-                                </option>
-                                <option value="rangpur" {{ @$store['city'] == 'rangpur' ? 'selected' : '' }}>Rangpur
-                                </option>
-                                <option value="khulna" {{ @$store['city'] == 'khulna' ? 'selected' : '' }}>Khulna</option>
-                                <option value="barishal" {{ @$store['city'] == 'barishal' ? 'selected' : '' }}>Barishal
-                                </option>
+                            <select type="text" data-show-subtext="true" data-live-search="true" multiple
+                                name="categories[]" class="form-control" required id="product_categories">
+                                <option disabled selected>Select Multiple Categories</option>
+                                @foreach ($categories as $category)
+                                    <option value={{ $category->id }}
+                                        {{ in_array($category->id, json_decode($product->categories)) ? 'selected' : '' }}>
+                                        {{ $category->name }}</option>
+                                @endforeach
                             </select>
 
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="store_address">Address</label>
-                            <input type="text" value="{{ @$store['address'] }}" name="address" class="form-control"
-                                id="store_address" placeholder="Dhaka, Bangladesh" required>
-                            @error('address')
-                                <div class="text-danger">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
+
 
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label" for="store_latitude">Latitude</label>
-                                    <input type="text" value="{{ @$store['latitude'] }}" name="latitude"
-                                        class="form-control" id="store_latitude" placeholder="120.3424242" required>
+                                    <label class="form-label" for="product_weight">Weight</label>
+                                    <input type="text" value="{{ $product['weight'] }}" name="weight"
+                                        class="form-control" id="product_weight" placeholder="Weight In gram" required>
 
-                                    @error('longitude')
+                                    @error('weight')
                                         <div class="text-danger">
                                             {{ $message }}
                                         </div>
@@ -77,10 +95,48 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
-                                    <label class="form-label" for="store_longitude">Longitude</label>
-                                    <input type="text" value="{{ @$store['longitude'] }}" name="longitude"
-                                        class="form-control" id="store_longitude" placeholder="55.453453353" required>
-                                    @error('longitude')
+                                    <label class="form-label" for="product_karet">Karat</label>
+                                    <input type="text" value="{{ $product['karat'] }}" name="karat"
+                                        class="form-control" id="product_karet" placeholder="Karat" required>
+                                    @error('karat')
+                                        <div class="text-danger">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="product_stock">Stock</label>
+                                    <input type="number" value="{{ $product['stock'] }}" name="stock"
+                                        class="form-control" id="product_stock" placeholder="Product Stock" required>
+
+                                    @error('stock')
+                                        <div class="text-danger">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="product_size">Size</label>
+                                    <select type="text" data-show-subtext="true" data-live-search="true" multiple
+                                        name="size[]" class="form-control" required id="product_size">
+                                        <option disabled selected>Select Multiple Categories</option>
+                                        <option value='sm' {{ selectedSize('sm', $product->size) }}>Small</option>
+                                        <option value='md' {{ selectedSize('md', $product->size) }}>Medium</option>
+                                        <option value='lg' {{ selectedSize('lg', $product->size) }}>Large</option>
+                                        <option value='xl' {{ selectedSize('xl', $product->size) }}>Extra Large
+                                        </option>
+                                        <option value='xxl' {{ selectedSize('xxl', $product->size) }}>Extra Extra Large
+                                        </option>
+                                    </select>
+
+                                    @error('size')
                                         <div class="text-danger">
                                             {{ $message }}
                                         </div>
@@ -89,57 +145,11 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label" for="store_open_at">Open At</label>
-
-                                    <input type="time" value="{{ @$store['open_at'] }}" name="open_at"
-                                        class="form-control" id="store_open_at" placeholder="10:00" required>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label" for="store_close_at">Close At</label>
-                                    <input type="time" value="{{ @$store['close_at'] }}" name="close_at"
-                                        class="form-control" id="store_close_at" placeholder="20:00" required>
-                                </div>
-                            </div>
-                        </div>
-
 
                         <div class="mb-3">
-                            <label class="form-label" for="store_holidays">Holidays</label>
-                            <input type="text" name="holidays" value="{{ @$store['holidays'] }}" class="form-control"
-                                id="store_holidays" placeholder="Saturday, Sunday" required>
-
-                            @error('holidays')
-                                <div class="text-danger">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label" for="store_contact_no">Phone</label>
-                            <input type="text" name="phone" value="{{ @$store['phone'] }}" class="form-control"
-                                id="store_contact_no" placeholder="+8801634234566" required>
-
-                            @error('phone')
-                                <div class="text-danger">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-
-
-                        <div class="mb-3">
-                            <label class="form-label" for="instructions">Instructions</label>
-                            <textarea name="instructions" id="instructions" class="form-control"
-                                placeholder="You should first come to Rajdhani market more to reach us. Then....">
-                            {{ @$store['instructions'] }} 
-                            </textarea>
-                            @error('instructions')
+                            <label class="form-label" for="description">Description</label>
+                            <textarea id="description" style="min-height: 200px" class="form-control" placeholder="Description">{{ $product['description'] }}</textarea>
+                            @error('description')
                                 <div class="text-danger d-block">
                                     {{ $message }}
                                 </div>
@@ -148,19 +158,38 @@
 
 
                         <div class="mb-3">
-                            <label class="form-label" for="store_image">Store Image</label>
-                            <input type="file" accept="image/*" name="store_image" class="form-control"
-                                id="store_image" placeholder="store image">
+                            <label class="form-label" for="physical_store">Physical Store</label>
+                            <select type="text" data-show-subtext="true" data-live-search="true" multiple
+                                name="physical_store[]" class="form-control" id="physical_store">
+                                <option disabled selected>Select Multiple Stores</option>
 
-                            @error('store_image')
+                                @foreach ($stores as $store)
+                                    <option value={{ $store->id }}
+                                        {{ in_array($store->id, json_decode($product->stores)) ? 'selected' : '' }}>
+                                        {{ $store->name }}</option>
+                                @endforeach
+                            </select>
+
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label class="form-label" for="product_images">Product Images</label>
+                            <input type="file" accept="image/*" name="images[]" class="form-control"
+                                id="product_images" placeholder="store image" multiple />
+
+                            @error('images')
                                 <div class="text-danger d-block">
                                     {{ $message }}
                                 </div>
                             @enderror
 
-                            <img id="store_image_prev" src="{{ url($store['store_image']) }}" width="200"
-                                src="" alt="store image"
-                                class="mt-2 {{ $store['store_image'] ? 'd-block' : 'd-none' }}" />
+
+                            <div class="mt-2" id="product_images_prev">
+                                @foreach (json_decode($product->images) as $image)
+                                    <img src="{{ asset($image) }}" alt="{{ $product->name }}">
+                                @endforeach
+                            </div>
 
 
                         </div>
@@ -168,15 +197,37 @@
 
                         <div class="mb-3">
                             <div class="form-check mt-3">
-                                <input class="form-check-input" style="padding-left: 0 !important" type="checkbox"
-                                    name="published[]" {{ @$store['published'] ? 'checked' : '' }} id="published">
-                                <label class="form-check-label" for="published"> Publish </label>
+                                <input class="form-check-input" type="checkbox" name="customization_available[]"
+                                    id="customization_available"
+                                    {{ $product['customization_available'] ? 'checked' : '' }}>
+                                <label class="form-check-label" for="customization_available"> Customization Available
+                                </label>
                             </div>
                         </div>
 
 
 
-                        <button type="submit" class="btn btn-primary">Add Store</button>
+                        <div id="customizationInstructionContainer" class="mb-3 d-none">
+                            <label class="form-label" for="customaization_instructions">Customization Instructions</label>
+                            <textarea id="customaization_instructions" style="min-height: 200px" class="form-control"
+                                placeholder="Customaization Instructions">{{ $product['customaization_instructions'] }}</textarea>
+                            @error('customaization_instructions')
+                                <div class="text-danger d-block">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+
+                        <div class="mb-3">
+                            <div class="form-check mt-3">
+                                <input class="form-check-input" type="checkbox" name="published[]" id="published"
+                                    {{ $product['published'] ? 'checked' : '' }}>
+                                <label class="form-check-label" for="published"> Publish </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Update Product</button>
                     </form>
                 </div>
 
@@ -194,58 +245,47 @@
 @endsection
 
 @section('scripts')
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUPClCAvO-EIlmJajX4Sc3bpGgi57-LnE&callback=initAutocomplete&libraries=places"
-        defer></script>
-
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/classic/ckeditor.js"></script>
     <script>
-        let autocomplete;
-        let store_address;
+        // To style only selects with the my-select class
+        $('#product_categories').selectpicker();
+        $('#physical_store').selectpicker();
+        $('#product_size').selectpicker();
 
-        function initAutocomplete() {
-
-            store_address = document.querySelector("#store_address");
-
-            // Create the autocomplete object, restricting the search predictions to
-            // addresses in the US and Canada.
-            autocomplete = new google.maps.places.Autocomplete(store_address, {
-                // componentRestrictions: {
-                //     country: ["bd"]
-                // },
-                fields: ["address_components", "geometry"],
-                types: ["address"],
+        ClassicEditor
+            .create(document.querySelector('#description'))
+            .catch(error => {
+                console.error(error);
+            });
+        ClassicEditor
+            .create(document.querySelector('#customaization_instructions'))
+            .catch(error => {
+                console.error(error);
             });
 
-            store_address.focus();
 
-            // When the user selects an address from the drop-down, populate the
-            // address fields in the form.
-            autocomplete.addListener("place_changed", fillInAddress);
-        }
-
-        function fillInAddress() {
-            // Get the place details from the autocomplete object.
-            const place = autocomplete.getPlace();
-            const address = place.address_components[0].long_name;
-            const store_lat = place.geometry.location.lat();
-            const store_lng = place.geometry.location.lng();
-
-            $("#store_address").val(address)
-            $("#store_latitude").val(store_lat)
-            $("#store_longitude").val(store_lng)
-        }
-
-        $('#store_image').on('change', function() {
-            const file = $(this).get(0).files[0];
-            if (file) {
-                let url = URL.createObjectURL(file)
-                $('#store_image_prev').removeClass('d-none');
-                $('#store_image_prev').attr('src', url);
+        $("#customization_available").change(function() {
+            if (this.checked) {
+                $('#customizationInstructionContainer').removeClass('d-none');
             } else {
-                $('#store_image_prev').addClass('d-none');
+                $('#customizationInstructionContainer').addClass('d-none');
             }
+        });
 
 
+        //multiple images
+        $('#product_images').on('change', function() {
+            const files = $(this).get(0).files;
+
+            for (let i = 0; i < files.length; i++) {
+                if (files[i]) {
+                    let url = URL.createObjectURL(files[i])
+                    $('#product_images_prev').empty();
+                    $('#product_images_prev').append(`<img src="${url}" alt="Product Image" />`)
+                } else {
+                    $('.product_images_prev').addClass('d-none');
+                }
+            }
         })
     </script>
 @endsection

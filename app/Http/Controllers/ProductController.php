@@ -13,7 +13,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::all()->sortByDesc("id");;
+        $products = Product::all()->sortByDesc("id");
 
         return view('products.index', [
             'products' => $products
@@ -54,21 +54,10 @@ class ProductController extends Controller
 
             ]);
 
-            // dd($request->images);
 
 
-            if (!empty($request->images)) {
-                $images = [];
+            $product['images'] = uploadProductImages($request->images);
 
-                foreach ($request->file('images') as $file) {
-                    $extension = $file->extension();
-                    $filename = time() . '.' . $extension;
-                    $file->move(public_path('uploads/products/'), $filename);
-                    array_push($images, '/uploads/products/' . $filename);
-                }
-
-                $product['images'] = $images;
-            }
 
             $product->save();
 
@@ -97,16 +86,16 @@ class ProductController extends Controller
     }
 
 
-    public function edit_store(Request $request, $id)
+    public function edit_product(Request $request, $id)
     {
 
-        $store = Store::where('id', $id)->first();
+        $product = Product::where('id', $id)->first();
 
 
-        if (!$store) {
-            return redirect()->route('admin.stores')->with(
+        if (!$product) {
+            return redirect()->route('admin.products.index')->with(
                 'error',
-                'The store no longer available'
+                'The product no longer available'
             );
         }
 
@@ -115,41 +104,40 @@ class ProductController extends Controller
 
             $request->validate([
                 'name' => 'required',
-                'city' => 'required',
-                'address' => 'required',
-                'latitude' => 'numeric',
-                'longitude' => 'numeric',
-                'store_image' => 'image|mimes:png,jpg,jpeg|max:2048',
+                'weight' => 'required|numeric|gt:0',
+                'price' => 'required|numeric|gt:0',
+                'karat' => 'required|numeric|gt:0',
+                'stock'  => 'required|integer|gt:0',
+                'size'  => 'required',
+                'images.*' => 'mimes:png,jpg,jpeg|max:2048',
             ]);
 
-            // dd($request->get('published'));
+            $productName = trim($request->get('name'));
 
-            $store->update([
-                'name' => $request->get('name'),
-                'city' => $request->get('city'),
-                'address' => $request->get('address'),
-                'phone' => $request->get('phone') ?? null,
-                'latitude' => $request->get('latitude') ?? null,
-                'longitude' => $request->get('longitude') ?? null,
-                'instructions' => trim($request->get('instructions')),
-                'holidays' => $request->get('holidays'),
-                'open_at' => $request->get('open_at'),
-                'close_at' => $request->get('close_at'),
+
+            $product->update([
+                'name' => $productName,
+                'price' => $request->get('price'),
+                'weight' => $request->get('weight'),
+                'karat' => $request->get('karat'),
+                'stock' => $request->get('stock'),
+                'size' => json_encode($request->get('size')),
+                'categories' => json_encode($request->get('categories')) ?? null,
+                'physical_store' => json_encode($request->get('physical_store')) ?? null,
+                'description' => trim($request->get('description')) ?? null,
+                'customization_available' => $request->get('customization_available') ? true : false,
+                'customaization_instructions' => trim($request->get('customaization_instructions')) ?? null,
                 'published' => $request->get('published') ? true : false,
             ]);
 
-            if (!empty($request->store_image)) {
-                $file = $request->file('store_image');
-                $extension = $file->extension();
-                $filename = time() . '.' . $extension;
-                $file->move(public_path('store_images/'), $filename);
-                $store['store_image'] = '/store_images/' . $filename;
-            }
 
-            $store->save();
+            $product['images'] = uploadProductImages($request->images);
 
-            if ($store) {
-                return redirect()->route('admin.stores')->with(
+
+            $product->save();
+
+            if ($product) {
+                return redirect()->route('admin.products.index')->with(
                     'success',
                     'Store successfully updated!'
                 );
@@ -162,30 +150,35 @@ class ProductController extends Controller
         }
 
         if ($request->method() === 'GET') {
-            return view('store.edit_store', [
-                'store' => $store
+            $categories = Category::where('published', 1)->get();
+            $stores = Store::where('published', 1)->get();
+
+            return view('products.edit', [
+                'product' => $product,
+                'categories' => $categories,
+                'stores' => $stores
             ]);
         }
     }
 
-    public function delete_store(Request $request, $id)
+    public function delete_product(Request $request, $id)
     {
-        $store = Store::where('id', $id)->first();
+        $store = Product::where('id', $id)->first();
 
 
         if (!$store) {
-            return redirect()->route('admin.stores')->with(
+            return redirect()->route('admin.products.index')->with(
                 'error',
-                'The store no longer available'
+                'The product no longer available'
             );
         }
 
         $deleted = $store->delete();
 
         if ($deleted) {
-            return redirect()->route('admin.stores')->with(
+            return redirect()->route('admin.products.index')->with(
                 'success',
-                'Store successfully deleted!'
+                'Product successfully deleted!'
             );
         }
 
