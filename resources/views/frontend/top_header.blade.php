@@ -6,11 +6,20 @@
             </a>
         </div>
         <div class="col-md-6 phone-w3l">
-            <ul>
+            <ul class="right-nav">
                 <li>
                     <a class="btn btn-primary" href="{{ route('frontend.find_stores') }}">
                         Find Stores
                     </a>
+                </li>
+                <li>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button class="btn btn-danger" type="submit">
+                            <i class="fa fa-sign-out" aria-hidden="true"></i>
+                        </button>
+                    </form>
+
                 </li>
             </ul>
         </div>

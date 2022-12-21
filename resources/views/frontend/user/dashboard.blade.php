@@ -19,11 +19,7 @@
                                 <img style="width: 180px;" src="https://bootdey.com/img/Content/avatar/avatar7.png"
                                     alt="Admin" class="rounded-circle" width="150">
                                 <div class="mt-3">
-                                    <h4>John Doe</h4>
-                                    <p class="text-secondary mb-1">Full Stack Developer</p>
-                                    <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
-                                    <button class="btn btn-primary">Follow</button>
-                                    <button class="btn btn-outline-primary">Message</button>
+                                    <h4> {{ auth()->user()->name }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -35,7 +31,8 @@
                                     <h6 class="mb-0">Full Name</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    Kenneth Valdez
+                                    {{ auth()->user()->name }}
+
                                 </div>
                             </div>
                             <hr>
@@ -44,25 +41,18 @@
                                     <h6 class="mb-0">Email</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    fip@jukmuh.al
+                                    {{ auth()->user()->email }}
                                 </div>
                             </div>
                             <hr>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0">Phone</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    (239) 816-9029
-                                </div>
-                            </div>
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
                                     <h6 class="mb-0">Mobile</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    (320) 380-4539
+                                    {{ auth()->user()->phone }}
+
                                 </div>
                             </div>
                             <hr>
@@ -71,7 +61,7 @@
                                     <h6 class="mb-0">Address</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    Bay Area, San Francisco, CA
+                                    {{ auth()->user()->address }}
                                 </div>
                             </div>
                             <hr>

@@ -96,3 +96,13 @@
 
     color: #ff1ead;
 }
+
+
+/* header top */
+
+.header-top-w3layouts .right-nav {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 10px;
+}
