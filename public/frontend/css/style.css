@@ -2134,10 +2134,14 @@ p.single-price-text {
 	padding: 3em;
 }
 
+.invalid-feedback {
+	margin-bottom: 10px;
+}
+
 .key {
 	background: #fff;
 	border: 1px solid #999;
-	margin-bottom: 2em;
+	margin-bottom: 10px;
 }
 
 .key i {
@@ -3249,7 +3253,8 @@ p.w3-agile {
 	}
 
 	#PPsbmincart {
-		left: 25%: top: 25%;
+		left: 25%;
+		top: 25%;
 	}
 
 }
@@ -3716,7 +3721,7 @@ p.w3-agile {
 
 	#PPsbmincart {
 		left: 5%;
-		top: 35%:
+		top: 35%;
 	}
 }
 
