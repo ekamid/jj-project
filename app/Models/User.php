@@ -24,7 +24,6 @@ class User extends Authenticatable
         'password',
         'isAdmin',
         'address',
-        'social_accounts',
         'phone',
         'last_login',
         'email_verified_token',

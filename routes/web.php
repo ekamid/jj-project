@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,11 +24,12 @@ Route::get('/', function () {
 
 
 Route::group(['as' => 'frontend.'], function () {
+    Route::get('user/dashboard', [UserController::class, 'index'])->name('user.dashboard');
+
     Route::get('find-stores', [HomeController::class, 'find_stores'])->name('find_stores');
     Route::get('get-stores', [HomeController::class, 'get_stores'])->name('get_stores');
     Route::get('get-stores/{id}', [HomeController::class, 'find_single_store'])->name('find_single_store');
 });
-
 
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {

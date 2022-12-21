@@ -21,14 +21,12 @@ class CreateUsersTable extends Migration
             $table->date('date_of_birth')->nullable();
             $table->tinyInteger('gender')->default(0);
             $table->timestamp('email_verified_at')->nullable()->comment('if null then verifield, not null then not verified');
-            $table->string('token')->nullable()->comment('Token for email/phone verification, if null then verifield, not null then not verified');
+            $table->string('email_verified_token')->nullable()->comment('Token for email/phone verification, if null then verifield, not null then not verified');
             $table->string('phone')->nullable()->unique();
             $table->string('password');
-            $table->json('social_accounts')->nullable();
-            $table->string('address')->nullable();
+            $table->json('address')->nullable();
             $table->timestamp('last_login')->nullable();
             $table->tinyInteger('status')->default(1);
-            $table->unsignedBigInteger('image_id')->nullable();
             $table->string('avater')->nullable();
 
             $table->integer('role_id')->default(6); //1->admin, 2->moderator, 3->customer
