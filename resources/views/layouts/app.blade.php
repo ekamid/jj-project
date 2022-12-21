@@ -13,10 +13,12 @@
     </script>
     <!-- css -->
     <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap-updated.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/custom.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.min.css') }}">
 
+    @yield('styles')
 
     <!-- font -->
     <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet" />
