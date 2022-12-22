@@ -1,54 +1,81 @@
-    <div class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 footer-grids fgd1">
-                    <a href="index.html"><img src="{{ asset('frontend/images/logo2.png') }}" alt=" " />
-                        <h3>Apurba Jewellers</h3>
-                    </a>
-                    <ul>
-                        <li>Rajdhani Market</li>
-                        <li>Dhaka Bangladesh</li>
-                        <li><a href="mailto:info@example.com">info@example.com</a></li>
-                        <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                    </ul>
-                </div>
-                <div class="col-md-3 footer-grids fgd2">
-                    <h4>Information</h4>
-                    <ul>
-                        <li><a href="contact.html">Contact Us</a></li>
-                        <li><a href="icons.html">Web Icons</a></li>
-                        <li><a href="typography.html">Typography</a></li>
-                        <li><a href="faq.html">FAQ's</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3 footer-grids fgd3">
-                    <h4>Shop</h4>
-                    <ul>
-                        <li><a href="jewellery.html">Jewellery</a></li>
-                        <li><a href="cosmetics.html">Cosmetics</a></li>
-                        <li><a href="Shoes.html">Shoes</a></li>
-                        <li><a href="deos.html">Deos</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3 footer-grids fgd4">
-                    <h4>My Account</h4>
-                    <ul>
-                        <li><a href="login.html">Login</a></li>
-                        <li><a href="register.html">Register</a></li>
-                        <li><a href="recommended.html">Recommended </a></li>
-                        <li><a href="payment.html">Payments</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="clearfix"></div>
-            <p class="copy-right">
-                ©
-                <script>
-                    document.write(new Date().getFullYear())
-                </script> Apurba Jewellers . All rights reserved
-            </p>
-        </div>
-    </div>
+  <footer class="footer-section">
+      <div class="container relative">
+          <div class="row g-5 mb-5">
+              <div class="col-lg-4">
+                  <div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo">Furni<span>.</span></a></div>
+                  <p class="mb-4">Donec facilisis quam ut purus rutrum lobortis. Donec vitae odio quis nisl dapibus
+                      malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique.
+                      Pellentesque habitant</p>
+
+                  <ul class="list-unstyled custom-social">
+                      <li><a href="#"><span class="fa fa-brands fa-facebook-f"></span></a></li>
+                      <li><a href="#"><span class="fa fa-brands fa-twitter"></span></a></li>
+                      <li><a href="#"><span class="fa fa-brands fa-instagram"></span></a></li>
+                      <li><a href="#"><span class="fa fa-brands fa-linkedin"></span></a></li>
+                  </ul>
+              </div>
+
+              <div class="col-lg-8">
+                  <div class="row links-wrap">
+                      <div class="col-6 col-sm-6 col-md-3">
+                          <ul class="list-unstyled">
+                              <li><a href="#">About us</a></li>
+                              <li><a href="#">Services</a></li>
+                              <li><a href="#">Blog</a></li>
+                              <li><a href="#">Contact us</a></li>
+                          </ul>
+                      </div>
+
+                      <div class="col-6 col-sm-6 col-md-3">
+                          <ul class="list-unstyled">
+                              <li><a href="#">Support</a></li>
+                              <li><a href="#">Knowledge base</a></li>
+                              <li><a href="#">Live chat</a></li>
+                          </ul>
+                      </div>
+
+                      <div class="col-6 col-sm-6 col-md-3">
+                          <ul class="list-unstyled">
+                              <li><a href="#">Jobs</a></li>
+                              <li><a href="#">Our team</a></li>
+                              <li><a href="#">Leadership</a></li>
+                              <li><a href="#">Privacy Policy</a></li>
+                          </ul>
+                      </div>
+
+                      <div class="col-6 col-sm-6 col-md-3">
+                          <ul class="list-unstyled">
+                              <li><a href="#">Nordic Chair</a></li>
+                              <li><a href="#">Kruzo Aero</a></li>
+                              <li><a href="#">Ergonomic Chair</a></li>
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+
+          <div class="border-top copyright">
+              <div class="row pt-4">
+                  <div class="col-lg-6">
+                      <p class="mb-2 text-center text-lg-start">Copyright &copy;
+                          <script>
+                              document.write(new Date().getFullYear());
+                          </script>. All Rights Reserved. &mdash; Designed with love by <a
+                              href="https://untree.co">Untree.co</a>
+                          <!-- License information: https://untree.co/license/ -->
+                      </p>
+                  </div>
+
+                  <div class="col-lg-6 text-center text-lg-end">
+                      <ul class="list-unstyled d-inline-flex ms-auto">
+                          <li class="me-4"><a href="#">Terms &amp; Conditions</a></li>
+                          <li><a href="#">Privacy Policy</a></li>
+                      </ul>
+                  </div>
+
+              </div>
+          </div>
+
+      </div>
+  </footer>

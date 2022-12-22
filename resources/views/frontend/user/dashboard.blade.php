@@ -70,6 +70,12 @@
                                     <a class="btn btn-info " target="__blank"
                                         href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
                                 </div>
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button class="btn btn-danger" type="submit">
+                                        Hello
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>

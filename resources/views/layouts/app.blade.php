@@ -12,11 +12,10 @@
       addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }
     </script>
     <!-- css -->
-    <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap-updated.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap-icon.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('frontend/css/tiny-slider.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('frontend/css/custom.css') }}">
-    <link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.min.css') }}">
 
     @yield('styles')
 
@@ -31,51 +30,21 @@
 
 <body>
 
-    @include('frontend.top_header')
-    @include('frontend.bottom_header')
+    @include('frontend.navbar')
 
     @yield('content')
 
     @include('frontend.footer')
 
 
-    <script src="{{ asset('frontend/js/jquery-1.11.1.min.js') }}"></script>
-    <script src="{{ asset('frontend/js/bootstrap.js') }}"></script>
-    <script src="{{ asset('frontend/js/minicart.js') }}"></script>
-    <script src="{{ asset('frontend/js/easyResponsiveTabs.js') }}"></script>
+    <script src="{{ asset('frontend/js/jquery-3.6.3.js') }}"></script>
+    <script src="{{ asset('frontend/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('frontend/js/custom.js') }}"></script>
+    <script src="{{ asset('frontend/js/tiny-slider.js') }}"></script>
 
     @yield('scripts')
 
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $("#horizontalTab").easyResponsiveTabs({
-                type: "default", //Types: default, vertical, accordion
-                width: "auto", //auto or any width like 600px
-                fit: true, // 100% fit in a container
-            });
-        });
-    </script>
-
-
-    <!-- cart-js -->
-    <script>
-        w3ls1.render();
-
-        w3ls1.cart.on("w3sb1_checkout", function(evt) {
-            var items, len, i;
-
-            if (this.subtotal() > 0) {
-                items = this.items();
-
-                for (i = 0, len = items.length; i < len; i++) {
-                    items[i].set("shipping", 0);
-                    items[i].set("shipping2", 0);
-                }
-            }
-        });
-    </script>
-    <!-- //cart-js -->
 </body>
 
 
