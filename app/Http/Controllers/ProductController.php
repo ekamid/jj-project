@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductByCategory;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
+use function PHPUnit\Framework\isEmpty;
 
 class ProductController extends Controller
 {
@@ -45,16 +47,24 @@ class ProductController extends Controller
                 'karat' => $request->get('karat'),
                 'stock' => $request->get('stock'),
                 'size' => json_encode($request->get('size')),
-                'categories' => json_encode($request->get('categories')) ?? null,
                 'physical_store' => json_encode($request->get('physical_store')) ?? null,
                 'description' => trim($request->get('description')) ?? null,
                 'customization_available' => $request->get('customization_available') ? true : false,
                 'customaization_instructions' => trim($request->get('customaization_instructions')) ?? null,
                 'published' => $request->get('published') ? true : false,
-
             ]);
 
+            $categories = $request->get('categories') ? $request->get('categories') : [];
 
+
+            if ($product && !empty($categories)) {
+                foreach ($categories as $item) {
+                    ProductByCategory::create([
+                        'product_id' => $product->id,
+                        'category_id' => $item
+                    ]);
+                }
+            }
 
             $product['images'] = uploadProductImages($request->images);
 
@@ -75,7 +85,6 @@ class ProductController extends Controller
         }
 
         if ($request->method() === 'GET') {
-
             $categories = Category::where('published', 1)->get();
             $stores = Store::where('published', 1)->get();
             return view('products.add', [
@@ -114,7 +123,6 @@ class ProductController extends Controller
 
             $productName = trim($request->get('name'));
 
-
             $product->update([
                 'name' => $productName,
                 'price' => $request->get('price'),
@@ -122,7 +130,6 @@ class ProductController extends Controller
                 'karat' => $request->get('karat'),
                 'stock' => $request->get('stock'),
                 'size' => json_encode($request->get('size')),
-                'categories' => json_encode($request->get('categories')) ?? null,
                 'physical_store' => json_encode($request->get('physical_store')) ?? null,
                 'description' => trim($request->get('description')) ?? null,
                 'customization_available' => $request->get('customization_available') ? true : false,
@@ -131,9 +138,21 @@ class ProductController extends Controller
             ]);
 
 
+            ProductByCategory::where('product_id', $product->id)->delete();
+
+            $categories = $request->get('categories') ? $request->get('categories') : [];
+
+            if ($product && !empty($categories)) {
+                foreach ($categories as $item) {
+                    ProductByCategory::create([
+                        'product_id' => $product->id,
+                        'category_id' => $item
+                    ]);
+                }
+            }
+
+
             $uploaded = uploadProductImages($request->images);
-
-
 
             $product['images'] = $uploaded ? $uploaded : $product['images'];
 
@@ -155,11 +174,13 @@ class ProductController extends Controller
 
         if ($request->method() === 'GET') {
             $categories = Category::where('published', 1)->get();
+            $productByCategory = ProductByCategory::where('product_id', $id)->pluck('category_id');
             $stores = Store::where('published', 1)->get();
 
             return view('products.edit', [
                 'product' => $product,
                 'categories' => $categories,
+                'productByCategory' => $productByCategory,
                 'stores' => $stores
             ]);
         }

@@ -20,19 +20,13 @@
             <div class="row">
 
                 <!-- Start Column 1 -->
-                <div class="col-12 col-md-4 col-lg-3 mb-5">
-                    <a class="product-item" href="#">
-                        <img src="images/product-3.png" class="img-fluid product-thumbnail">
-                        <h3 class="product-title">Nordic Chair</h3>
-                        <strong class="product-price">$50.00</strong>
 
-                        <span class="icon-cross d-flex align-items-center justify-content-center">
-                            <i class="fa fa-plus" aria-hidden="true" style="color: #fff; font-size: 22px"></i>
-                        </span>
-                    </a>
-                </div>
-                <!-- End Column 1 -->
+                @foreach ($products as $item)
+                    @include('components.products.product_card')
+                @endforeach
+
             </div>
+
         </div>
     </div>
 @endsection

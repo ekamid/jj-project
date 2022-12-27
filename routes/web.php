@@ -18,9 +18,7 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', [HomeController::class, 'home_index'])->name('home');
 
 
 Route::group(['as' => 'frontend.'], function () {

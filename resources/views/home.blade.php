@@ -21,4 +21,6 @@
             </div>
         </div>
     </div>
+
+    @include('components.products.category_wise_product')
 @endsection

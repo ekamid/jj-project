@@ -2,15 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\ProductByCategory;
 use App\Models\Store;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
 
+    public function home_index(Request $request)
+    {
+        $categories = Category::where('published', true)->get();
+        $categoryByProducts = ProductByCategory::all();
+
+        dd($categoryByProducts);
+
+        return view('home', [
+            'categories' => $categories
+        ]);
+    }
+
     public function shop_index(Request $request)
     {
-        return view('shop');
+        $products = Product::where('published', true)->paginate(15);
+        // dd($products);
+        return view('shop', [
+            'products' => $products
+        ]);
     }
 
     public function find_stores(Request $request)

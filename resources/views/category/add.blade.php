@@ -79,7 +79,7 @@
 
 
 
-                        <button type="submit" class="btn btn-primary">Add Store</button>
+                        <button type="submit" class="btn btn-primary">Add Category</button>
                     </form>
                 </div>
 

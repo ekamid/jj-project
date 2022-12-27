@@ -65,13 +65,12 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="product_categories">Categories</label>
-
                             <select type="text" data-show-subtext="true" data-live-search="true" multiple
                                 name="categories[]" class="form-control" required id="product_categories">
                                 <option disabled selected>Select Multiple Categories</option>
                                 @foreach ($categories as $category)
                                     <option value={{ $category->id }}
-                                        {{ in_array($category->id, json_decode(@$product->categories)) ? 'selected' : '' }}>
+                                        {{ in_array($category->id, json_decode(json_encode($productByCategory), true)) ? 'selected' : '' }}>
                                         {{ $category->name }}</option>
                                 @endforeach
                             </select>
