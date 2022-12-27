@@ -8,7 +8,10 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
 
-
+    public function shop_index(Request $request)
+    {
+        return view('shop');
+    }
 
     public function find_stores(Request $request)
     {

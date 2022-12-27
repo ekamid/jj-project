@@ -6,11 +6,11 @@
 
 @section('content')
     <div class="container">
-        <div class="main-body">
+        <div class="main-body my-4">
 
             <div class="row gutters-sm">
                 <div class="col-md-4 mb-3">
-                    Profile Navbar
+                    @include('frontend.user.sidebar')
                 </div>
                 <div class="col-md-8">
                     <div class="card mb-3">
@@ -67,15 +67,8 @@
                             <hr>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <a class="btn btn-info " target="__blank"
-                                        href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
+                                    <a class="btn btn-info" href="{{ route('frontend.user.edit') }}">Edit</a>
                                 </div>
-                                <form action="{{ route('logout') }}" method="POST">
-                                    @csrf
-                                    <button class="btn btn-danger" type="submit">
-                                        Hello
-                                    </button>
-                                </form>
                             </div>
                         </div>
                     </div>

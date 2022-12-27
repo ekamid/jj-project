@@ -11,7 +11,7 @@
                             <label>Email<span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <div class="input-group-text"><i class="bi bi-person-fill"></i></div>
-                                <input class="form-control" type="text" name="email" required
+                                <input class="form-control" type="email" name="email" required
                                     value="{{ old('email') }}" placeholder="Email">
                             </div>
                             @error('email')
@@ -25,8 +25,8 @@
                             <label>Password<span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <div class="input-group-text"><i class="bi bi-lock-fill"></i></div>
-                                <input class="form-control" type="password" name="password" value="{{ old('password') }}"
-                                    required autofocus placeholder="Password">
+                                <input class="form-control" type="password" name="password" required autofocus
+                                    placeholder="Password">
                             </div>
                             @error('password')
                                 <div class="invalid-feedback text-danger d-block">
@@ -52,6 +52,11 @@
                     </form>
                 </div>
 
+            </div>
+            <div class="bg-white shadow rounded p-3 text-center mt-3">
+                <h6 class="mb-0">Don't have an account? Please <small><a
+                            href="{{ route('register') }}">register</a></small>
+                </h6>
             </div>
         </div>
     </div>

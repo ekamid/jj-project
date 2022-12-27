@@ -19,4 +19,23 @@ class UserController extends Controller
             return redirect('login');
         }
     }
+
+    public function edit(Request $request)
+    {
+
+        if (Auth::check()) {
+            if (!auth()->user()->isAdmin) {
+                if ($request->method() == 'POST') {
+                    return redirect()->route('frontend.user.dashboard');
+                }
+                if ($request->method() == 'GET') {
+                    return view('frontend.user.edit');
+                }
+            } else {
+                return redirect('admin/dashboard');
+            }
+        } else {
+            return redirect('login');
+        }
+    }
 }
