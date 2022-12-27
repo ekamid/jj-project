@@ -11,22 +11,34 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
 
-    public function home_index(Request $request)
+    public function home_index()
     {
-        $categories = Category::where('published', true)->get();
-        $categoryByProducts = ProductByCategory::all();
+        $products = [];
 
-        dd($categoryByProducts);
+        $productByCategories = ProductByCategory::all()->pluck('category_id')->unique();
+
+        foreach ($productByCategories as $item) {
+            $category = Category::where('id', $item)->where('published', true)->first();
+            $categoryProduct = ProductByCategory::where('category_id', $item)->take(3)->get();
+
+            foreach ($categoryProduct as $itemProduct) {
+                $product = Product::where('id', $itemProduct->product_id)->where('published', true)->first();
+                array_push($products[$item]['products'], $product);
+            }
+
+
+            $products[$item]['category_details'] = $category;
+        }
+
 
         return view('home', [
-            'categories' => $categories
+            'products' => $products
         ]);
     }
 
-    public function shop_index(Request $request)
+    public function shop_index()
     {
         $products = Product::where('published', true)->paginate(15);
-        // dd($products);
         return view('shop', [
             'products' => $products
         ]);
