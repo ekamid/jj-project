@@ -21,6 +21,7 @@
             </div>
         </div>
     </div>
-
-    @include('components.products.category_wise_product')
+    @foreach ($data as $item)
+        @include('components.products.category_wise_product')
+    @endforeach
 @endsection

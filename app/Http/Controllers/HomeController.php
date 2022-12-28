@@ -13,26 +13,28 @@ class HomeController extends Controller
 
     public function home_index()
     {
-        $products = [];
-
+        $data = [];
         $productByCategories = ProductByCategory::all()->pluck('category_id')->unique();
 
-        foreach ($productByCategories as $item) {
+        foreach ($productByCategories as $key => $item) {
+
+            $products = [];
+
             $category = Category::where('id', $item)->where('published', true)->first();
+
             $categoryProduct = ProductByCategory::where('category_id', $item)->take(3)->get();
 
             foreach ($categoryProduct as $itemProduct) {
                 $product = Product::where('id', $itemProduct->product_id)->where('published', true)->first();
-                array_push($products[$item]['products'], $product);
+                array_push($products, $product);
             }
 
-
-            $products[$item]['category_details'] = $category;
+            $data[$key]['products'] = $products;
+            $data[$key]['category'] = $category;
         }
 
-
         return view('home', [
-            'products' => $products
+            'data' => $data
         ]);
     }
 
