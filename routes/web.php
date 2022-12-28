@@ -24,6 +24,7 @@ Route::get('/', [HomeController::class, 'home_index'])->name('home');
 Route::group(['as' => 'frontend.'], function () {
 
     Route::get('shop', [HomeController::class, 'shop_index'])->name('shop');
+    Route::get('product/{slug}', [HomeController::class, 'product_details'])->name('product_details');
 
     Route::get('find-stores', [HomeController::class, 'find_stores'])->name('find_stores');
     Route::get('get-stores', [HomeController::class, 'get_stores'])->name('get_stores');

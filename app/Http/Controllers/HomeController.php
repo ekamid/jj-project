@@ -41,10 +41,25 @@ class HomeController extends Controller
     public function shop_index()
     {
         $products = Product::where('published', true)->paginate(15);
+
         return view('shop', [
             'products' => $products
         ]);
     }
+
+    public function product_details(Request $request, $slug)
+    {
+        $product = Product::where('slug', $slug)->first();
+        $store_ids = json_decode($product->physical_store);
+        $stores = $store_ids ? Store::whereIn('id', $store_ids)->get() : null;
+
+        return view('product_details', [
+            'product' => $product,
+            'stores' => $stores
+        ]);
+    }
+
+
 
     public function find_stores(Request $request)
     {

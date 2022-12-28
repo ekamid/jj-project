@@ -68,11 +68,18 @@
                             <select type="text" data-show-subtext="true" data-live-search="true" multiple
                                 name="categories[]" class="form-control" required id="product_categories">
                                 <option disabled selected>Select Multiple Categories</option>
-                                @foreach ($categories as $category)
-                                    <option value={{ $category->id }}
-                                        {{ in_array($category->id, json_decode(json_encode($productByCategory), true)) ? 'selected' : '' }}>
-                                        {{ $category->name }}</option>
-                                @endforeach
+                                @if ($categories != null)
+                                    @foreach ($categories as $category)
+                                        <option value={{ $category->id }}
+                                            {{ in_array($category->id, json_decode(json_encode($productByCategory), true)) ? 'selected' : '' }}>
+                                            {{ $category->name }}</option>
+                                    @endforeach
+                                @else
+                                    @foreach ($categories as $category)
+                                        <option value={{ $category->id }}>
+                                            {{ $category->name }}</option>
+                                    @endforeach
+                                @endif
                             </select>
 
                         </div>
@@ -125,7 +132,7 @@
                                     <label class="form-label" for="product_size">Size</label>
                                     <select type="text" data-show-subtext="true" data-live-search="true" multiple
                                         name="size[]" class="form-control" required id="product_size">
-                                        <option disabled selected>Select Multiple Categories</option>
+                                        <option disabled selected>Select Multiple Size</option>
                                         <option value='sm' {{ selectedSize('sm', $product->size) }}>Small</option>
                                         <option value='md' {{ selectedSize('md', $product->size) }}>Medium</option>
                                         <option value='lg' {{ selectedSize('lg', $product->size) }}>Large</option>
@@ -147,7 +154,8 @@
 
                         <div class="mb-3">
                             <label class="form-label" for="description">Description</label>
-                            <textarea id="description" style="min-height: 200px" class="form-control" placeholder="Description">{{ $product['description'] }}</textarea>
+                            <textarea id="description" name="description" style="min-height: 200px" class="form-control"
+                                placeholder="Description">{{ $product['description'] }}</textarea>
                             @error('description')
                                 <div class="text-danger d-block">
                                     {{ $message }}
@@ -161,12 +169,19 @@
                             <select type="text" data-show-subtext="true" data-live-search="true" multiple
                                 name="physical_store[]" class="form-control" id="physical_store">
                                 <option disabled selected>Select Multiple Stores</option>
+                                @if (json_decode(@$product->physical_store) != null)
+                                    @foreach ($stores as $store)
+                                        <option value={{ $store->id }}
+                                            {{ in_array($store->id, json_decode(@$product->physical_store)) ? 'selected' : '' }}>
+                                            {{ $store->name }}</option>
+                                    @endforeach
+                                @else
+                                    @foreach ($stores as $store)
+                                        <option value={{ $store->id }}>
+                                            {{ $store->name }}</option>
+                                    @endforeach
+                                @endif
 
-                                @foreach ($stores as $store)
-                                    <option value={{ $store->id }}
-                                        {{ in_array($store->id, json_decode(@$product->stores)) ? 'selected' : '' }}>
-                                        {{ $store->name }}</option>
-                                @endforeach
                             </select>
 
                         </div>
@@ -183,7 +198,6 @@
                                 </div>
                             @enderror
 
-                            {{-- @dd($product->images) --}}
                             <div class="mt-2" id="product_images_prev">
                                 @if (!empty($product->images))
                                     @foreach (json_decode(@$product->images) as $image)

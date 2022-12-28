@@ -98,6 +98,8 @@ class ProductController extends Controller
     public function edit_product(Request $request, $id)
     {
 
+        // dd($request->all());
+
         $product = Product::where('id', $id)->first();
 
 
