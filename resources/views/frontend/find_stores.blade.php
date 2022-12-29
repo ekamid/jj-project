@@ -5,37 +5,9 @@
         <div class="container">
             <div class="store-content">
                 <div class="store-selection">
-                    <h2 class="store-heading">Find Stores</h2>
-                    {{-- <form class="form-inline">
-                        <h2 class="store-heading">Find Stores</h2>
-                        <div class="form-group mb-2">
-                            <select class="form-control capitalize" id="exampleFormControlSelect1">
-                                <option value="null">Choose City</option>
-                                @foreach ($stores as $city => $store)
-                                    <option value="{{ $city }}">{{ $city }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group mx-sm-3 mb-2">
-                            <select class="form-control" id="exampleFormControlSelect1">
-                                <option value="null">Choose Store</option>
-                                @foreach (array_values($stores)[0] as $store)
-                                    <option latitude="{{ $store['latitude'] }}" longitude="{{ $store['longitude'] }}"
-                                        value="{{ $store['id'] }}">
-                                        {{ $store['name'] }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary mb-2">Find</button>
-                    </form> --}}
-
+                    <h2 class="store-heading text-center my-4">Find Stores</h2>
                 </div>
-
-                {{-- <select id="cityselect" onchange="selectCity(event)">
-
-                </select> --}}
-
-                <div id="storeMap" class="store-map"></div>
+                <div id="storeMap" class="store-map" style="height: 470px"></div>
             </div>
         </div>
     </div>
