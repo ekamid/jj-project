@@ -1,40 +1,58 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="sub-banner" style="background: url({{ url($store['store_image']) }}) no-repeat 0px 0px !important">
-    </div>
-    <div class="contact">
+    <div class="untree_co-section">
+        <div class="sub-banner" style="background: url({{ url($store['store_image']) }}) no-repeat 0px 0px !important">
+        </div>
         <div class="container">
-            <h3>{{ @$store['name'] }}</h3>
-            <div class="col-md-3 col-sm-3 contact-left">
-                <div class="address">
-                    <h4>ADDRESS</h4>
-                    <h5>{{ @$store['address'] }}</h5>
+
+            <div class="block">
+                <div class="d-flex justify-content-between" style="flex-wrap: wrap;">
+                    <div>
+                        <h4>
+                            Address
+                        </h4>
+                        <h6>
+                            {{ @$store['address'] }}
+                        </h6>
+                    </div>
+                    <div>
+                        <h4>
+                            Phone
+                        </h4>
+                        <h6>
+                            {{ @$store['phone'] }}
+                        </h6>
+                    </div>
+                    <div>
+                        <h4>
+                            Holidays
+                        </h4>
+                        <h6>
+                            {{ @$store['holidays'] }}
+                        </h6>
+                    </div>
+                    <div>
+                        <h4>
+                            Open-Close
+                        </h4>
+
+                        <h6>Open At: <small>{{ @$store['open_at'] }}</small></h6>
+                        <h6>Close At: <small>{{ @$store['close_at'] }}</small></h6>
+
+                    </div>
                 </div>
-                <div class="phone">
-                    <h4>PHONE</h4>
-                    <h5>{{ @$store['phone'] }}</h5>
-                </div>
-                <div class="phone">
-                    <h4>Holidays</h4>
-                    <h5>{{ @$store['holidays'] }}</h5>
-                </div>
-                <div class="phone">
-                    <h4>Open-Close</h4>
-                    <h5>Open At: <small>{{ @$store['open_at'] }}</small></h5>
-                    <h5>Close At: <small>{{ @$store['close_at'] }}</small></h5>
-                </div>
-                <div class="email">
+                <div>
                     <h4>Instructions</h4>
                     <p>{{ @$store['instructions'] }}</p>
                 </div>
             </div>
-            <div class="col-md-9 col-sm-9 contact-right">
-                <div class="map-w3ls">
-                    <div style="height: 460px" id="single_store_map"></div>
-                </div>
-            </div>
+
         </div>
+        <div class="map-w3ls">
+            <div style="height: 460px" id="single_store_map"></div>
+        </div>
+
     </div>
 
     <input type="hidden" name="latitude" id="latitude" value="{{ @$store['latitude'] }}">

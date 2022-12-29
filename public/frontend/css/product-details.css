@@ -185,35 +185,14 @@ label.radio span {
     border: 2px solid #8f37aa;
     display: inline-block;
     color: #8f37aa;
-    border-radius: 50%;
-    width: 25px;
-    height: 25px;
+    padding: 12px;
     text-transform: uppercase;
     transition: 0.5s all
 }
 
-label.radio .red {
-    background-color: red;
-    border-color: red
-}
-
-label.radio .blue {
-    background-color: blue;
-    border-color: blue
-}
-
-label.radio .green {
-    background-color: green;
-    border-color: green
-}
-
-label.radio .orange {
-    background-color: orange;
-    border-color: orange
-}
 
 label.radio input:checked+span {
-    color: #fff;
+    color: orange;
     position: relative
 }
 
