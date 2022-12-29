@@ -53,6 +53,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::match(['GET', 'POST'], '/product/edit/{id}', [ProductController::class, 'edit_product'])->name("products.edit");
         Route::post('/product/delete/{id}', [ProductController::class, 'delete_product'])->name("products.delete");
 
+        // users 
+        Route::get('/users', [AdminController::class, 'users'])->name("users.index");
+        Route::post('/user/delete/{id}', [AdminController::class, 'delete_user'])->name("users.delete");
+
 
         //stores
         Route::get('/stores', [StoreController::class, 'index'])->name("stores.index");

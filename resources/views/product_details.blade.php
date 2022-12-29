@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-    <div class="container mt-2 mb-3">
+    <div class="container mt-5 mb-3">
         <div class="row no-gutters">
             <div class="col-md-5 pr-2">
                 <div class="card">
@@ -26,9 +26,8 @@
                         <h6 class="font-weight-bold text-dark">৳{{ ' ' }}<strong>{{ $product->price }}</strong>
                         </h6>
                     </div>
-                    <div class="buttons"> <button class="btn btn-outline-warning btn-long cart">Add to Cart</button>
-                        <button class="btn btn-warning btn-long buy">Buy it Now</button> <button
-                            class="btn btn-light wishlist"> <i class="fa fa-heart"></i> </button>
+                    <div class="buttons"> <button class="btn btn-light wishlist btn-long cart">Add to Cart</button>
+                        <button class="btn btn-warning btn-long buy">Buy it Now</button>
                     </div>
                     <hr>
                     <div class="product-description d-flex flex-column">
@@ -57,40 +56,6 @@
                                     </a>
                                 @endforeach
                             @endisset
-                        </div>
-                    </div>
-                </div>
-                <div class="card mt-2"> <span>Similar items:</span>
-                    <div class="similar-products mt-2 d-flex flex-row">
-                        <div class="card border p-1" style="width: 9rem;margin-right: 3px;"> <img
-                                src="https://i.imgur.com/KZpuufK.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h6 class="card-title">$1,999</h6>
-                            </div>
-                        </div>
-                        <div class="card border p-1" style="width: 9rem;margin-right: 3px;"> <img
-                                src="https://i.imgur.com/GwiUmQA.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h6 class="card-title">$1,699</h6>
-                            </div>
-                        </div>
-                        <div class="card border p-1" style="width: 9rem;margin-right: 3px;"> <img
-                                src="https://i.imgur.com/c9uUysL.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h6 class="card-title">$2,999</h6>
-                            </div>
-                        </div>
-                        <div class="card border p-1" style="width: 9rem;margin-right: 3px;"> <img
-                                src="https://i.imgur.com/kYWqL7k.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h6 class="card-title">$3,999</h6>
-                            </div>
-                        </div>
-                        <div class="card border p-1" style="width: 9rem;"> <img src="https://i.imgur.com/DhKkTrG.jpg"
-                                class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h6 class="card-title">$999</h6>
-                            </div>
                         </div>
                     </div>
                 </div>

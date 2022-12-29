@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -31,6 +32,13 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+
+        if (Auth::user()->status === 3) {
+            Auth::guard('web')->logout();
+            throw ValidationException::withMessages([
+                'email' => "This User deleted by Admin.",
+            ]);
+        }
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }

@@ -9,8 +9,14 @@ class UserController extends Controller
 {
     public function index()
     {
+
         if (Auth::check()) {
-            if (!auth()->user()->isAdmin) {
+
+            // if (auth()->user()->status === 3) {
+
+            // }
+
+            if (auth()->user()->is_admin !== 1) {
                 return view('frontend.user.dashboard');
             } else {
                 return redirect('admin/dashboard');

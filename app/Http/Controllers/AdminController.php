@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Store;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -188,6 +189,52 @@ class AdminController extends Controller
             'Something went wrong!'
         );
     }
+
+    //users
+
+    // view users \
+
+
+    public function users()
+    {
+        $users = User::all()->where('is_admin', 0)->sortByDesc("id");
+
+        return view('users.index', [
+            'users' => $users
+        ]);
+    }
+
+
+    public function delete_user(Request $request, $id)
+    {
+        $user = User::where('id', $id)->where('status', '!=', 3)->first();
+
+
+        if (!$user) {
+            return redirect()->route('admin.users.index')->with(
+                'error',
+                'The user no longer available'
+            );
+        }
+
+        $user->status = 3;
+
+        $deleted = $user->save();
+
+        if ($deleted) {
+            return redirect()->route('admin.users.index')->with(
+                'success',
+                'User soft delete successful!'
+            );
+        }
+
+
+        return redirect()->back()->with(
+            'error',
+            'Something went wrong!'
+        );
+    }
+
 
 
     //authentication
