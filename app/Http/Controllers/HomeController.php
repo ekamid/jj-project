@@ -47,6 +47,11 @@ class HomeController extends Controller
         ]);
     }
 
+    public function cart_index()
+    {
+        return view('frontend.cart');
+    }
+
     public function product_details(Request $request, $slug)
     {
         $product = Product::where('slug', $slug)->first();

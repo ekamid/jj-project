@@ -4,3 +4,18 @@
     outline: none;
     width: 100%;
 }
+
+
+.my-cart-icon {
+    background-color: #ff7676;
+    color: #000;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    right: 0;
+}
