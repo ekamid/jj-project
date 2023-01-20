@@ -26,9 +26,10 @@
                         <h6 class="font-weight-bold text-dark">৳{{ ' ' }}<strong>{{ $product->price }}</strong>
                         </h6>
                     </div>
-                    <div class="buttons"> <button data-id="2" data-name="{{ $product->name }}"
-                            data-summary="{{ $product->name }}" data-price="{{ $product->price }}" data-quantity="1"
-                            data-image="{{ asset($image) }}" class="btn btn-light wishlist btn-long cart my-cart-btn">Add to
+                    <div class="buttons"> <button pId="{{ @$product->id }}" pName="{{ @$product->name }}"
+                            pImg="{{ asset($image) }}" pPrice="{{ @$product->price }}"
+                            pSlug="{{ route('frontend.product_details', @$product->slug) }}"
+                            class="btn btn-light wishlist btn-long cart my-cart-btn add-to-cart-btn">Add to
                             Cart</button>
                     </div>
                     <hr>

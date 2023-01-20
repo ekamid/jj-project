@@ -8,8 +8,8 @@
                 <div class="col-lg-5">
                     <div class="intro-excerpt">
                         <h1>Apurba Jewellers</h1>
-                        <p class="mb-4">Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam
-                            vulputate velit imperdiet dolor tempor tristique.</p>
+                        <p class="mb-4">An ecommerce platform for jewelry would allow customers to browse and purchase
+                            various types of jewelry online..</p>
                         <p><a href="{{ route('frontend.shop') }}" class="btn btn-secondary me-2">Shop Now</a>
                     </div>
                 </div>
