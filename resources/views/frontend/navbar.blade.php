@@ -21,7 +21,7 @@
                 <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
                     <li><a class="nav-link" href="{{ route('frontend.user.dashboard') }}"><img
                                 src="{{ asset('frontend/images/user.svg') }}"></a></li>
-                    <li><a class="nav-link" style="position: relative" href="#"><img
+                    <li><a class="nav-link" style="position: relative" href="{{ route('frontend.cart') }}"><img
                                 src="{{ asset('frontend/images/cart.svg') }}">
                             <span class="glyphicon glyphicon-shopping-cart my-cart-icon"><span
                                     class="badge badge-notify my-cart-badge"></span></span>
