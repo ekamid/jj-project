@@ -26,7 +26,7 @@
             <div class="row mb-5">
                 <form class="col-md-12" method="post">
                     <div class="site-blocks-table">
-                        <table class="table">
+                        <table id="cart_table" class="table">
                             <thead>
                                 <tr>
                                     <th class="product-thumbnail">Image</th>

@@ -41,6 +41,7 @@ if (!function_exists('calculateCartedProducts')) {
 
         $products = [];
         $subtotal = 0;
+        $total_quantity = 0;
 
 
         foreach ($cartedItems as  $item) {
@@ -55,6 +56,7 @@ if (!function_exists('calculateCartedProducts')) {
                         'price' => $product->price,
                     ]);
                     $subtotal += $product->price * $item->quantity;
+                    $total_quantity += $item->quantity;
                 }
             }
         }
@@ -62,6 +64,7 @@ if (!function_exists('calculateCartedProducts')) {
         return [
             'products' => $products,
             'subtotal' => $subtotal,
+            'total_quantity' => $total_quantity,
         ];
     }
 }

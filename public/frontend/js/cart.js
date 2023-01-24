@@ -190,9 +190,11 @@ function showCartItems() {
 
         $("#cart_items").html(cart_items);
     } else {
-        $("table").html(
+        $("#cart_table").html(
             "<h3 class='text-center w-100'>Your Cart is empty..</h3>"
         );
+
+        $("#checkout_btn").removeClass("d-none");
     }
 
     showCartQtyInBadge();

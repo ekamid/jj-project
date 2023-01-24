@@ -22,7 +22,7 @@ class CreateOrderDetailsTable extends Migration
             $table->boolean('status')->default(1);
             $table->double('price');
             $table->unsignedInteger('quantity');
-            $table->text('customization_details');
+            $table->text('customization_details')->nullable();
             $table->timestamps();
         });
     }

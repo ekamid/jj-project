@@ -18,6 +18,7 @@ class Order extends Model
         'payment_method',
         'payment_status',
         'subtotal_amount',
+        'total_quantity',
         'delivery_charge',
         'total_amount', //total_amount = subtotal_amount + delivery_charge
         'status',

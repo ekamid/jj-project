@@ -29,7 +29,7 @@ class CreateOrdersTable extends Migration
             $table->double('total_amount');
             $table->unsignedInteger('total_quantity');
             $table->text('delivery_address');
-            $table->text('order_note');
+            $table->text('order_note')->nullable();
             $table->timestamps();
         });
     }
