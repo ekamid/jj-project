@@ -9,29 +9,9 @@ function getCartFromLocalStorage() {
     return [];
 }
 
-// async function checkProductStock(id) {
-//     try {
-//         const requestForProduct = $.ajax({
-//             url: `products/${id}`,
-//             type: "GET",
-//         });
-
-//         requestForProduct.done(function (response) {
-//             const product = response.data;
-
-//             return product;
-//         });
-//     } catch (e) {
-//         console.log(e);
-//     }
-// }
 
 function checkProductStock(id) {
     return $.get(`products/${id}`);
-    // return $.ajax({
-    //     url: `products/${id}`,
-    //     type: "GET",
-    // });
 }
 
 async function addToCart() {
