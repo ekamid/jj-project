@@ -9,14 +9,45 @@ function getCartFromLocalStorage() {
     return [];
 }
 
-function addToCart() {
-    console.log("Adding");
+// async function checkProductStock(id) {
+//     try {
+//         const requestForProduct = $.ajax({
+//             url: `products/${id}`,
+//             type: "GET",
+//         });
+
+//         requestForProduct.done(function (response) {
+//             const product = response.data;
+
+//             return product;
+//         });
+//     } catch (e) {
+//         console.log(e);
+//     }
+// }
+
+function checkProductStock(id) {
+    return $.get(`products/${id}`);
+    // return $.ajax({
+    //     url: `products/${id}`,
+    //     type: "GET",
+    // });
+}
+
+async function addToCart() {
+    console.log("addToCart");
     let _id = $(this).attr("pId");
     let _name = $(this).attr("pName");
     let _price = $(this).attr("pPrice");
     let _image = $(this).attr("pImg");
     let _slug = $(this).attr("pSlug");
     let _quantity = 1;
+
+    const response = await checkProductStock(_id).done(function (response) {
+        return response;
+    });
+
+    const product = response.data;
 
     const newItem = {
         id: _id,
@@ -32,6 +63,9 @@ function addToCart() {
     let existingItem = cartedProducts.find((item) => item.id === newItem.id);
 
     if (existingItem) {
+        if (product.stock >= existingItem.stock) {
+            alert("Product Out of Stock");
+        }
         existingItem.quantity = existingItem.quantity + 1;
     } else {
         cartedProducts.push(newItem);
@@ -95,17 +129,21 @@ function decreaseCartQuantity() {
 
 // increase cart quantity by 1 - start
 
-function increaseCartQuantity() {
+async function increaseCartQuantity() {
     let _id = $(this).parents("tr").attr("product_id");
 
     const cartedProducts = getCartFromLocalStorage();
 
     let existingItem = cartedProducts.find((item) => item.id === _id);
 
-    console.log(existingItem);
+    const response = await checkProductStock(_id).done(function (response) {
+        return response;
+    });
+
+    const product = response.data;
 
     if (existingItem) {
-        if (existingItem.quantity < 50) {
+        if (existingItem.quantity < product.stock) {
             existingItem.quantity = existingItem.quantity + 1;
         } else {
             alert("Product Out Of Stock");

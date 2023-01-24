@@ -64,6 +64,22 @@ class HomeController extends Controller
         ]);
     }
 
+    public function check_product_stock(Request $request, $id)
+    {
+        $product = Product::where('id', $id)->first();
+
+        if (!$product) {
+            return response()->json([
+                'success' => false,
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $product,
+        ], 200);
+    }
+
 
 
     public function find_stores(Request $request)
