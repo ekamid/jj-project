@@ -26,9 +26,11 @@ Route::group(['as' => 'frontend.'], function () {
 
     Route::get('shop', [HomeController::class, 'shop_index'])->name('shop');
     Route::get('cart', [HomeController::class, 'cart_index'])->name('cart');
-    Route::get('checkout', [OrderController::class, 'checkout_index'])->name('checkout');
     Route::get('product/{slug}', [HomeController::class, 'product_details'])->name('product_details');
     Route::get('products/{id}', [HomeController::class, 'check_product_stock'])->name('check_product_stock');
+
+    Route::get('checkout', [OrderController::class, 'checkout_index'])->name('checkout');
+    Route::post('place-order', [OrderController::class, 'place_order'])->name('place_order');
 
     Route::get('find-stores', [HomeController::class, 'find_stores'])->name('find_stores');
     Route::get('get-stores', [HomeController::class, 'get_stores'])->name('get_stores');

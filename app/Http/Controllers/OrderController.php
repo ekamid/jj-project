@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -15,10 +16,8 @@ class OrderController extends Controller
     {
         if (auth()->user() && auth()->user()->is_admin !== 1) {
             $calculatedProducts = calculateCartedProducts();
-            $order_code = 'AJ-' . uniqid();
 
             $products = $calculatedProducts['products'];
-
             $subtotal = $calculatedProducts['subtotal'];
 
             $customer = [
@@ -40,9 +39,17 @@ class OrderController extends Controller
         }
     }
 
-    public function confirm_order()
+
+    //validate information
+    //validate product
+    //create order 
+    //create orderdeails 
+    //update order 
+    //return redirect to order/:orderCode
+    public function place_order()
     {
         if (auth()->user() && auth()->user()->is_admin !== 1) {
+            $order_code = 'AJ-' . uniqid();
             $calculatedProducts = calculateCartedProducts();
 
 
@@ -57,7 +64,28 @@ class OrderController extends Controller
                 'address' => auth()->user()->address,
             ];
 
+            // 'customer_id',
+            // 'customer_name',
+            // 'phone',
+            // 'email',
+            // 'order_note',
+            // 'payment_method',
+            // 'payment_status',
+            // 'subtotal_amount',
+            // 'delivery_charge',
+            // 'total_amount', //total_amount = subtotal_amount + delivery_charge
+            // 'status',
+            // 'delivery_address',
 
+            dd($customer['id']);
+
+            //make an order
+            $order = Order::create([
+                'order_code' => $order_code,
+                'customer_id' => $customer['id'],
+                'customer_id' => $customer['id'],
+
+            ]);
 
             return view('frontend.checkout', [
                 'customer' => $customer,
