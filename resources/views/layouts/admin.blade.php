@@ -136,7 +136,7 @@
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="auth-login-basic.html">
+                                        <a class="dropdown-item" href="/">
                                             <form action="{{ route('admin.logout') }}"
                                                 method="post"class="align-middle">
                                                 @csrf

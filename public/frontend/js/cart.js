@@ -10,11 +10,17 @@ function getCartFromLocalStorage() {
 }
 
 function checkProductStock(id) {
-    return $.get(`products/${id}`);
+    const baseUrl = window.location.origin;
+    $.ajaxSetup({
+        beforeSend: function (xhr, options) {
+            options.url = baseUrl + `/products/${id}`;
+        },
+    });
+
+    return $.get();
 }
 
 async function addToCart() {
-    console.log("addToCart");
     let _id = $(this).attr("pId");
     let _name = $(this).attr("pName");
     let _price = $(this).attr("pPrice");
@@ -247,6 +253,7 @@ function showCartQtyInBadge() {
     showCartQtyInBadge();
 
     $(".add-to-cart-btn").on("click", addToCart);
+
     $("#cart_items").on(
         "click",
         ".increate-cart-quantity",
