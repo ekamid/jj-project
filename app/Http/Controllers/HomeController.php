@@ -52,6 +52,7 @@ class HomeController extends Controller
         return view('frontend.cart');
     }
 
+
     public function product_details(Request $request, $slug)
     {
         $product = Product::where('slug', $slug)->first();

@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Product;
+use Illuminate\Support\Facades\Cookie;
+
 if (!function_exists('uploadProductImages')) {
     function uploadProductImages($images)
     {
@@ -23,5 +26,42 @@ if (!function_exists('selectedSize')) {
     function selectedSize($value, $arr)
     {
         return in_array($value, json_decode($arr)) ? 'selected' : '';
+    }
+}
+
+if (!function_exists('calculateCartedProducts')) {
+    function calculateCartedProducts()
+    {
+        $cartedItems = '';
+
+        if (Cookie::get('cartedItems')) {
+            $cartedItems = json_decode(Cookie::get('cartedItems'));
+        }
+
+
+        $products = [];
+        $subtotal = 0;
+
+
+        foreach ($cartedItems as  $item) {
+            $product = Product::find($item->id);
+
+            if ($product) {
+                if ($product->stock >= $item->quantity) {
+                    array_push($products, [
+                        'id' => $product->id,
+                        'name' => $product->name,
+                        'quantity' => $item->quantity,
+                        'price' => $product->price,
+                    ]);
+                    $subtotal += $product->price * $item->quantity;
+                }
+            }
+        }
+
+        return [
+            'products' => $products,
+            'subtotal' => $subtotal,
+        ];
     }
 }

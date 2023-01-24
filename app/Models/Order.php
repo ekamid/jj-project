@@ -11,12 +11,15 @@ class Order extends Model
     protected $fillable = [
         'order_code',
         'customer_id',
+        'customer_name',
+        'phone',
+        'email',
+        'order_note',
         'payment_method',
         'payment_status',
         'subtotal_amount',
-        'discount_amount',
         'delivery_charge',
-        'total_amount', //total_amount = (subtotal_amount - discount_amount) + delivery_charge
+        'total_amount', //total_amount = subtotal_amount + delivery_charge
         'status',
         'delivery_address',
     ];

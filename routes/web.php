@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserController;
@@ -25,6 +26,7 @@ Route::group(['as' => 'frontend.'], function () {
 
     Route::get('shop', [HomeController::class, 'shop_index'])->name('shop');
     Route::get('cart', [HomeController::class, 'cart_index'])->name('cart');
+    Route::get('checkout', [OrderController::class, 'checkout_index'])->name('checkout');
     Route::get('product/{slug}', [HomeController::class, 'product_details'])->name('product_details');
     Route::get('products/{id}', [HomeController::class, 'check_product_stock'])->name('check_product_stock');
 

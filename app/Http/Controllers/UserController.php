@@ -12,10 +12,6 @@ class UserController extends Controller
 
         if (Auth::check()) {
 
-            // if (auth()->user()->status === 3) {
-
-            // }
-
             if (auth()->user()->is_admin !== 1) {
                 return view('frontend.user.dashboard');
             } else {
