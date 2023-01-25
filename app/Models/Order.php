@@ -24,4 +24,9 @@ class Order extends Model
         'status',
         'delivery_address',
     ];
+
+    public function products()
+    {
+        return $this->hasMany('App\Models\OrderDetails');
+    }
 }

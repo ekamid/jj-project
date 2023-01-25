@@ -53,6 +53,7 @@ if (!function_exists('calculateCartedProducts')) {
                         'id' => $product->id,
                         'name' => $product->name,
                         'quantity' => $item->quantity,
+                        'stock' => $item->stock,
                         'price' => $product->price,
                     ]);
                     $subtotal += $product->price * $item->quantity;

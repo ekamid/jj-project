@@ -12,8 +12,6 @@ use Illuminate\Support\Facades\Cookie;
 
 class OrderController extends Controller
 {
-
-
     public function checkout_index()
     {
         if (auth()->user() && auth()->user()->is_admin !== 1) {
@@ -41,9 +39,6 @@ class OrderController extends Controller
         }
     }
 
-    //create orderdeails 
-    //update order 
-    //return redirect to order/:orderCode
     public function place_order(Request $request)
     {
         try {
@@ -108,9 +103,11 @@ class OrderController extends Controller
                 }
 
                 foreach ($products as $product) {
+                    Product::where("id", $product['id'])->update(["stock" => $product['stock'] - $product['quantity']]);
                     OrderDetails::create([
                         'order_id' => $order->id,
                         'product_id' => $product['id'],
+                        'product_name' => $product['name'],
                         'price' => $product['price'],
                         'quantity' => $product['quantity'],
                     ]);
@@ -130,6 +127,22 @@ class OrderController extends Controller
 
     public function orderTracking(Request $request, $order_code)
     {
-        return view('frontend.order_tracking');
+
+        $order = Order::where('order_code', $order_code)->first();
+
+        if (!$order) {
+            return redirect()->route('home');
+        }
+
+        if (auth()->user() && auth()->user()->id !== $order->customer_id) {
+            return redirect()->route('home');
+        }
+
+        $orderedProducts = $order->products;
+
+        return view('frontend.order_tracking', [
+            'order' => $order,
+            'products' => $orderedProducts
+        ]);
     }
 }

@@ -1,0 +1,50 @@
+.tracking-order .logotype {
+    background: #000;
+    color: #fff;
+    width: 75px;
+    height: 75px;
+    line-height: 75px;
+    text-align: center;
+    font-size: 11px;
+}
+
+.tracking-order .column-title {
+    background: #eee;
+    text-transform: uppercase;
+    padding: 15px 5px 15px 15px;
+    font-size: 11px
+}
+
+.tracking-order .column-detail {
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.tracking-order .column-header {
+    background: #eee;
+    text-transform: uppercase;
+    padding: 15px;
+    font-size: 11px;
+    border-right: 1px solid #eee;
+}
+
+.tracking-order .row-table {
+    padding: 7px 14px;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.tracking-order .alert {
+    background: #ffd9e8;
+    padding: 20px;
+    margin: 20px 0;
+    line-height: 22px;
+    color: #333
+}
+
+.tracking-order .socialmedia {
+    background: #eee;
+    padding: 20px;
+    display: inline-block
+}

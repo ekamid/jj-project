@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('frontend/css/tracking_order.css') }}">
+@endsection
 
 @section('content')
     <!-- Start Hero Section -->
@@ -8,7 +11,7 @@
             <div class="row justify-content-between">
                 <div class="col-lg-5">
                     <div class="intro-excerpt">
-                        <h1>Track Order</h1>
+                        <h1>Order Details</h1>
                     </div>
                 </div>
                 <div class="col-lg-7">
@@ -20,29 +23,83 @@
     <!-- End Hero Section -->
 
 
-    <div class="untree_co-section">
+    <div class="untree_co-section tracking-order">
         <div class="container">
-            <div class="row">
-                <div class="col-md-12 text-center pt-5">
-                    <span class="display-3 thankyou-icon text-primary">
-                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart-check mb-5"
-                            fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd"
-                                d="M11.354 5.646a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708 0z" />
-                            <path fill-rule="evenodd"
-                                d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-                        </svg>
-                    </span>
-                    <h2 class="display-3 text-black">Thank you!</h2>
-                    <p class="lead mb-5">
-                        You order was successfuly completed.
-                    </p>
-                    <p>
-                        <a href="shop.html" class="btn btn-sm btn-outline-black">Back to shop</a>
-                    </p>
-                </div>
-            </div>
-        </div>
+
+            <table width="100%">
+                <tr>
+                    <td width="75px">
+                        <div class="logotype">AJ.</div>
+                    </td>
+                    <td width="300px">
+                        <div
+                            style="background: #ffd9e8;border-left: 15px solid #fff;padding-left: 30px;font-size: 26px;font-weight: bold;letter-spacing: -1px;height: 73px;line-height: 75px;">
+                            Order invoice</div>
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
+            <br>
+            <table width="100%" style="border-collapse: collapse;">
+                <tr>
+                    <td widdth="50%" style="background:#eee;padding:20px;">
+                        <strong>Order Code:</strong> {{ $order->order_code }}<br>
+                        <strong>Date:</strong> {{ $order->created_at }}<br>
+                        <strong>Payment type:</strong> {{ $order->payment_method }}<br>
+                        <strong>Payment status:</strong> {{ $order->payment_status }}<br>
+                    </td>
+                    <td style="background:#eee;padding:20px;">
+
+                        <strong>Email:</strong> {{ $order->email }}<br>
+                        <strong>Phone:</strong> {{ $order->phone }}<br>
+                        <strong>Delivery Address:</strong> {{ $order->delivery_address }}<br>
+
+                    </td>
+                </tr>
+            </table><br>
+
+            <h3>Products</h3>
+
+            <table width="100%" style="border-collapse: collapse;border-bottom:1px solid #eee;">
+                <tr>
+                    <td width="40%" class="column-header">Product</td>
+                    <td width="20%" class="column-header">Price</td>
+                    <td width="20%" class="column-header">Quantity</td>
+                    <td width="20%" class="column-header">Total</td>
+                </tr>
+                @foreach ($products as $product)
+                    <tr>
+                        <td class="row-table">{{ @$product->name }}
+                        </td>
+                        <td class="row-table">{{ @$product->price }}</td>
+                        <td class="row-table">{{ @$product->quantity }}</td>
+                        <td class="row-table">{{ $product->price * $product->quantity }}</td>
+                    </tr>
+                @endforeach
+
+            </table><br>
+            <table width="100%" style="background:#eee;padding:20px;">
+                <tr>
+                    <td>
+                        <table width="300px" style="float:right">
+                            <tr>
+                                <td><strong>Subtotal:</strong></td>
+                                <td style="text-align:right">{{ $order->subtotal_amount }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Delivery Charge:</strong></td>
+                                <td style="text-align:right">{{ $order->delivery_charge }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Grand total:</strong></td>
+                                <td style="text-align:right">{{ $order->total_amount }}</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+
+        </div><!-- container -->
     </div>
 @endsection
 
