@@ -34,13 +34,6 @@
                     </div>
                     <hr>
                     <div class="product-description d-flex flex-column">
-                        <div><span class="font-weight-bold">Color:</span><span> </span></div>
-                        <div class="my-color">
-                            @foreach (json_decode($product->size) as $size)
-                                <label class="radio"> <input type="radio" name="product_size" value="MALE" checked>
-                                    <span>{{ $size }}</span> </label>
-                            @endforeach
-                        </div>
                         <div class="mt-2"> <span class="fs-4">Description</span>
                             <div>{!! html_entity_decode(@$product->description) !!}</div>
                         </div>

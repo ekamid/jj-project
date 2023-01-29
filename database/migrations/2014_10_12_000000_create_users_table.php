@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('email_verified_token')->nullable()->comment('Token for email/phone verification, if null then verifield, not null then not verified');
             $table->string('phone')->nullable()->unique();
             $table->string('password');
-            $table->json('address')->nullable();
+            $table->text('address')->nullable();
             $table->timestamp('last_login')->nullable();
             $table->tinyInteger('status')->default(1);
             $table->string('avater')->nullable();

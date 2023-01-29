@@ -13,7 +13,7 @@
                     @include('frontend.user.sidebar')
                 </div>
                 <div class="col-md-8">
-                    <div class="card mb-3">
+                    {{-- <div class="card mb-3">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
                                 <img style="width: 180px;" src="https://bootdey.com/img/Content/avatar/avatar7.png"
@@ -23,7 +23,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="card mb-3">
                         <div class="card-body">
                             <div class="row">

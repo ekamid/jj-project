@@ -10,12 +10,14 @@
 
             <div class="collapse navbar-collapse" id="navbarsFurni">
                 <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-                    <li class="nav-item active">
+                    <li class="nav-item {{ request()->routeIs('home') ? 'active' : '' }}">
                         <a class="nav-link" href="/">Home</a>
                     </li>
-                    <li><a class="nav-link" href="{{ route('frontend.shop') }}">Shop</a></li>
-                    <li><a class="nav-link" href="/">Services</a></li>
-                    <li><a class="nav-link" href="{{ route('frontend.find_stores') }}">Find Store</a></li>
+                    <li class="nav-item {{ request()->routeIs('frontend.shop') ? 'active' : '' }}"><a class="nav-link"
+                            href="{{ route('frontend.shop') }}">Shop</a></li>
+
+                    <li class="nav-item {{ request()->routeIs('frontend.find_stores') ? 'active' : '' }}"><a
+                            class="nav-link" href="{{ route('frontend.find_stores') }}">Find Store</a></li>
                 </ul>
 
                 <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">

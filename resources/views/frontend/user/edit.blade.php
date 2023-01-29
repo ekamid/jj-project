@@ -13,9 +13,9 @@
                     @include('frontend.user.sidebar')
                 </div>
                 <div class="col-md-8">
-                    <form action="{{ route('frontend.user.edit') }}" method="POST">
+                    <form action="{{ route('frontend.user.edit') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <div class="card mb-3">
+                        {{-- <div class="card mb-3">
                             <div class="card-body">
                                 <div class="d-flex flex-column align-items-center text-center">
                                     <img style="width: 180px;" src="https://bootdey.com/img/Content/avatar/avatar7.png"
@@ -25,7 +25,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="card mb-3">
                             <div class="card-body">
                                 <div class="row">
@@ -34,7 +34,7 @@
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                         <input type="text" class="input-only-border-bottom" name="name"
-                                            value="{{ auth()->user()->name }}">
+                                            value="{{ auth()->user()->name }}" required>
                                     </div>
                                 </div>
                                 <hr>
@@ -44,7 +44,7 @@
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                         <input type="text" class="input-only-border-bottom" name="email"
-                                            value="{{ auth()->user()->email }}">
+                                            value="{{ auth()->user()->email }}" required>
                                     </div>
                                 </div>
                                 <hr>
@@ -55,7 +55,7 @@
                                     </div>
                                     <div class="col-sm-9 text-secondary">
                                         <input type="text" class="input-only-border-bottom" name="phone"
-                                            value="{{ auth()->user()->phone }}">
+                                            value="{{ auth()->user()->phone }}" required>
                                     </div>
                                 </div>
                                 <hr>
@@ -64,8 +64,8 @@
                                         <h6 class="mb-0">Address</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        {{ auth()->user()->address }}
-
+                                        <input type="text" class="input-only-border-bottom" name="address"
+                                            value="{{ auth()->user()->address }}">
                                     </div>
                                 </div>
                                 <hr>

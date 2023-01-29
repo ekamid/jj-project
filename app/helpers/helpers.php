@@ -44,6 +44,7 @@ if (!function_exists('calculateCartedProducts')) {
         $total_quantity = 0;
 
 
+
         foreach ($cartedItems as  $item) {
             $product = Product::find($item->id);
 
@@ -53,7 +54,7 @@ if (!function_exists('calculateCartedProducts')) {
                         'id' => $product->id,
                         'name' => $product->name,
                         'quantity' => $item->quantity,
-                        'stock' => $item->stock,
+                        'stock' => $product->stock,
                         'price' => $product->price,
                     ]);
                     $subtotal += $product->price * $item->quantity;

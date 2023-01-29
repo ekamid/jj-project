@@ -28,6 +28,7 @@ class OrderController extends Controller
                 'address' => auth()->user()->address,
             ];
 
+
             return view('frontend.checkout', [
                 'customer' => $customer,
                 'products' => $products,
@@ -107,7 +108,7 @@ class OrderController extends Controller
                     OrderDetails::create([
                         'order_id' => $order->id,
                         'product_id' => $product['id'],
-                        'product_name' => $product['name'],
+                        'name' => $product['name'],
                         'price' => $product['price'],
                         'quantity' => $product['quantity'],
                     ]);
