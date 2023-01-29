@@ -15,10 +15,6 @@
                     class="alert bg-primary fade show d-flex align-items-center justify-content-between global_alert"
                     role="alert">
                     <p class="text-light m-0"> {{ session()->get('success') }}</p>
-                    {{-- <button type="button" class="btn btn-sm btn-outline-danger bg-danger text-light" data-dismiss="alert"
-                        aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button> --}}
                 </div>
             @endif
 
@@ -26,9 +22,6 @@
                 <div id="global_alert" class="alert bg-danger fade show d-flex align-items-center justify-content-between "
                     role="alert">
                     <p class="text-light m-0"> {{ session()->get('error') }}</p>
-                    {{-- <button type="button" class="btn btn-sm btn-outline-danger" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button> --}}
                 </div>
             @endif
 
@@ -45,7 +38,6 @@
                                 <th>Karat</th>
                                 <th>Size</th>
                                 <th>Stock</th>
-                                <th>Customization Avaiable</th>
                                 <th>Published</th>
                                 <th>Actions</th>
                             </tr>
@@ -65,9 +57,6 @@
                                     <td>{{ @$item->karat }}</td>
                                     <td>{{ @$item->size }}</td>
                                     <td>{{ @$item->stock }}</td>
-                                    <td><span
-                                            class="badge {{ @$item->customization_available ? 'bg-label-primary' : 'bg-label-warning' }} me-1">{{ @$item->customization_available ? 'Avaiable' : 'Unavaiable' }}</span>
-                                    </td>
                                     <td><span
                                             class="badge {{ @$item->published ? 'bg-label-primary' : 'bg-label-warning' }} me-1">{{ @$item->published ? 'Published' : 'Unpublished' }}</span>
                                     </td>

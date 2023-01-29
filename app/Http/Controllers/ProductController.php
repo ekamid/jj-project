@@ -32,7 +32,6 @@ class ProductController extends Controller
                 'price' => 'required|numeric|gt:0',
                 'karat' => 'required|numeric|gt:0',
                 'stock'  => 'required|integer|gt:0',
-                'size'  => 'required',
                 'images.*' => 'mimes:png,jpg,jpeg|max:2048',
             ]);
 
@@ -46,11 +45,8 @@ class ProductController extends Controller
                 'weight' => $request->get('weight'),
                 'karat' => $request->get('karat'),
                 'stock' => $request->get('stock'),
-                'size' => json_encode($request->get('size')),
                 'physical_store' => json_encode($request->get('physical_store')) ?? null,
                 'description' => trim($request->get('description')) ?? null,
-                'customization_available' => $request->get('customization_available') ? true : false,
-                'customaization_instructions' => trim($request->get('customaization_instructions')) ?? null,
                 'published' => $request->get('published') ? true : false,
             ]);
 
@@ -119,7 +115,6 @@ class ProductController extends Controller
                 'price' => 'required|numeric|gt:0',
                 'karat' => 'required|numeric|gt:0',
                 'stock'  => 'required|integer|gt:0',
-                'size'  => 'required',
                 'images.*' => 'mimes:png,jpg,jpeg|max:2048',
             ]);
 
@@ -131,11 +126,8 @@ class ProductController extends Controller
                 'weight' => $request->get('weight'),
                 'karat' => $request->get('karat'),
                 'stock' => $request->get('stock'),
-                'size' => json_encode($request->get('size')),
                 'physical_store' => json_encode($request->get('physical_store')) ?? null,
                 'description' => trim($request->get('description')) ?? null,
-                'customization_available' => $request->get('customization_available') ? true : false,
-                'customaization_instructions' => trim($request->get('customaization_instructions')) ?? null,
                 'published' => $request->get('published') ? true : false,
             ]);
 

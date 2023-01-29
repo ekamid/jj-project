@@ -21,10 +21,7 @@ class CreateProductsTable extends Migration
             $table->double('weight');
             $table->double('karat');
             $table->integer('stock');
-            $table->json('size');
             $table->boolean('published')->default(0);
-            $table->boolean('customization_available')->default(0);
-            $table->string('customaization_instructions')->nullable();
             $table->json('physical_store')->nullable();
             $table->text('description')->nullable();
             $table->json('categories')->nullable();

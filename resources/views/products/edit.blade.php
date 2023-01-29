@@ -53,16 +53,37 @@
                                 </div>
                             @enderror
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="product_price">Price</label>
-                            <input type="text" value="{{ $product['price'] }}" min="0" class="form-control"
-                                name="price" id="product_price" placeholder="Price in taka" required>
-                            @error('price')
-                                <div class="text-danger">
-                                    {{ $message }}
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="product_stock">Stock</label>
+                                    <input type="number" value="{{ $product['stock'] }}" name="stock"
+                                        class="form-control" id="product_stock" placeholder="Product Stock" required>
+
+                                    @error('stock')
+                                        <div class="text-danger">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
-                            @enderror
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="product_price">Price</label>
+                                    <input type="text" value="{{ $product['price'] }}" min="0"
+                                        class="form-control" name="price" id="product_price" placeholder="Price in taka"
+                                        required>
+                                    @error('price')
+                                        <div class="text-danger">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
                         </div>
+
                         <div class="mb-3">
                             <label class="form-label" for="product_categories">Categories</label>
                             <select type="text" data-show-subtext="true" data-live-search="true" multiple
@@ -112,50 +133,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label" for="product_stock">Stock</label>
-                                    <input type="number" value="{{ $product['stock'] }}" name="stock"
-                                        class="form-control" id="product_stock" placeholder="Product Stock" required>
-
-                                    @error('stock')
-                                        <div class="text-danger">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label" for="product_size">Size</label>
-                                    <select type="text" data-show-subtext="true" data-live-search="true" multiple
-                                        name="size[]" class="form-control" required id="product_size">
-                                        <option disabled selected>Select Multiple Size</option>
-                                        <option value='sm' {{ selectedSize('sm', $product->size) }}>Small</option>
-                                        <option value='md' {{ selectedSize('md', $product->size) }}>Medium</option>
-                                        <option value='lg' {{ selectedSize('lg', $product->size) }}>Large</option>
-                                        <option value='xl' {{ selectedSize('xl', $product->size) }}>Extra Large
-                                        </option>
-                                        <option value='xxl' {{ selectedSize('xxl', $product->size) }}>Extra Extra Large
-                                        </option>
-                                    </select>
-
-                                    @error('size')
-                                        <div class="text-danger">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-
 
                         <div class="mb-3">
                             <label class="form-label" for="description">Description</label>
-                            <textarea id="description" name="description" style="min-height: 200px" class="form-control"
-                                placeholder="Description">{{ $product['description'] }}</textarea>
+                            <textarea id="description" name="description" style="min-height: 200px" class="form-control" placeholder="Description">{{ $product['description'] }}</textarea>
                             @error('description')
                                 <div class="text-danger d-block">
                                     {{ $message }}
@@ -211,29 +192,6 @@
                         </div>
 
 
-                        <div class="mb-3">
-                            <div class="form-check mt-3">
-                                <input class="form-check-input" type="checkbox" name="customization_available[]"
-                                    id="customization_available"
-                                    {{ $product['customization_available'] ? 'checked' : '' }}>
-                                <label class="form-check-label" for="customization_available"> Customization Available
-                                </label>
-                            </div>
-                        </div>
-
-
-
-                        <div id="customizationInstructionContainer" class="mb-3 d-none">
-                            <label class="form-label" for="customaization_instructions">Customization Instructions</label>
-                            <textarea id="customaization_instructions" style="min-height: 200px" class="form-control"
-                                placeholder="Customaization Instructions">{{ $product['customaization_instructions'] }}</textarea>
-                            @error('customaization_instructions')
-                                <div class="text-danger d-block">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-
 
                         <div class="mb-3">
                             <div class="form-check mt-3">
@@ -273,21 +231,6 @@
             .catch(error => {
                 console.error(error);
             });
-        ClassicEditor
-            .create(document.querySelector('#customaization_instructions'))
-            .catch(error => {
-                console.error(error);
-            });
-
-
-        $("#customization_available").change(function() {
-            if (this.checked) {
-                $('#customizationInstructionContainer').removeClass('d-none');
-            } else {
-                $('#customizationInstructionContainer').addClass('d-none');
-            }
-        });
-
 
         //multiple images
         $('#product_images').on('change', function() {
