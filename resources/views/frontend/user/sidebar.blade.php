@@ -1,13 +1,16 @@
     <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px; height: 100%">
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-                <a href="#" class="nav-link active" aria-current="page">
+                <a href="{{ route('frontend.user.dashboard') }}"
+                    class="nav-link {{ request()->routeIs('frontend.user.dashboard') ? 'active' : 'link-dark' }}"
+                    aria-current="page">
                     <i class="fa fa-user" aria-hidden="true"></i>
                     Profile
                 </a>
             </li>
             <li>
-                <a href="#" class="nav-link link-dark">
+                <a href="{{ route('frontend.user.orders') }}"
+                    class="nav-link {{ request()->routeIs('frontend.user.orders') ? 'active' : 'link-dark' }}">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                     Orders
                 </a>

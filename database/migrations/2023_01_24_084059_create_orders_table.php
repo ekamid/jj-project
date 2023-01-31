@@ -27,6 +27,8 @@ class CreateOrdersTable extends Migration
             $table->double('subtotal_amount');
             $table->double('delivery_charge');
             $table->double('total_amount');
+            $table->double('paid_amount')->default(0);
+            $table->string('payment_status')->default('unpaid');
             $table->unsignedInteger('total_quantity');
             $table->text('delivery_address');
             $table->text('order_note')->nullable();

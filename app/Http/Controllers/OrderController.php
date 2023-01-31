@@ -12,6 +12,20 @@ use Illuminate\Support\Facades\Cookie;
 
 class OrderController extends Controller
 {
+
+    public function index()
+    {
+        if (auth()->user() && auth()->user()->is_admin !== 1) {
+            $orders = Order::where('customer_id', '=', auth()->user()->id)->get();
+
+            return view("frontend.user.orders", [
+                'orders' => $orders,
+            ]);
+        } else {
+            return redirect()->route('login');
+        }
+    }
+
     public function checkout_index()
     {
         if (auth()->user() && auth()->user()->is_admin !== 1) {
@@ -116,7 +130,7 @@ class OrderController extends Controller
 
                 Cookie::queue(Cookie::forget('cartedItems'));
 
-                return redirect()->route('frontend.order_tracking', ['order_code' => $order->order_code]);
+                return redirect()->route('frontend.order_invoice', ['order_code' => $order->order_code]);
             } else {
                 return redirect()->route('login');
             }
@@ -126,8 +140,12 @@ class OrderController extends Controller
         }
     }
 
-    public function orderTracking(Request $request, $order_code)
+    public function orderInvoice(Request $request, $order_code)
     {
+
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
 
         $order = Order::where('order_code', $order_code)->first();
 
@@ -135,13 +153,14 @@ class OrderController extends Controller
             return redirect()->route('home');
         }
 
+
         if (auth()->user() && auth()->user()->id !== $order->customer_id) {
             return redirect()->route('home');
         }
 
         $orderedProducts = $order->products;
 
-        return view('frontend.order_tracking', [
+        return view('frontend.order_invoice', [
             'order' => $order,
             'products' => $orderedProducts
         ]);

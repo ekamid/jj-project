@@ -6,7 +6,7 @@
 
 @section('content')
     <!-- Start Hero Section -->
-    <div class="hero">
+    {{-- <div class="hero">
         <div class="container">
             <div class="row justify-content-between">
                 <div class="col-lg-5">
@@ -19,7 +19,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <!-- End Hero Section -->
 
 

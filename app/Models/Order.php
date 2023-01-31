@@ -21,6 +21,8 @@ class Order extends Model
         'total_quantity',
         'delivery_charge',
         'total_amount', //total_amount = subtotal_amount + delivery_charge
+        'paid_amount',
+        'payment_status',
         'status',
         'delivery_address',
     ];

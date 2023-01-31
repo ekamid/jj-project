@@ -122,7 +122,7 @@
 
                         <div class="mb-3">
                             <label class="form-label" for="description">Description</label>
-                            <textarea id="description" style="min-height: 200px" class="form-control" placeholder="Description">{{ old('description') }}</textarea>
+                            <textarea id="description" style="min-height: 200px" class="form-control" placeholder="Description" name="description">{{ old('description') }}</textarea>
                             @error('description')
                                 <div class="text-danger d-block">
                                     {{ $message }}
