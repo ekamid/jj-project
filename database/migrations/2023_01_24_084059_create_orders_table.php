@@ -21,7 +21,6 @@ class CreateOrdersTable extends Migration
             $table->string('customer_name');
             $table->string('phone');
             $table->string('email');
-            $table->string('payment_status')->default('unpaid');
             $table->string('status')->default('pending');
             $table->string('payment_method')->default('cod');
             $table->double('subtotal_amount');

@@ -27,26 +27,46 @@
                                         <th scope="col">Payment Method</th>
                                         <th scope="col">Amount</th>
                                         <th scope="col">Paid</th>
-                                        <th scope="col">Action</th>
+                                        <th scope="col">Options</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            <span>SOOKH-CF6Z6ZLB</span>
-                                            <br>
-                                            <span class="badge badge-success bg-success">
-                                                Paid</span>
-                                            <span class="badge badge-success bg-warning">
-                                                Pending</span>
+                                    @foreach ($orders as $order)
+                                        <tr>
+                                            <td>
+                                                <span>{{ $order->order_code }}</span>
+                                                <br>
+                                                <span
+                                                    class="badge {{ $order->status == 'delivered' ? 'bg-success' : 'bg-danger' }}">{{ $order->status }}</span>
+                                                <span
+                                                    class="badge {{ $order->payment_status == 'unpaid' ? 'bg-danger' : 'bd-success' }}">
+                                                    {{ $order->payment_status }}</span>
+                                            </td>
+                                            <td>{{ strrev(explode(' ', $order->created_at)[0]) }}</td>
+                                            <td>{{ $order->payment_method }}</td>
+                                            <td>{{ $order->total_amount }}</td>
+                                            <td>{{ $order->paid_amount }}</td>
 
-                                        </td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td>
-                                            <div></div>
-                                        </td>
-                                    </tr>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Actions
+                                                    </button>
+                                                    <ul class="dropdown-menu">
+                                                        <li><a class="dropdown-item" href="#">View Details</a></li>
+                                                        </li>
+                                                        <li><a target="_blank" class="dropdown-item"
+                                                                href="{{ route('frontend.order_invoice', [
+                                                                    'order_code' => $order->order_code,
+                                                                ]) }}">Invoice</a>
+                                                        </li>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endforeach
 
                                 </tbody>
                             </table>

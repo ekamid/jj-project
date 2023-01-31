@@ -16,7 +16,6 @@ class Order extends Model
         'email',
         'order_note',
         'payment_method',
-        'payment_status',
         'subtotal_amount',
         'total_quantity',
         'delivery_charge',
