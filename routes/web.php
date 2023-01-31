@@ -31,7 +31,7 @@ Route::group(['as' => 'frontend.'], function () {
 
     Route::get('checkout', [OrderController::class, 'checkout_index'])->name('checkout');
     Route::post('place-order', [OrderController::class, 'place_order'])->name('place_order');
-    Route::get('order/invoice/{order_code}', [OrderController::class, 'orderInvoice'])->name('order_invoice');
+    Route::get('order/invoice/{order_code}', [OrderController::class, 'order_invoice'])->name('order_invoice');
 
     Route::get('find-stores', [HomeController::class, 'find_stores'])->name('find_stores');
     Route::get('get-stores', [HomeController::class, 'get_stores'])->name('get_stores');
@@ -40,6 +40,7 @@ Route::group(['as' => 'frontend.'], function () {
 
     Route::get('user/dashboard', [UserController::class, 'index'])->name('user.dashboard');
     Route::get('user/orders', [OrderController::class, 'index'])->name('user.orders');
+    Route::get('user/orders/{order_code}', [OrderController::class, 'order_details'])->name('user.order_details');
     Route::match(['GET', 'POST'], 'user/edit', [UserController::class, 'edit'])->name("user.edit");
 });
 

@@ -140,7 +140,7 @@ class OrderController extends Controller
         }
     }
 
-    public function orderInvoice(Request $request, $order_code)
+    public function order_invoice(Request $request, $order_code)
     {
 
         if (!auth()->check()) {
@@ -161,6 +161,33 @@ class OrderController extends Controller
         $orderedProducts = $order->products;
 
         return view('frontend.order_invoice', [
+            'order' => $order,
+            'products' => $orderedProducts
+        ]);
+    }
+
+
+    public function order_details(Request $request, $order_code)
+    {
+
+        if (!auth()->check()) {
+            return redirect()->route('login');
+        }
+
+        $order = Order::where('order_code', $order_code)->first();
+
+        if (!$order) {
+            return redirect()->route('home');
+        }
+
+
+        if (auth()->user() && auth()->user()->id !== $order->customer_id) {
+            return redirect()->route('home');
+        }
+
+        $orderedProducts = $order->products;
+
+        return view('frontend.user.order_details', [
             'order' => $order,
             'products' => $orderedProducts
         ]);

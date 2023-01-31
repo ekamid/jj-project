@@ -19,6 +19,7 @@ class ProductSeeder extends Seeder
             'slug'  => 'dimond-nose-pin-1675144316',
             'price' => 200000,
             'weight' => 1.44,
+            'categories' => '[1]',
             'karat' => 23,
             'stock' => 20,
             'description' => '<p>This is a description</p>',

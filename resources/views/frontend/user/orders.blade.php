@@ -3,6 +3,7 @@
 @section('styles')
     <link rel="stylesheet" href="{{ asset('frontend/css/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/order-table.css') }}">
+    <link rel="stylesheet" href="{{ asset('dashboard/vendor/libs/datatable/datatables.min.css') }}">
 @endsection
 
 @section('content')
@@ -19,7 +20,7 @@
                             <div class="bg-primary text-center py-3">
                                 <h3 class="text-light mb-0">Purchase History</h3>
                             </div>
-                            <table class="table">
+                            <table id="orders_table" class="table">
                                 <thead>
                                     <tr>
                                         <th scope="col">Order Code</th>
@@ -54,7 +55,11 @@
                                                         Actions
                                                     </button>
                                                     <ul class="dropdown-menu">
-                                                        <li><a class="dropdown-item" href="#">View Details</a></li>
+                                                        <li><a class="dropdown-item"
+                                                                href="{{ route('frontend.user.order_details', [
+                                                                    'order_code' => $order->order_code,
+                                                                ]) }}">View
+                                                                Details</a></li>
                                                         </li>
                                                         <li><a target="_blank" class="dropdown-item"
                                                                 href="{{ route('frontend.order_invoice', [
@@ -79,4 +84,16 @@
 
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('dashboard/vendor/libs/datatable/datatables.min.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+
+            console.log('datatabke')
+            $('#orders_table').DataTable();
+        });
+    </script>
 @endsection

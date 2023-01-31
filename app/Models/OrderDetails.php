@@ -18,4 +18,9 @@ class OrderDetails extends Model
         'status',
         'customization_details'
     ];
+
+    public function product()
+    {
+        return $this->belongsTo('App\Models\Product');
+    }
 }

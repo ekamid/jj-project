@@ -10,7 +10,7 @@
             </li>
             <li>
                 <a href="{{ route('frontend.user.orders') }}"
-                    class="nav-link {{ request()->routeIs('frontend.user.orders') ? 'active' : 'link-dark' }}">
+                    class="nav-link {{ request()->routeIs('frontend.user.orders') || request()->routeIs('frontend.user.order_details') ? 'active' : 'link-dark' }}">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                     Orders
                 </a>
