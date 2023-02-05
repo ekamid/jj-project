@@ -83,10 +83,7 @@
                                                     data-bs-target="#change_order_status_{{ $item['id'] }}">
                                                     Update Status
                                                 </button>
-                                                <button type="button" class="dropdown-item" data-bs-toggle="modal"
-                                                    data-bs-target="#change_order_status_{{ $item['id'] }}">
-                                                    Invoice
-                                                </button>
+
                                             </div>
                                         </div>
                                     </td>

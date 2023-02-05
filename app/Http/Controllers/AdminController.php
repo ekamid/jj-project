@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\Store;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,7 +20,15 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        return view('dashboard');
+        $products = Product::where('stock', '!=', 0)->get();
+        $orders = Order::all();
+        $users = User::all();
+        
+        return view('dashboard', [
+            'products' => $products,
+            'users' => $users,
+            'orders' => $orders
+        ]);
     }
 
     public function products()
