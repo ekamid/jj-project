@@ -42,12 +42,13 @@
                                 <div class="col-md-6">
                                     <div class="row mt-2">
                                         <p class="col-6 font-bold m-0"><b>Order Date</b>:</p>
-                                        <p class="col-6 m-0">{{ strrev(explode(' ', $order->created_at)[0]) }}</p>
+                                        <p class="col-6 m-0">{{ explode(' ', $order->created_at)[0] }}</p>
                                     </div>
                                     <div class="row mt-2">
                                         <p class="col-6 font-bold m-0"><b>Payment Status</b>:</p>
                                         <p class="col-6 m-0">
-                                            {{ $order->payment_status }}</p>
+                                            {{ $order->payment_status }}
+                                        </p>
                                     </div>
                                     <div class="row mt-2">
                                         <p class="col-6 font-bold m-0"><b>Payment method</b>:</p>
@@ -57,7 +58,8 @@
                                     </div>
                                     <div class="row mt-2">
                                         <p class="col-6 font-bold m-0"><b>Delivery Status</b>:</p>
-                                        <p class="col-6 m-0">{{ $order->status }}</p>
+                                        <p class="col-6 m-0">{{ $order->status }}
+                                            (<small>{{ @explode(' ', $order->updated_at)[0] }}</small>)</p>
                                     </div>
                                     <div class="row mt-2">
                                         <p class="col-6 font-bold m-0"><b>Product Price</b>:</p>

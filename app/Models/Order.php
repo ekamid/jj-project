@@ -30,4 +30,9 @@ class Order extends Model
     {
         return $this->hasMany('App\Models\OrderDetails');
     }
+
+    public function customer()
+    {
+        return $this->belongsTo('App\Models\Users');
+    }
 }

@@ -38,12 +38,14 @@
                                                 <span>{{ $order->order_code }}</span>
                                                 <br>
                                                 <span
-                                                    class="badge {{ $order->status == 'delivered' ? 'bg-success' : 'bg-danger' }}">{{ $order->status }}</span>
+                                                    class="badge {{ $order->status == 'delivered' ? 'bg-success' : ($order->status == 'cancelled' ? 'bg-danger' : 'bg-warning') }}">{{ $order->status }}
+                                                    (<small>{{ @explode(' ', $order->updated_at)[0] }})
+                                                    </small></span>
                                                 <span
                                                     class="badge {{ $order->payment_status == 'unpaid' ? 'bg-danger' : 'bd-success' }}">
                                                     {{ $order->payment_status }}</span>
                                             </td>
-                                            <td>{{ strrev(explode(' ', $order->created_at)[0]) }}</td>
+                                            <td>{{ explode(' ', $order->created_at)[0] }}</td>
                                             <td>{{ $order->payment_method }}</td>
                                             <td>{{ $order->total_amount }}</td>
                                             <td>{{ $order->paid_amount }}</td>

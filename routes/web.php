@@ -66,6 +66,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::get('/users', [AdminController::class, 'users'])->name("users.index");
         Route::post('/user/delete/{id}', [AdminController::class, 'delete_user'])->name("users.delete");
 
+        // orders 
+        Route::get('/orders', [AdminController::class, 'orders'])->name("orders.index");
+        Route::get('/orders/{order_code}', [AdminController::class, 'order_details'])->name('orders.details');
+        Route::POST('/orders/status-update/{id}', [AdminController::class, 'order_status_update'])->name('orders.order_status_update');
+
+
 
         //stores
         Route::get('/stores', [StoreController::class, 'index'])->name("stores.index");

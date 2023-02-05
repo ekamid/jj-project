@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Order;
 use App\Models\Store;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -192,7 +193,6 @@ class AdminController extends Controller
 
     //users
 
-    // view users \
 
 
     public function users()
@@ -233,6 +233,62 @@ class AdminController extends Controller
             'error',
             'Something went wrong!'
         );
+    }
+
+
+    // view orders 
+
+    public function orders()
+    {
+        $orders = Order::all()->sortByDesc("id");
+
+        // dd($orders);
+
+        return view('orders.index', [
+            'orders' => $orders
+        ]);
+    }
+
+    public function order_details(Request $request, $order_code)
+    {
+
+        $order = Order::where('order_code', $order_code)->first();
+
+        if (!$order) {
+            return redirect()->route('admin.orders.index');
+        }
+
+
+        $orderedProducts = $order->products;
+
+        return view('orders.details', [
+            'order' => $order,
+            'products' => $orderedProducts
+        ]);
+    }
+
+    public function order_status_update(Request $request, $id)
+    {
+
+        $order = Order::find($id);
+
+        if (!$order) {
+            return redirect()->route('admin.orders.index')->with('error', 'Order not found!');
+        }
+
+        $order->status = $request->order_status;
+
+        if ($request->order_status === 'delivered') {
+            $order->payment_status = 'paid';
+            $order->paid_amount = $order->total_amount;
+        } else {
+            $order->payment_status = 'unpaid';
+            $order->paid_amount = 0;
+        }
+
+        $order->save();
+
+        return redirect()->route('admin.orders.index')->with('success', 'Order has updated successfully.');
     }
 
 
