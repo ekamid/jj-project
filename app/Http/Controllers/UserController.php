@@ -61,4 +61,17 @@ class UserController extends Controller
             return redirect('login');
         }
     }
+
+    public function queries()
+    {
+        if (Auth::check()) {
+            if (!auth()->user()->isAdmin) {
+                return view('frontend.queries.index');
+            } else {
+                return redirect('admin/dashboard');
+            }
+        } else {
+            return redirect('login');
+        }
+    }
 }

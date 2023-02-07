@@ -42,6 +42,8 @@ Route::group(['as' => 'frontend.'], function () {
     Route::get('user/orders', [OrderController::class, 'index'])->name('user.orders');
     Route::get('user/orders/{order_code}', [OrderController::class, 'order_details'])->name('user.order_details');
     Route::match(['GET', 'POST'], 'user/edit', [UserController::class, 'edit'])->name("user.edit");
+
+    Route::get("queries", [UserController::class, 'queries'])->name('user.queries');
 });
 
 

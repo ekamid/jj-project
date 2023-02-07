@@ -16,7 +16,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('frontend.user.queries') }}" class="nav-link link-dark">
+                <a href="#" class="nav-link link-dark">
                     <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
                     Query
                 </a>

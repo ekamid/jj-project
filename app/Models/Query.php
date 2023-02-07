@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Query extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'created_by',
+        'type',
+        'order_id',
+        'description',
+        'reply_to',
+        'answer',
+    ];
+}
