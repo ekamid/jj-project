@@ -10,11 +10,12 @@ class Query extends Model
     use HasFactory;
 
     protected $fillable = [
+        'title',
         'created_by',
         'type',
         'order_id',
         'description',
         'reply_to',
-        'answer',
+        'answered',
     ];
 }

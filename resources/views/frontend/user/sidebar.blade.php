@@ -16,9 +16,10 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('frontend.user.queries') }}" class="nav-link link-dark">
+                <a href="{{ route('frontend.user.queries') }}"
+                    class="nav-link {{ request()->routeIs('frontend.user.queries') || request()->routeIs('frontend.user.queries.add') || request()->routeIs('frontend.user.queries.reply') ? 'active' : 'link-dark' }}">
                     <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
-                    Query
+                    Queries
                 </a>
             </li>
         </ul>

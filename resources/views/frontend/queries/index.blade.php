@@ -17,38 +17,45 @@
                 <div class="col-md-8">
                     <div class="card mb-3">
                         <div class="card-body order-table">
-                            <div class="bg-primary text-center py-3">
+                            <div class="bg-primary d-flex justify-content-between align-items-center py-3 px-2">
                                 <h3 class="text-light mb-0">Queries</h3>
+                                <a class="nav-link bg-dark text-light mb-0"
+                                    href="{{ route('frontend.user.queries.add') }}">Create</a>
                             </div>
-                            <table id="orders_table" class="table">
+                            <table id="queries_table" class="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Order Code</th>
-                                        <th scope="col">Date</th>
-                                        <th scope="col">Payment Method</th>
-                                        <th scope="col">Amount</th>
-                                        <th scope="col">Paid</th>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Title</th>
+                                        <th scope="col">Type</th>
+                                        <th scope="col">Order ID</th>
+                                        <th scope="col">Status</th>
                                         <th scope="col">Options</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($orders as $order)
+                                    @foreach ($queries as $index => $item)
                                         <tr>
                                             <td>
-                                                <span>{{ $order->order_code }}</span>
-                                                <br>
-                                                <span
-                                                    class="badge {{ $order->status == 'delivered' ? 'bg-success' : ($order->status == 'cancelled' ? 'bg-danger' : 'bg-warning') }}">{{ $order->status }}
-                                                    (<small>{{ @explode(' ', $order->updated_at)[0] }})
-                                                    </small></span>
-                                                <span
-                                                    class="badge {{ $order->payment_status == 'unpaid' ? 'bg-danger' : 'bd-success' }}">
-                                                    {{ $order->payment_status }}</span>
+                                                {{ $index + 1 }}
                                             </td>
-                                            <td>{{ explode(' ', $order->created_at)[0] }}</td>
-                                            <td>{{ $order->payment_method }}</td>
-                                            <td>{{ $order->total_amount }}</td>
-                                            <td>{{ $order->paid_amount }}</td>
+                                            <td>{{ $item->title }}</td>
+                                            <td class="text-uppercase">{{ $item->type }}</td>
+                                            @if ($item->order_id)
+                                                <td><a
+                                                        href="{{ route('frontend.user.order_details', [
+                                                            'order_code' => $item->order_id,
+                                                        ]) }}">Go
+                                                        To
+                                                        Order</a></td>
+                                            @else
+                                                <td>No Order ID</td>
+                                            @endif
+
+                                            <td>
+                                                <span
+                                                    class="p-2 {{ $item->answered ? 'bg-warning text-light' : 'bg-success text-light' }}">{{ $item->answered ? 'Answered' : 'Continuing' }}</span>
+                                            </td>
 
                                             <td>
                                                 <div class="dropdown">
@@ -57,23 +64,17 @@
                                                         Actions
                                                     </button>
                                                     <ul class="dropdown-menu">
-                                                        <li><a class="dropdown-item"
-                                                                href="{{ route('frontend.user.order_details', [
-                                                                    'order_code' => $order->order_code,
-                                                                ]) }}">View
+                                                        <li><a class="dropdown-item" href="#">View
                                                                 Details</a></li>
                                                         </li>
-                                                        <li><a target="_blank" class="dropdown-item"
-                                                                href="{{ route('frontend.order_invoice', [
-                                                                    'order_code' => $order->order_code,
-                                                                ]) }}">Invoice</a>
+                                                        <li><a class="dropdown-item"h href="#">Delete</a>
                                                         </li>
                                                         </li>
                                                     </ul>
                                                 </div>
                                             </td>
                                         </tr>
-                                    @endforeach --}}
+                                    @endforeach
 
                                 </tbody>
                             </table>
@@ -95,7 +96,7 @@
         $(document).ready(function() {
 
             console.log('datatabke')
-            $('#orders_table').DataTable();
+            $('#queries_table').DataTable();
         });
     </script>
 @endsection

@@ -23,7 +23,7 @@ class AdminController extends Controller
         $products = Product::where('stock', '!=', 0)->get();
         $orders = Order::all();
         $users = User::all();
-        
+
         return view('dashboard', [
             'products' => $products,
             'users' => $users,

@@ -44,6 +44,7 @@ Route::group(['as' => 'frontend.'], function () {
     Route::match(['GET', 'POST'], 'user/edit', [UserController::class, 'edit'])->name("user.edit");
 
     Route::get("queries", [UserController::class, 'queries'])->name('user.queries');
+    Route::match(['GET', 'POST'], "queries/add", [UserController::class, 'create_query'])->name('user.queries.add');
 });
 
 

@@ -26,6 +26,19 @@ class OrderController extends Controller
         }
     }
 
+    public function getOrders()
+    {
+        if (auth()->user() && auth()->user()->is_admin !== 1) {
+            $orders = Order::where('customer_id', '=', auth()->user()->id)->get();
+
+            return view("frontend.user.orders", [
+                'orders' => $orders,
+            ]);
+        } else {
+            return redirect()->route('login');
+        }
+    }
+
     public function checkout_index()
     {
         if (auth()->user() && auth()->user()->is_admin !== 1) {

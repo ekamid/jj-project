@@ -15,6 +15,7 @@ class CreateQueriesTable extends Migration
     {
         Schema::create('queries', function (Blueprint $table) {
             $table->id();
+            $table->string('title')->nullable();
             $table->unsignedBigInteger('created_by');
             $table->foreign('created_by')->references('id')->on('users');
             $table->enum('type', ['general', 'order'])->default('general');
@@ -23,6 +24,7 @@ class CreateQueriesTable extends Migration
             $table->text('description');
             $table->unsignedBigInteger('reply_to')->nullable();
             $table->foreign('reply_to')->references('id')->on('queries');
+            $table->boolean('answered')->default(false);
             $table->timestamps();
         });
     }
