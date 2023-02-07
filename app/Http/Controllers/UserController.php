@@ -100,7 +100,7 @@ class UserController extends Controller
                         $order = null;
 
                         if ($request->get('type') === 'order') {
-                            $result = Order::where('customer_id', $userId)->where('id', $request->get('order_id'))->first();
+                            $result = Order::where('customer_id', $userId)->where('order_code', $request->get('order_id'))->first();
                             if ($result) {
                                 $order = $request->get('order_id');
                             } else {
