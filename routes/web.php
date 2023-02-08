@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\QueryController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserController;
 
@@ -50,6 +51,7 @@ Route::group(['as' => 'frontend.'], function () {
 
     Route::get("queries", [UserController::class, 'queries'])->name('user.queries');
     Route::post("query/{id}", [UserController::class, 'delete_query'])->name('user.queries.delete');
+    Route::post("query/{id}/close", [UserController::class, 'close_query'])->name('user.queries.close');
     Route::match(['GET', 'POST'], "queries/chat/{id}", [UserController::class, 'query_chat'])->name('user.queries.chat');
     Route::match(['GET', 'POST'], "queries/add", [UserController::class, 'create_query'])->name('user.queries.add');
 });
@@ -89,6 +91,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::match(['GET', 'POST'], '/store/edit/{id}', [StoreController::class, 'edit_store'])->name("stores.edit");
         Route::post('/store/delete/{id}', [StoreController::class, 'delete_store'])->name("stores.delete");
 
+        Route::get("queries", [QueryController::class, 'queries'])->name('user.queries');
+        Route::post("query/{id}", [QueryController::class, 'delete_query'])->name('user.queries.delete');
+        Route::post("query/{id}/close", [QueryController::class, 'close_query'])->name('user.queries.close');
+        Route::match(['GET', 'POST'], "queries/chat/{id}", [QueryController::class, 'query_chat'])->name('user.queries.chat');
+        Route::match(['GET', 'POST'], "queries/add", [QueryController::class, 'create_query'])->name('user.queries.add');
 
         Route::post("/logout", [AdminController::class, "logout"])->name("logout");
     });

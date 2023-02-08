@@ -54,8 +54,33 @@
                 <div class="col-md-8">
                     <div class="main">
                         <div class="container ">
-                            <h4 class="mb-0">{{ @$queries[0]['title'] }}</h4>
-                            <p>{{ @explode(' ', @$queries[0]['created_at'])[0] }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    @php
+                                        $id = @$queries[0]['id'];
+                                        $title = @$queries[0]['title'];
+                                        $created_at = @$queries[0]['created_at'];
+                                    @endphp
+                                    <h4 class="mb-0">{{ @$title }}</h4>
+                                    <p>{{ @explode(' ', @$created_at)[0] }}</p>
+                                </div>
+                                <div>
+                                    @if (@$queries[0]['answered'])
+                                        <div class="btn btn-primary">
+                                            Continuing
+                                        </div>
+                                    @else
+                                        <form method="POST"
+                                            action="{{ route('frontend.user.queries.close', ['id' => @$id]) }}">
+                                            @csrf
+                                            <button type="submit" class="btn btn-success">
+                                                Close
+                                            </button>
+                                        </form>
+                                    @endif
+
+                                </div>
+                            </div>
                             <hr>
                             <div class="chat-log">
                                 @foreach ($queries as $query)
@@ -80,7 +105,7 @@
                         </div>
                         <div class="container mt-3">
                             <form method="POST"
-                                action="{{ route('frontend.user.queries.chat', ['id' => @$queries[0]['id']]) }}">
+                                action="{{ route('frontend.user.queries.chat', ['id' => @$id]) }}">
                                 @csrf
                                 <div class="container">
                                     <div class="col-12">

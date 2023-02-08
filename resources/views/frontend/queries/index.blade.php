@@ -15,6 +15,23 @@
                     @include('frontend.user.sidebar')
                 </div>
                 <div class="col-md-8">
+
+                    @if (session()->has('success'))
+                        <div id="global_alert"
+                            class="alert bg-primary fade show d-flex align-items-center justify-content-between global_alert"
+                            role="alert">
+                            <p class="text-light m-0"> {{ session()->get('success') }}</p>
+                        </div>
+                    @endif
+
+                    @if (session()->has('error'))
+                        <div id="global_alert"
+                            class="alert bg-danger fade show d-flex align-items-center justify-content-between "
+                            role="alert">
+                            <p class="text-light m-0"> {{ session()->get('error') }}</p>
+                        </div>
+                    @endif
+
                     <div class="card mb-3">
                         <div class="card-body order-table">
                             <div class="bg-primary d-flex justify-content-between align-items-center py-3 px-2">

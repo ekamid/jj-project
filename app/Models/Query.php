@@ -18,4 +18,9 @@ class Query extends Model
         'reply_to',
         'answered',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User', 'created_by');
+    }
 }

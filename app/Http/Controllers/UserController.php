@@ -161,11 +161,17 @@ class UserController extends Controller
 
             if (Auth::check()) {
                 if (!auth()->user()->isAdmin) {
+
+
+                    $parentQuery = Query::find($id);
+
+
                     $queries = Query::where(function ($query) use ($id) {
                         $query->where('id', '=', $id)
                             ->orWhere('reply_to', '=', $id);
                     })->get();
 
+                    $parentQuery->update(['answered' => false]);
                     return view("frontend.queries.chat",  ['queries' => $queries]);
                 } else {
                     return redirect('admin/dashboard');
@@ -202,9 +208,7 @@ class UserController extends Controller
     }
 
 
-    // public function delete_query(Request $request, $id)
-    // {
-    // }
+
 
     public function delete_query(Request $request, $id)
     {
@@ -235,6 +239,36 @@ class UserController extends Controller
             );
         } catch (Exception $e) {
             dd($e);
+        }
+    }
+
+    public function close_query(Request $request, $id)
+    {
+
+        try {
+            $query = Query::where('id', $id)->first();
+
+
+            if (!$query) {
+                return redirect()->back()->with(
+                    'error',
+                    'The query no longer available'
+                );
+            }
+
+            $query->update([
+                'answered' => true
+            ]);
+
+            return redirect()->route("frontend.user.queries")->with(
+                'success',
+                'Query has been Closed!'
+            );
+        } catch (Exception $e) {
+            return redirect()->back()->with(
+                'error',
+                'Something went wrong!'
+            );
         }
     }
 }
