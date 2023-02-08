@@ -183,4 +183,50 @@ class UserController extends Controller
             return redirect('login');
         }
     }
+
+    public function query_chat(Request $request, $id)
+    {
+        // orderBy('created_at', 'desc')->
+        if ($request->method() == 'GET') {
+
+            if (Auth::check()) {
+                if (!auth()->user()->isAdmin) {
+                    $queries = Query::where(function ($query) use ($id) {
+                        $query->where('id', '=', $id)
+                            ->orWhere('reply_to', '=', $id);
+                    })->get();
+
+                    return view("frontend.queries.chat",  ['queries' => $queries]);
+                } else {
+                    return redirect('admin/dashboard');
+                }
+            } else {
+                return redirect('login');
+            }
+        }
+
+        if ($request->method() == 'POST') {
+            $request->validate([
+                'description' => 'required',
+            ]);
+
+            $query = Query::create([
+                'created_by' => auth()->user()->id,
+                'reply_to' => $id,
+                'description' => $request->get('description')
+            ]);
+
+            if ($query) {
+                return redirect()->back()->with(
+                    'success',
+                    'Query created successfully!'
+                );
+            }
+
+            return redirect()->back()->with(
+                'error',
+                'Query creation failed!'
+            );
+        }
+    }
 }

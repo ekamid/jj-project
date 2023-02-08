@@ -64,7 +64,8 @@
                                                         Actions
                                                     </button>
                                                     <ul class="dropdown-menu">
-                                                        <li><a class="dropdown-item" href="#">View
+                                                        <li><a class="dropdown-item"
+                                                                href="{{ route('frontend.user.queries.chat', ['id' => $item->id]) }}">View
                                                                 Details</a></li>
                                                         </li>
                                                         <li><a class="dropdown-item"h href="#">Delete</a>
