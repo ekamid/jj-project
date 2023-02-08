@@ -56,6 +56,7 @@
                         <div class="container ">
                             <h4 class="mb-0">{{ @$queries[0]['title'] }}</h4>
                             <p>{{ @explode(' ', @$queries[0]['created_at'])[0] }}</p>
+                            <hr>
                             <div class="chat-log">
                                 @foreach ($queries as $query)
                                     @if ($query['created_by'] !== auth()->user()->id)

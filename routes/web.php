@@ -33,6 +33,11 @@ Route::group(['as' => 'frontend.'], function () {
     Route::post('place-order', [OrderController::class, 'place_order'])->name('place_order');
     Route::get('order/invoice/{order_code}', [OrderController::class, 'order_invoice'])->name('order_invoice');
 
+    //ajax
+    Route::get('get-orders', [OrderController::class, 'get_orders'])->name('get_orders');
+    Route::get('get-order', [OrderController::class, 'get_order'])->name('get_order');
+
+
     Route::get('find-stores', [HomeController::class, 'find_stores'])->name('find_stores');
     Route::get('get-stores', [HomeController::class, 'get_stores'])->name('get_stores');
     Route::get('get-stores/{id}', [HomeController::class, 'find_single_store'])->name('find_single_store');
@@ -44,7 +49,8 @@ Route::group(['as' => 'frontend.'], function () {
     Route::match(['GET', 'POST'], 'user/edit', [UserController::class, 'edit'])->name("user.edit");
 
     Route::get("queries", [UserController::class, 'queries'])->name('user.queries');
-    Route::match(['GET', 'POST'], "queries/{id}", [UserController::class, 'query_chat'])->name('user.queries.chat');
+    Route::post("query/{id}", [UserController::class, 'delete_query'])->name('user.queries.delete');
+    Route::match(['GET', 'POST'], "queries/chat/{id}", [UserController::class, 'query_chat'])->name('user.queries.chat');
     Route::match(['GET', 'POST'], "queries/add", [UserController::class, 'create_query'])->name('user.queries.add');
 });
 

@@ -55,9 +55,11 @@
                                     </fieldset>
                                 </div>
                                 <div class="col-12 d-none" id="orderIdContainer">
-                                    <label for="query_order_id" class="form-label">Order ID</label>
+                                    <label for="query_order_id" class="form-label">Order Code</label>
+                                    <br>
                                     <input name="order_id" type="text" class="form-control" id="query_order_id"
-                                        placeholder="Search Order ID" required>
+                                        placeholder="Search Order by Code">
+                                    <input hidden name="order_code" type="text" id="query_order_code">
                                     @error('order_id')
                                         <div class="text-danger">
                                             {{ $message }}
@@ -91,6 +93,8 @@
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('js/typeahead.js') }}"></script>
+
     <script>
         $(document).ready(function() {
             $('input[name="type"]').on('change', function(e) {
@@ -100,6 +104,58 @@
                     $('#orderIdContainer').addClass('d-none')
                 }
             })
+
+            $("#query_order_id").typeahead({
+                source: function(que, result) {
+                    $.ajax({
+                        headers: {
+                            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                                "content"
+                            ),
+                        },
+                        type: "GET",
+                        url: "../get-orders",
+                        data: {
+                            que: que,
+                        },
+                        success: function(data) {
+                            console.log(data)
+                            let tempData = [];
+                            data.map((item) => tempData.push(`${item.order_code}`));
+
+                            result(tempData);
+                        },
+                        error: function(xhr, status, error) {
+                            console.log(xhr.responseText);
+                        },
+                    });
+                },
+
+
+                updater: function(item) {
+                    $.ajax({
+                        headers: {
+                            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                                "content"
+                            ),
+                        },
+                        type: "GET",
+                        url: "../get-order",
+                        data: {
+                            code: item,
+                        },
+                        success: function(data) {
+                            let order = data[0];
+
+                            $("#query_order_id").val(order.order_code);
+                            $("#query_order_code").val(order.order_code);
+                        },
+                        error: function(xhr, status, error) {
+                            console.log(xhr.responseText);
+                        },
+                    });
+                },
+            });
 
         });
     </script>

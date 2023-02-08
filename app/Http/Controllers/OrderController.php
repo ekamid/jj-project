@@ -39,6 +39,23 @@ class OrderController extends Controller
         }
     }
 
+
+    public function get_orders(Request $request)
+    {
+        $query = $request->get('query');
+        $filterResult = Order::where('order_code', 'LIKE', '%' . $query . '%')->get();
+        return response()->json($filterResult);
+    }
+
+    public function get_order(Request $request)
+    {
+        $code = $request->get('code');
+        $order = Order::where("order_code", "=", $code)->get();
+
+        return response()->json($order);
+    }
+
+
     public function checkout_index()
     {
         if (auth()->user() && auth()->user()->is_admin !== 1) {
@@ -66,6 +83,8 @@ class OrderController extends Controller
             return redirect()->route('login');
         }
     }
+
+
 
     public function place_order(Request $request)
     {
@@ -125,7 +144,6 @@ class OrderController extends Controller
 
 
                 if (!$order) {
-                    dd('error');
 
                     return redirect()->back()->with('error', 'something went wrong');
                 }

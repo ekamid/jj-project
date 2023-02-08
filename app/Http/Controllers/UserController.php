@@ -94,15 +94,15 @@ class UserController extends Controller
                         $request->validate([
                             'title' => 'required',
                             'description' => 'required',
-                            'order_id' => $request->get('type') === 'order' ? 'required' : '',
+                            'order_code' => $request->get('type') === 'order' ? 'required' : '',
                         ]);
 
                         $order = null;
 
                         if ($request->get('type') === 'order') {
-                            $result = Order::where('customer_id', $userId)->where('order_code', $request->get('order_id'))->first();
+                            $result = Order::where('customer_id', $userId)->where('order_code', $request->get('order_code'))->first();
                             if ($result) {
-                                $order = $request->get('order_id');
+                                $order = $request->get('order_code');
                             } else {
                                 return redirect()->back()->with(
                                     'error',
@@ -117,7 +117,7 @@ class UserController extends Controller
                             'title' => $request->get('title'),
                             'description' => $request->get('description'),
                             'type' => $request->get('type'),
-                            'order_id' => $order
+                            'order_code' => $order
                         ]);
 
                         if ($query) {
@@ -151,38 +151,8 @@ class UserController extends Controller
         }
     }
 
-    public function create_query_reply(Request $request, $id)
-    {
-        if (Auth::check()) {
-            if (!auth()->user()->isAdmin) {
 
-                $request->validate([
-                    'description' => 'required',
-                ]);
 
-                $query = Query::create([
-                    'created_by' => auth()->user()->id,
-                    'reply_to' => $id
-                ]);
-
-                if ($query) {
-                    return redirect()->back()->with(
-                        'success',
-                        'Query created successfully!'
-                    );
-                }
-
-                return redirect()->back()->with(
-                    'error',
-                    'Query creation failed!'
-                );
-            } else {
-                return redirect('admin/dashboard');
-            }
-        } else {
-            return redirect('login');
-        }
-    }
 
     public function query_chat(Request $request, $id)
     {
@@ -213,7 +183,8 @@ class UserController extends Controller
             $query = Query::create([
                 'created_by' => auth()->user()->id,
                 'reply_to' => $id,
-                'description' => $request->get('description')
+                'description' => $request->get('description'),
+                'answered' => false,
             ]);
 
             if ($query) {
@@ -227,6 +198,43 @@ class UserController extends Controller
                 'error',
                 'Query creation failed!'
             );
+        }
+    }
+
+
+    // public function delete_query(Request $request, $id)
+    // {
+    // }
+
+    public function delete_query(Request $request, $id)
+    {
+
+        try {
+            $query = Query::where('id', $id)->first();
+
+
+            if (!$query) {
+                return redirect()->back()->with(
+                    'error',
+                    'The query no longer available'
+                );
+            }
+
+            $deleted = $query->delete();
+
+            if ($deleted) {
+                return redirect()->back()->with(
+                    'success',
+                    'Order successfully deleted!'
+                );
+            }
+
+            return redirect()->back()->with(
+                'error',
+                'Something went wrong!'
+            );
+        } catch (Exception $e) {
+            dd($e);
         }
     }
 }

@@ -13,7 +13,7 @@ class Query extends Model
         'title',
         'created_by',
         'type',
-        'order_id',
+        'order_code',
         'description',
         'reply_to',
         'answered',

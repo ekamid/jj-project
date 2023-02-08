@@ -17,13 +17,12 @@ class CreateQueriesTable extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->unsignedBigInteger('created_by');
-            $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
             $table->enum('type', ['general', 'order'])->default('general');
-            $table->unsignedBigInteger('order_id')->nullable();
-            $table->foreign('order_id')->references('id')->on('orders');
+            $table->string('order_code')->nullable();
             $table->text('description');
             $table->unsignedBigInteger('reply_to')->nullable();
-            $table->foreign('reply_to')->references('id')->on('queries');
+            $table->foreign('reply_to')->references('id')->on('queries')->onDelete('cascade');;
             $table->boolean('answered')->default(false);
             $table->timestamps();
         });

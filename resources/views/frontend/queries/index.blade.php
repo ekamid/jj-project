@@ -41,13 +41,12 @@
                                             </td>
                                             <td>{{ $item->title }}</td>
                                             <td class="text-uppercase">{{ $item->type }}</td>
-                                            @if ($item->order_id)
+                                            @if ($item->order_code)
                                                 <td><a
-                                                        href="{{ route('frontend.user.order_details', [
-                                                            'order_code' => $item->order_id,
-                                                        ]) }}">Go
-                                                        To
-                                                        Order</a></td>
+                                                        href="{{ route('frontend.user.order_details', ['order_code' => $item->order_code]) }}">Go
+                                                        To Order
+                                                    </a>
+                                                </td>
                                             @else
                                                 <td>No Order ID</td>
                                             @endif
@@ -59,7 +58,7 @@
 
                                             <td>
                                                 <div class="dropdown">
-                                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                                    <button class="btn btn-secondary dropdown-toggl" type="button"
                                                         data-bs-toggle="dropdown" aria-expanded="false">
                                                         Actions
                                                     </button>
@@ -68,13 +67,47 @@
                                                                 href="{{ route('frontend.user.queries.chat', ['id' => $item->id]) }}">View
                                                                 Details</a></li>
                                                         </li>
-                                                        <li><a class="dropdown-item"h href="#">Delete</a>
+                                                        <li>
+                                                            <button type="button" class="dropdown-item"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#delete_modal_{{ $item['id'] }}">
+                                                                Delete
+                                                            </button>
                                                         </li>
                                                         </li>
                                                     </ul>
                                                 </div>
                                             </td>
                                         </tr>
+
+
+                                        <div class="modal fade" id="delete_modal_{{ $item['id'] }}"
+                                            aria-labelledby="modalToggleLabel" tabindex="-1" style="display: none;"
+                                            aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header text-center">
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body text-center text-danger">
+                                                        <h3>You sure you want to delete the query?</h3>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <form method="POST"
+                                                            action="{{ route('frontend.user.queries.delete', $item['id']) }}">
+                                                            @csrf
+                                                            <button type="submit" class="btn btn-danger"
+                                                                data-bs-target="#delete_modal_{{ $item['id'] }}"
+                                                                data-bs-toggle="modal" data-bs-dismiss="modal">
+                                                                Confirm
+                                                            </button>
+                                                        </form>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     @endforeach
 
                                 </tbody>
