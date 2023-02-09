@@ -46,7 +46,7 @@
                                     <td class="text-uppercase">{{ $item->type }}</td>
                                     @if ($item->order_code)
                                         <td><a
-                                                href="{{ route('frontend.user.order_details', ['order_code' => $item->order_code]) }}">Go
+                                                href="{{ route('admin.orders.details', ['order_code' => $item->order_code]) }}">Go
                                                 To Order
                                             </a>
                                         </td>
