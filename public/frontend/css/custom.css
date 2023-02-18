@@ -19,3 +19,8 @@
     top: 0;
     right: 0;
 }
+
+.search-container.card {
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px
+}

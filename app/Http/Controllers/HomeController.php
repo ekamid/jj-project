@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\ProductByCategory;
 use App\Models\Store;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -45,6 +46,37 @@ class HomeController extends Controller
         return view('shop', [
             'products' => $products
         ]);
+    }
+
+    public function product_search(Request $request)
+    {
+        if ($request->method() === 'GET') {
+
+
+
+            $searchTerm = $request->query('keywrods');
+
+            $products = [];
+
+            if (trim($searchTerm, '') !== '') {
+                $products = DB::table('products')
+                    ->where('name', 'LIKE', "%{$searchTerm}%")
+                    ->where('published', true)
+                    ->get();
+            }
+
+
+            return view('search', [
+                'products' => $products
+            ]);
+        }
+
+        if ($request->method() === 'POST') {
+            // dd($request->all());
+            $searchTerm = $request->get('search_term');
+
+            return redirect('/search?keywrods=' . $searchTerm);
+        }
     }
 
     public function cart_index()

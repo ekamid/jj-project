@@ -8,6 +8,8 @@
                     <div class="intro-excerpt">
                         <h1>Shop</h1>
                     </div>
+                    @include('components.search-product')
+
                 </div>
                 <div class="col-lg-7">
 
